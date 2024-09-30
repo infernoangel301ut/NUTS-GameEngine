@@ -36,6 +36,12 @@ Bueno, para empezar, debes crear un archivo de Python separado ("main.py", "game
 Ahora, vas a querer importar NUTS, para ello, simplemente añade la siguiente linea al inicio de tu código:
 
 ```python
+import nuts
+```
+
+A continuación, vas a querer guardar tu juego como una variable, para ello, haz lo siguiente (recuerda cambiar los parametros):
+
+```python
 game = nuts.NutGame(960, 720, "Juego de NUTS")
 ```
 
