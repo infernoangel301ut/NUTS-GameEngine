@@ -2,7 +2,7 @@
 
 If you rather reading this document in English, [click here](/README.md).
 
-### ¿Qué es NUTS?
+## ¿Qué es NUTS?
 
 Bueno, definivamente no estamos hablando de la palabra inglesa "nuts", es decir, **_nueces_**.
 

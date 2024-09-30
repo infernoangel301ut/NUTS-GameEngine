@@ -2,7 +2,7 @@
 
 Si prefieres leer el documento en español, [Haga click aquí](/README_Ñ.md).
 
-### What is NUTS?
+## What is NUTS?
 
 Well, we're definetly not talking about actual **_nuts_**.
 
