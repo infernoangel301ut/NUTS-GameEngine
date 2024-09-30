@@ -1,6 +1,6 @@
 # NUTS Game Engine
 
-Si prefieres leer el documento en español, [Haga click aquí](/README_Ñ.md).
+Si prefieres leer el documento en español, [haga click aquí](/README_Ñ.md).
 
 ## What is NUTS?
 
@@ -28,3 +28,85 @@ python -m pip install raylib
 And now that all the dependencies are installed, it is time to install NUTS!
 
 Just download the file in the repository called [**nuts.py**](/nuts.py) and add it to your game folder. Yes, that's it.
+
+## How do I start using NUTS?
+
+Well, first of all, you must create a separate Python file ("main.py", "game.py"... just make sure it ends with ".py"). Make sure "nuts.py" and your main file are in the same directory.
+
+Next, you want to import NUTS, to do so, just add the following line at the start of your code:
+
+```python
+import nuts
+```
+
+Now you wanna store your game as a variable, to do so, do the following (also remember to change the parameters):
+
+```python
+game = nuts.NutGame(960, 720, "NUTS game")
+```
+
+You now have the game, but you need a scene to show content to the player.
+
+You will need to make a new class that extends the class NutScene and add anything you need:
+
+```python
+class TestScene(nuts.NutScene):
+    def __init__(self):
+        super().__init__()
+        # Store your scene attributes here, remember to use self
+
+    def onLoaded(self):
+        print("The testing scene has been loaded!")
+        # Will run once the scene has been loaded
+    
+    def onUpdated(self):
+        pass
+        # Will run every frame
+
+    def onKeyInput(self, key:nuts.NutKey, key_state:nuts.NutKeyState):
+        pass
+        # Will run everytime a key is pressed or released
+```
+
+Every method inside the class has its functionalities:
+* **__init__()**: Anything inside it will run even before the scene has been loaded. It is used to store attributes and values.
+* **onLoaded()**: It will run once `game.loadScene()` has been ran with this scene.
+* **onUpdated()**: It will run every frame, and therefore all the time, allowing you to do constant changes.
+* **onKeyInput(key, key_state)**: It will run when the user pressed or released a key, the `key` parameter contains the key that was pressed, while the `key_state` parameters indicates whether the key is pressed, held or released.
+
+Now we have a scene to show, so lastly, we need to get the game to display it and finally run.
+
+To do so, you will add these last lines:
+
+```python
+game.loadScene(TestScene())
+game.start()
+```
+
+So our first NUTS project has started, here is the full code in case you are lazy and just want to copy and paste:
+
+```python
+import nuts
+
+game = nuts.NutGame(960, 720, "NUTS game")
+
+class TestScene(nuts.NutScene):
+    def __init__(self):
+        super().__init__()
+        # Store your scene attributes here, remember to use self
+
+    def onLoaded(self):
+        print("The testing scene has been loaded!")
+        # Will run once the scene has been loaded
+    
+    def onUpdated(self):
+        pass
+        # Will run every frame
+
+    def onKeyInput(self, key:nuts.NutKey, key_state:nuts.NutKeyState):
+        pass
+        # Will run everytime a key is pressed or released
+
+game.loadScene(TestScene())
+game.start()
+```
