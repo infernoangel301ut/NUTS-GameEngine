@@ -69,7 +69,7 @@ class TestScene(nuts.NutScene):
 ```
 
 Every method inside the class has its functionalities:
-* **__init__()**: Anything inside it will run even before the scene has been loaded. It is used to store attributes and values.
+* **init()**: Anything inside it will run even before the scene has been loaded. It is used to store attributes and values.
 * **onLoaded()**: It will run once `game.loadScene()` has been ran with this scene.
 * **onUpdated()**: It will run every frame, and therefore all the time, allowing you to do constant changes.
 * **onKeyInput(key, key_state)**: It will run when the user pressed or released a key, the `key` parameter contains the key that was pressed, while the `key_state` parameters indicates whether the key is pressed, held or released.
