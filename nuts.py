@@ -181,8 +181,8 @@ class NutRect(NutObject):
         )
         super().render(globalPos)
 
-    def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2 + self.size.x/2
-    def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2 + self.size.x/2
+    def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
+    def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
 
 class NutScene(NutObject):
     def __init__(self):
