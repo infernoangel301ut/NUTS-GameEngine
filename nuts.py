@@ -118,6 +118,7 @@ class NutKeyState(IntEnum):
     PRESSED = 0
     JUST_PRESSED = 1
     JUST_RELEASED = 2
+    RELEASED = 3
 
 class NutVector2:
     def __init__(self, x:float = 0, y:float = 0):
@@ -139,11 +140,11 @@ class NutColor:
     def toRaylibColor(self) -> pyray.Color: return pyray.Color(self.r, self.g, self.b, self.a)
 
     @staticmethod
-    def fromFloatRGB(r:float, g:float, b:float, a:float = 1):
+    def fromFloatRGB(r:float, g:float, b:float, a:float = 1) -> "NutColor":
         return NutColor(math.floor(r*255), math.floor(g*255), math.floor(b*255), math.floor(a*255))
     
     @staticmethod
-    def fromHex(hexadecimal:str):
+    def fromHex(hexadecimal:str) -> "NutColor":
         return NutColor(int(hexadecimal[:2], 16), int(hexadecimal[2:4], 16), int(hexadecimal[4:6], 16),
                         int(hexadecimal[6:], 16) if len(hexadecimal) > 6 else 255)
     
@@ -155,12 +156,12 @@ class NutObject:
         self.children:dict[str, NutObject] = {}
         self.position:NutVector2 = position
     
-    def render(self):
+    def render(self, globalPos:NutVector2) -> None:
         for i in self.children.values():
-            i.render()
+            i.render(self.position + globalPos)
 
-    def centerX(self): self.position.x = pyray.get_screen_width() / 2
-    def centerY(self): self.position.y = pyray.get_screen_height() / 2
+    def centerX(self) -> None: self.position.x = pyray.get_screen_width() / 2
+    def centerY(self) -> None: self.position.y = pyray.get_screen_height() / 2
 
 class NutRect(NutObject):
     def __init__(self, position:NutVector2, size:NutVector2, color:NutColor):
@@ -169,39 +170,46 @@ class NutRect(NutObject):
         self.color:NutColor = color
         self.angle:float = 0
 
-    def render(self):
+    def render(self, globalPos:NutVector2) -> None:
         pyray.draw_rectangle_pro(
             pyray.Rectangle(
-                int(self.position.x),
-                int(self.position.y),
+                int(self.position.x + globalPos.x + self.size.x/2),
+                int(self.position.y + globalPos.y + self.size.y/2),
                 int(self.size.x),
                 int(self.size.y)
             ), pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
         )
-        super().render()
+        super().render(globalPos)
 
-    def centerX(self): self.position.x = (pyray.get_screen_width() - self.size.x) / 2
-    def centerY(self): self.position.y = (pyray.get_screen_height() - self.size.y) / 2
+    def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2 + self.size.x/2
+    def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2 + self.size.x/2
 
 class NutScene(NutObject):
     def __init__(self):
         super().__init__()
         self.bgColor = NutColor(0, 0, 0)
 
-    def render(self):
+    def render(self) -> None:
         pyray.clear_background(self.bgColor.toRaylibColor())
-        super().render()
+        super().render(self.position)
     
-    def onLoaded(self): pass
-    def onUpdated(self): pass
-    def onUpdatedPost(self): pass
-    def onUnloaded(self): pass
-    def onKeyInput(self, key:NutKey, key_state:NutKeyState): pass
+    def onLoaded(self) -> None: pass
+    def onUpdated(self) -> None: pass
+    def onUpdatedPost(self) -> None: pass
+    def onUnloaded(self) -> None: pass
+    def onKeyInput(self, key:NutKey, key_state:NutKeyState) -> None: pass
 
 class NutKeyboard:
-    def __init__(self): self.curHeldKeys:list[int] = []
+    def __init__(self):
+        self.curHeldKeys:list[int] = []
 
-    def update(self, curState:NutScene):
+    def getKeyState(self, key:NutKey) -> NutKeyState:
+        if pyray.is_key_pressed(key): return NutKeyState.JUST_PRESSED
+        if key in self.curHeldKeys: return NutKeyState.PRESSED
+        if pyray.is_key_released(key): return NutKeyState.JUST_RELEASED
+        return NutKeyState.RELEASED
+
+    def update(self, curState:NutScene) -> None:
         updatedHeldKeys:list[int] = []
         for i in self.curHeldKeys:
             if pyray.is_key_down(i):
@@ -210,10 +218,10 @@ class NutKeyboard:
             else: curState.onKeyInput(i, NutKeyState.JUST_RELEASED)
         self.curHeldKeys = updatedHeldKeys
 
-        pressed_key = pyray.get_key_pressed()
-        if pressed_key != 0:
-            curState.onKeyInput(pressed_key, NutKeyState.JUST_PRESSED)
-            self.curHeldKeys.append(pressed_key)
+        justPressedKey = pyray.get_key_pressed()
+        if justPressedKey != 0:
+            curState.onKeyInput(justPressedKey, NutKeyState.JUST_PRESSED)
+            self.curHeldKeys.append(justPressedKey)
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
@@ -225,10 +233,12 @@ class NutGame:
         self.keyboard = NutKeyboard()
         self.awaitingLoad = False
 
-    def loadScene(self, scene:NutScene):
+    def loadScene(self, scene:NutScene) -> None:
         self.curScene.onUnloaded()
         self.curScene = scene
         self.awaitingLoad = True
+    
+    def reloadScene(self) -> None: self.loadScene(self.curScene)
 
     def start(self) -> None:
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
