@@ -43,5 +43,15 @@ Value used to load a scene correctly. Changing this might cause bugs.
 ##### loadScene(scene:NutScene) -> None
 Loads a scene and unloads the one before it.
 
+##### reloadScene() -> None
+Unloads the scene and loads it back again.
+
 ##### start() -> None
 Runs the game.
+
+### NutKeyboard()
+#### **Atributes**
+##### curHeldKeys : list[int]
+List containing all the keys that are being held down at the moment.
+
+#### **Methods**
