@@ -195,7 +195,7 @@ class NutScene(NutObject):
     
     def onLoaded(self) -> None: pass
     def onUpdated(self) -> None: pass
-    def onUpdatedPost(self) -> None: pass
+    def afterUpdated(self) -> None: pass
     def onUnloaded(self) -> None: pass
     def onKeyInput(self, key:NutKey, key_state:NutKeyState) -> None: pass
 
@@ -209,18 +209,18 @@ class NutKeyboard:
         if pyray.is_key_released(key): return NutKeyState.JUST_RELEASED
         return NutKeyState.RELEASED
 
-    def update(self, curState:NutScene) -> None:
+    def update(self, curScene:NutScene) -> None:
         updatedHeldKeys:list[int] = []
         for i in self.curHeldKeys:
             if pyray.is_key_down(i):
-                curState.onKeyInput(i, NutKeyState.PRESSED)
+                curScene.onKeyInput(i, NutKeyState.PRESSED)
                 updatedHeldKeys.append(i)
-            else: curState.onKeyInput(i, NutKeyState.JUST_RELEASED)
+            else: curScene.onKeyInput(i, NutKeyState.JUST_RELEASED)
         self.curHeldKeys = updatedHeldKeys
 
         justPressedKey = pyray.get_key_pressed()
         if justPressedKey != 0:
-            curState.onKeyInput(justPressedKey, NutKeyState.JUST_PRESSED)
+            curScene.onKeyInput(justPressedKey, NutKeyState.JUST_PRESSED)
             self.curHeldKeys.append(justPressedKey)
 
 class NutGame:
@@ -256,6 +256,6 @@ class NutGame:
             self.curScene.render()
             pyray.end_drawing()
             
-            self.curScene.onUpdatedPost()
+            self.curScene.afterUpdated()
 
         pyray.close_window()
