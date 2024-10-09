@@ -69,6 +69,7 @@ This method is already ran automatically by the current `NutGame` class.
 
 ### NutScene()
 Extends NutObject.
+
 The scene template, make sure you make your own scenes by extending this class.
 
 #### **Attributes**
@@ -78,26 +79,32 @@ The background color for this scene.
 #### **Methods**
 ##### onLoaded() -> None
 Runs once this scene has been loaded.
+
 This method is already ran automatically by the current `NutGame` class.
 
 ##### onUnloaded() -> None
 Runs once another scene has been loaded and replaces this one.
+
 This method is already ran automatically by the current `NutGame` class.
 
 ##### onUpdated() -> None
 Runs every frame when this class is loaded.
+
 This method is already ran automatically by the current `NutGame` class.
 
 ##### afterUpdated() -> None
 Runs after the `onUpdated()` method.
+
 This method is already ran automatically by the current `NutGame` class.
 
 ##### onKeyInput(key:NutKey, key_state:NutKeyState) -> None
 Runs every time a key has been pressed, and indicates the pressed key and its state.
+
 This method is already ran automatically by the current `NutGame` class.
 
 ### NutRect(position:NutVector2, size:NutVector2, color:NutColor)
 Extends NutObject.
+
 A rectangle object.
 
 ##### position : NutVector2
@@ -135,6 +142,7 @@ The local position on which this object will be displayed.
 #### **Methods**
 ##### render(globalPos:NutVector2) -> None
 Displays the current object in the screen. Works differently for every class that extends NutObject.
+
 Is automatically ran by the NutGame class.
 
 ##### centerX() -> None
