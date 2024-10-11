@@ -191,13 +191,14 @@ class NutSprite(NutObject):
         self.image = pyray.load_texture(self.image_dir)
         self.size = NutVector2(self.image.width, self.image.height) if size == None else size
         self.angle = 0
+        self.color = NutColor(255, 255, 255)
     
     def render(self, globalPos:NutVector2):
         pyray.draw_texture_pro(
             self.image,
             pyray.Rectangle(0, 0, self.image.width, self.image.height),
-            pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2, self.position.y + globalPos.x + self.size.x/2, self.size.x, self.size.y),
-            pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, NutColor(255, 255, 255).toRaylibColor()
+            pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2, self.position.y + globalPos.y + self.size.y/2, self.size.x, self.size.y),
+            pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
         )
         super().render(globalPos)
 
