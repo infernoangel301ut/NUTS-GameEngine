@@ -127,6 +127,8 @@ class NutVector2:
 
     def __add__(self, other:"NutVector2"): return NutVector2(self.x + other.x, self.y + other.y)
     def __sub__(self, other:"NutVector2"): return NutVector2(self.x - other.x, self.y - other.y)
+    def __mul__(self, other:float | int): return NutVector2(self.x * other, self.y * other)
+    def __div__(self, other:float | int): return NutVector2(self.x / other, self.y / other)
 
     def __repr__(self): return f"({self.x} , {self.y})"
 
@@ -183,6 +185,12 @@ class NutRect(NutObject):
 
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
+
+class NutFrame:
+    def __init__(self, img_position:NutVector2, img_size:NutVector2, offset:NutVector2 = NutVector2()):
+        self.img_position = img_position
+        self.img_size = img_size
+        self.offset = offset
 
 class NutSprite(NutObject):
     def __init__(self, position:NutVector2, image_dir:str, size:NutVector2 = None):
