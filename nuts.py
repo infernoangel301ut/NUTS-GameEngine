@@ -209,8 +209,10 @@ class NutAnimationController:
         self.anim_file:str = ""
         self.anim_type:int = NutAnimationType.NO_ANIMATION
         self.cur_frame:int = 0
+        self.cur_frame_dec:float = 0
         self.spritesheet_size:NutVector2 | None = None
         self.img_size:NutVector2 = img_size
+        self.anim_playing:bool = False
 
     def setup_spritesheet_animation(self, frame_width:int, frame_height:int):
         self.anim_type = 0
@@ -218,17 +220,26 @@ class NutAnimationController:
 
     def make_spritesheet_animation(self, name:str, anim:list[int], reversed:bool = False, looped:bool = False, fps:int = 60):
         if self.anim_type != 0: return
+        if self.spritesheet_size == None: return
 
         anim_object = NutAnimation()
         anim_object.fps = fps
         anim_object.reversed = reversed
+        anim_object.looped = looped
         for i in anim:
             anim_object.frames.append(NutFrame(
                 NutVector2(
                     self.spritesheet_size.x * (i % self.img_size.x // self.spritesheet_size.x),
-                    (self.spritesheet_size.x * i) // (self.spritesheet_size.x)
-                )
+                    self.spritesheet_size.y * (i // (self.img_size.x // self.spritesheet_size.x))
+                ),
+                self.spritesheet_size
             ))
+        self.animations[name] = anim_object
+
+    def play_animation(self, anim_name:str):
+        if self.animations.get(anim_name) == None: return
+        self.cur_anim = anim_name
+        self.anim_playing = True
 
     def is_animated(self) -> bool:
         return self.anim_type != NutAnimationType.NO_ANIMATION
@@ -244,12 +255,29 @@ class NutSprite(NutObject):
         self.animation = NutAnimationController(self.size)
     
     def render(self, globalPos:NutVector2):
-        pyray.draw_texture_pro(
-            self.image,
-            pyray.Rectangle(0, 0, self.image.width, self.image.height),
-            pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2, self.position.y + globalPos.y + self.size.y/2, self.size.x, self.size.y),
-            pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
-        )
+        if self.animation.is_animated() and len(self.animation.cur_anim) != 0:
+            cur_anim = self.animation.animations[self.animation.cur_anim]
+            cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
+            pyray.draw_texture_pro(
+                self.image,
+                pyray.Rectangle(cur_frame.img_position.x, cur_frame.img_position.y, cur_frame.img_size.x, cur_frame.img_size.y),
+                pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2 + cur_frame.offset.x, self.position.y + globalPos.y + self.size.y/2 + cur_frame.offset.y, self.size.x, self.size.y),
+                pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
+            )
+            window_fps = pyray.get_fps()
+            if self.animation.anim_playing and window_fps != 0:
+                self.animation.cur_frame_dec += 1 / window_fps * cur_anim.fps
+                self.animation.cur_frame = math.floor(self.animation.cur_frame_dec)
+                if self.animation.cur_frame >= len(cur_anim.frames):
+                    if cur_anim.looped: self.animation.cur_frame_dec = self.animation.cur_frame = 0
+                    else: self.animation.anim_playing = False
+        else:
+            pyray.draw_texture_pro(
+                self.image,
+                pyray.Rectangle(0, 0, self.image.width, self.image.height),
+                pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2, self.position.y + globalPos.y + self.size.y/2, self.size.x, self.size.y),
+                pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
+            )
         super().render(globalPos)
 
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
