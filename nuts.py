@@ -120,6 +120,11 @@ class NutKeyState(IntEnum):
     JUST_RELEASED = 2
     RELEASED = 3
 
+class NutAnimationType(IntEnum):
+    NO_ANIMATION = -1
+    SPRITESHEET = 0
+    SPARROW = 1
+
 class NutVector2:
     def __init__(self, x:float = 0, y:float = 0):
         self.x = x
@@ -127,8 +132,6 @@ class NutVector2:
 
     def __add__(self, other:"NutVector2"): return NutVector2(self.x + other.x, self.y + other.y)
     def __sub__(self, other:"NutVector2"): return NutVector2(self.x - other.x, self.y - other.y)
-    def __mul__(self, other:float | int): return NutVector2(self.x * other, self.y * other)
-    def __div__(self, other:float | int): return NutVector2(self.x / other, self.y / other)
 
     def __repr__(self): return f"({self.x} , {self.y})"
 
@@ -192,6 +195,44 @@ class NutFrame:
         self.img_size = img_size
         self.offset = offset
 
+class NutAnimation:
+    def __init__(self):
+        self.frames:list[NutFrame] = []
+        self.reversed:bool = False
+        self.fps:int = 60
+        self.looped:bool = False
+
+class NutAnimationController:
+    def __init__(self, img_size:NutVector2):
+        self.animations:dict[str, NutAnimation] = {}
+        self.cur_anim:str = ""
+        self.anim_file:str = ""
+        self.anim_type:int = NutAnimationType.NO_ANIMATION
+        self.cur_frame:int = 0
+        self.spritesheet_size:NutVector2 | None = None
+        self.img_size:NutVector2 = img_size
+
+    def setup_spritesheet_animation(self, frame_width:int, frame_height:int):
+        self.anim_type = 0
+        self.spritesheet_size = NutVector2(frame_width, frame_height)
+
+    def make_spritesheet_animation(self, name:str, anim:list[int], reversed:bool = False, looped:bool = False, fps:int = 60):
+        if self.anim_type != 0: return
+
+        anim_object = NutAnimation()
+        anim_object.fps = fps
+        anim_object.reversed = reversed
+        for i in anim:
+            anim_object.frames.append(NutFrame(
+                NutVector2(
+                    self.spritesheet_size.x * (i % self.img_size.x // self.spritesheet_size.x),
+                    (self.spritesheet_size.x * i) // (self.spritesheet_size.x)
+                )
+            ))
+
+    def is_animated(self) -> bool:
+        return self.anim_type != NutAnimationType.NO_ANIMATION
+
 class NutSprite(NutObject):
     def __init__(self, position:NutVector2, image_dir:str, size:NutVector2 = None):
         super().__init__(position)
@@ -200,6 +241,7 @@ class NutSprite(NutObject):
         self.size = NutVector2(self.image.width, self.image.height) if size == None else size
         self.angle = 0
         self.color = NutColor(255, 255, 255)
+        self.animation = NutAnimationController(self.size)
     
     def render(self, globalPos:NutVector2):
         pyray.draw_texture_pro(
