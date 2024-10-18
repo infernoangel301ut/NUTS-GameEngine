@@ -229,7 +229,7 @@ class NutAnimationController:
         for i in anim:
             anim_object.frames.append(NutFrame(
                 NutVector2(
-                    self.spritesheet_size.x * (i % self.img_size.x // self.spritesheet_size.x),
+                    self.spritesheet_size.x * (i % (self.img_size.x // self.spritesheet_size.x)),
                     self.spritesheet_size.y * (i // (self.img_size.x // self.spritesheet_size.x))
                 ),
                 self.spritesheet_size
@@ -252,31 +252,34 @@ class NutSprite(NutObject):
         self.size = NutVector2(self.image.width, self.image.height) if size == None else size
         self.angle = 0
         self.color = NutColor(255, 255, 255)
-        self.animation = NutAnimationController(self.size)
+        self.animation = NutAnimationController(NutVector2(self.image.width, self.image.height))
+        self.scale = NutVector2(1, 1)
     
     def render(self, globalPos:NutVector2):
         if self.animation.is_animated() and len(self.animation.cur_anim) != 0:
             cur_anim = self.animation.animations[self.animation.cur_anim]
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
+            r_size = NutVector2(math.floor(cur_frame.img_size.x * self.scale.x), math.floor(cur_frame.img_size.y * self.scale.y))
             pyray.draw_texture_pro(
                 self.image,
                 pyray.Rectangle(cur_frame.img_position.x, cur_frame.img_position.y, cur_frame.img_size.x, cur_frame.img_size.y),
-                pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2 + cur_frame.offset.x, self.position.y + globalPos.y + self.size.y/2 + cur_frame.offset.y, self.size.x, self.size.y),
-                pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
+                pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2 + cur_frame.offset.x, self.position.y + globalPos.y + r_size.y/2 + cur_frame.offset.y, r_size.x, r_size.y),
+                pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
             window_fps = pyray.get_fps()
             if self.animation.anim_playing and window_fps != 0:
-                self.animation.cur_frame_dec += 1 / window_fps * cur_anim.fps
+                self.animation.cur_frame_dec += (cur_anim.fps / window_fps)
                 self.animation.cur_frame = math.floor(self.animation.cur_frame_dec)
                 if self.animation.cur_frame >= len(cur_anim.frames):
                     if cur_anim.looped: self.animation.cur_frame_dec = self.animation.cur_frame = 0
                     else: self.animation.anim_playing = False
         else:
+            r_size = NutVector2(math.floor(self.size.x * self.scale.x), math.floor(self.size.y * self.scale.y))
             pyray.draw_texture_pro(
                 self.image,
                 pyray.Rectangle(0, 0, self.image.width, self.image.height),
-                pyray.Rectangle(self.position.x + globalPos.x + self.size.x/2, self.position.y + globalPos.y + self.size.y/2, self.size.x, self.size.y),
-                pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
+                pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2, self.position.y + globalPos.y + r_size.y/2, r_size.x, r_size.y),
+                pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
         super().render(globalPos)
 
