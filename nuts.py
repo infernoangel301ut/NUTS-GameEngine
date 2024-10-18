@@ -238,6 +238,7 @@ class NutAnimationController:
 
     def play_animation(self, anim_name:str):
         if self.animations.get(anim_name) == None: return
+        self.cur_frame = self.cur_frame_dec = 0
         self.cur_anim = anim_name
         self.anim_playing = True
 
@@ -257,6 +258,7 @@ class NutSprite(NutObject):
     
     def render(self, globalPos:NutVector2):
         if self.animation.is_animated() and len(self.animation.cur_anim) != 0:
+            print(self.animation.cur_frame)
             cur_anim = self.animation.animations[self.animation.cur_anim]
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
             r_size = NutVector2(math.floor(cur_frame.img_size.x * self.scale.x), math.floor(cur_frame.img_size.y * self.scale.y))
@@ -272,7 +274,9 @@ class NutSprite(NutObject):
                 self.animation.cur_frame = math.floor(self.animation.cur_frame_dec)
                 if self.animation.cur_frame >= len(cur_anim.frames):
                     if cur_anim.looped: self.animation.cur_frame_dec = self.animation.cur_frame = 0
-                    else: self.animation.anim_playing = False
+                    else:
+                        self.animation.cur_frame_dec = self.animation.cur_frame = len(cur_anim.frames)-1
+                        self.animation.anim_playing = False
         else:
             r_size = NutVector2(math.floor(self.size.x * self.scale.x), math.floor(self.size.y * self.scale.y))
             pyray.draw_texture_pro(
