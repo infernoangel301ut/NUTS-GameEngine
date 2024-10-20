@@ -1,3 +1,4 @@
 *.py
 !nuts.py
 /assets
+/__pycache__
