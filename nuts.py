@@ -1,6 +1,18 @@
 import pyray
 import math
+import xml.etree.ElementTree as XmlTree
 from enum import IntEnum
+
+def extend_zeros(num:str, amount:int) -> str:
+    "Function made for XML animation help."
+    while len(num) < amount: num = "0" + num
+    return num
+
+def find_xml_element_by_name_atr(xml_root:XmlTree.Element, name:str) -> XmlTree.Element | None:
+    "Function made for XML animation help."
+    for anim in xml_root:
+        if anim.get("name") == name: return anim
+    return None
 
 class NutKey(IntEnum):
     NULL = 0
@@ -190,10 +202,11 @@ class NutRect(NutObject):
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
 
 class NutFrame:
-    def __init__(self, img_position:NutVector2, img_size:NutVector2, offset:NutVector2 = NutVector2()):
+    def __init__(self, img_position:NutVector2, img_size:NutVector2, offset:NutVector2 | None = None, size_offset:NutVector2 | None = None):
         self.img_position = img_position
         self.img_size = img_size
-        self.offset = offset
+        self.offset = offset if offset != None else NutVector2()
+        self.size_offset = size_offset if size_offset != None else self.img_size
 
 class NutAnimation:
     def __init__(self):
@@ -206,7 +219,7 @@ class NutAnimationController:
     def __init__(self, img_size:NutVector2):
         self.animations:dict[str, NutAnimation] = {}
         self.cur_anim:str = ""
-        self.anim_file:str = ""
+        self.anim_xml:XmlTree.Element | None = None
         self.anim_type:int = NutAnimationType.NO_ANIMATION
         self.cur_frame:int = 0
         self.cur_frame_dec:float = 0
@@ -217,6 +230,10 @@ class NutAnimationController:
     def setup_spritesheet_animation(self, frame_width:int, frame_height:int):
         self.anim_type = 0
         self.spritesheet_size = NutVector2(frame_width, frame_height)
+
+    def setup_sparrow_animation(self, xml_file_dir:str):
+        self.anim_type = 1
+        self.anim_xml = XmlTree.parse(xml_file_dir).getroot()
 
     def make_spritesheet_animation(self, name:str, anim:list[int], reversed:bool = False, looped:bool = False, fps:int = 60):
         if self.anim_type != 0: return
@@ -236,6 +253,28 @@ class NutAnimationController:
             ))
         self.animations[name] = anim_object
 
+    def make_sparrow_animation(self, name:str, anim_name:str, reversed:bool = False, looped:bool = False, fps:int = 60):
+        if self.anim_type != 1: return
+        if self.anim_xml == None: return
+
+        anim_object = NutAnimation()
+        anim_object.fps = fps
+        anim_object.reversed = reversed
+        anim_object.looped = looped
+        count = 0
+        anim_element = find_xml_element_by_name_atr(self.anim_xml, anim_name + extend_zeros(str(count), 4))
+
+        while anim_element != None:
+            anim_object.frames.append(NutFrame(
+                NutVector2(int(anim_element.get("x")), int(anim_element.get("y"))),
+                NutVector2(int(anim_element.get("width")), int(anim_element.get("height"))),
+                NutVector2(int(anim_element.get("frameX", "0")), int(anim_element.get("frameY", "0"))),
+                NutVector2(int(anim_element.get("frameWidth", anim_element.get("width"))), int(anim_element.get("frameHeight", anim_element.get("height"))))
+            ))
+            count += 1
+            anim_element = find_xml_element_by_name_atr(self.anim_xml, anim_name + extend_zeros(str(count), 4))
+        self.animations[name] = anim_object
+
     def play_animation(self, anim_name:str):
         if self.animations.get(anim_name) == None: return
         self.cur_frame = self.cur_frame_dec = 0
@@ -246,7 +285,7 @@ class NutAnimationController:
         return self.anim_type != NutAnimationType.NO_ANIMATION
 
 class NutSprite(NutObject):
-    def __init__(self, position:NutVector2, image_dir:str, size:NutVector2 = None):
+    def __init__(self, image_dir:str, position:NutVector2 = NutVector2(), size:NutVector2 = None):
         super().__init__(position)
         self.image_dir = image_dir
         self.image = pyray.load_texture(self.image_dir)
@@ -258,14 +297,13 @@ class NutSprite(NutObject):
     
     def render(self, globalPos:NutVector2):
         if self.animation.is_animated() and len(self.animation.cur_anim) != 0:
-            print(self.animation.cur_frame)
             cur_anim = self.animation.animations[self.animation.cur_anim]
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
             r_size = NutVector2(math.floor(cur_frame.img_size.x * self.scale.x), math.floor(cur_frame.img_size.y * self.scale.y))
             pyray.draw_texture_pro(
                 self.image,
                 pyray.Rectangle(cur_frame.img_position.x, cur_frame.img_position.y, cur_frame.img_size.x, cur_frame.img_size.y),
-                pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2 + cur_frame.offset.x, self.position.y + globalPos.y + r_size.y/2 + cur_frame.offset.y, r_size.x, r_size.y),
+                pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2 - cur_frame.offset.x, self.position.y + globalPos.y + r_size.y/2 - cur_frame.offset.y, r_size.x, r_size.y),
                 pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
             window_fps = pyray.get_fps()
