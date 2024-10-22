@@ -126,6 +126,11 @@ class NutKey(IntEnum):
     VOLUME_UP = 24
     VOLUME_DOWN = 25
 
+class NutMouseAction(IntEnum):
+    LEFT = 0
+    RIGHT = 1
+    MIDDLE = 2
+
 class NutKeyState(IntEnum):
     PRESSED = 0
     JUST_PRESSED = 1
@@ -281,6 +286,13 @@ class NutAnimationController:
         self.cur_anim = anim_name
         self.anim_playing = True
 
+    def pause(self, unpause:bool | None = None):
+        self.anim_playing = (not self.anim_playing) if unpause == None else unpause
+
+    def stop(self):
+        self.anim_playing = False
+        self.cur_frame = self.cur_frame_dec = 0
+
     def is_animated(self) -> bool:
         return self.anim_type != NutAnimationType.NO_ANIMATION
 
@@ -340,6 +352,20 @@ class NutSprite(NutObject):
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
 
+# Will add soon
+"""
+class NutAudio:
+    def __init__(self, path:str):
+        self.path = path
+"""
+
+# Will add soon too
+"""
+class NutText:
+    def __init__(self):
+        pass
+"""
+
 class NutScene(NutObject):
     def __init__(self):
         super().__init__()
@@ -353,7 +379,8 @@ class NutScene(NutObject):
     def onUpdated(self) -> None: pass
     def onUpdatedPost(self) -> None: pass
     def onUnloaded(self) -> None: pass
-    def onKeyInput(self, key:NutKey, key_state:NutKeyState) -> None: pass
+    def onKeyInput(self, key:NutKey, state:NutKeyState) -> None: pass
+    def onMouseInput(self, action:NutMouseAction, state:NutKeyState, position:NutVector2) -> None: pass
 
 class NutKeyboard:
     def __init__(self):
@@ -365,7 +392,16 @@ class NutKeyboard:
         if pyray.is_key_released(key): return NutKeyState.JUST_RELEASED
         return NutKeyState.RELEASED
 
+    def getMouseState(self, action:NutMouseAction) -> NutKeyState:
+        if pyray.is_mouse_button_pressed(action): return NutKeyState.JUST_PRESSED
+        if pyray.is_mouse_button_down(action): return NutKeyState.PRESSED
+        if pyray.is_mouse_button_released(action): return NutKeyState.JUST_RELEASED
+        return NutKeyState.RELEASED
+
+    def getMousePosition(self) -> NutVector2: return NutVector2(pyray.get_mouse_x(), pyray.get_mouse_y())
+
     def update(self, curState:NutScene) -> None:
+        # Keyboard
         updatedHeldKeys:list[int] = []
         for i in self.curHeldKeys:
             if pyray.is_key_down(i):
@@ -378,6 +414,13 @@ class NutKeyboard:
         if justPressedKey != 0:
             curState.onKeyInput(justPressedKey, NutKeyState.JUST_PRESSED)
             self.curHeldKeys.append(justPressedKey)
+
+        # Mouse
+        mousePos = NutVector2(pyray.get_mouse_x(), pyray.get_mouse_y())
+        for i in range(0, 3):
+            if pyray.is_mouse_button_pressed(i): curState.onMouseInput(i, NutKeyState.JUST_PRESSED, mousePos)
+            elif pyray.is_mouse_button_down(i): curState.onMouseInput(i, NutKeyState.PRESSED, mousePos)
+            elif pyray.is_mouse_button_released(i): curState.onMouseInput(i, NutKeyState.JUST_RELEASED, mousePos)
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
