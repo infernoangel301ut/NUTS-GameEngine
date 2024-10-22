@@ -331,7 +331,7 @@ class NutSprite(NutObject):
             r_size = NutVector2(math.floor(self.size.x * self.scale.x), math.floor(self.size.y * self.scale.y))
             pyray.draw_texture_pro(
                 self.display_image,
-                pyray.Rectangle(0, 0, self.display_image.width, self.display_image.height),
+                pyray.Rectangle(0, 0, self.display_image.width * (-1 if self.flipX else 1), self.display_image.height * (-1 if self.flipY else 1)),
                 pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2, self.position.y + globalPos.y + r_size.y/2, r_size.x, r_size.y),
                 pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
