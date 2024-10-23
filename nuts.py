@@ -152,6 +152,8 @@ class NutVector2:
 
     def __repr__(self): return f"({self.x} , {self.y})"
 
+    def toRaylibVector2(self) -> pyray.Vector2: return pyray.Vector2(self.x, self.y)
+
 class NutColor:
     def __init__(self, r:int, g:int, b:int, a:int=255):
         self.r = r
@@ -380,12 +382,39 @@ class NutMusic:
         pyray.set_music_volume(self.raylib_audio, self.volume)
         pyray.set_music_pitch(self.raylib_audio, self.pitch)
 
-# Will add soon too
-"""
-class NutText:
-    def __init__(self):
-        pass
-"""
+class NutText(NutObject):
+    def __init__(self, position:NutVector2, text:str, size:int, color:NutColor = NutColor(255, 255, 255)):
+        super().__init__(position)
+        self.text = text
+        self.size = size
+        self.font:str | None = None
+        self.raylib_font:pyray.Font | None = None
+        self.color = color
+        self.spacing = 2
+        self.angle = 0
+
+    def loadFont(self, font_dir:str):
+        self.font = font_dir
+        self.raylib_font = pyray.load_font(self.font)
+
+    def setDefaultFont(self):
+        self.font = None
+        self.raylib_font = None
+
+    def render(self, globalPos:NutVector2):
+        font_check = self.raylib_font if self.raylib_font != None else pyray.get_font_default()
+        center = pyray.measure_text_ex(font_check, self.text, self.size, self.spacing)
+        center.x /= 2
+        center.y /= 2
+
+        pyray.draw_text_pro(
+            font_check, self.text, pyray.Vector2(self.position.x + center.x, self.position.y + center.y),
+            center, self.angle, self.size, self.spacing, self.color.toRaylibColor()
+        )
+        super().render(globalPos)
+
+    def centerX(self): self.position.x = (pyray.get_screen_width() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).x) / 2
+    def centerY(self): self.position.y = (pyray.get_screen_height() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).y) / 2
 
 class NutScene(NutObject):
     def __init__(self):
