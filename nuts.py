@@ -311,6 +311,7 @@ class NutSprite(NutObject):
         self.flipY:bool = False
 
     def update_display(self):
+        self.image = pyray.load_texture(self.image_dir)
         self.display_image = self.image
         if self.flipX: self.display_image.width *= -1
         if self.flipY: self.display_image.height *= -1
@@ -352,12 +353,30 @@ class NutSprite(NutObject):
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
 
-# Will add soon
-"""
-class NutAudio:
-    def __init__(self, path:str):
-        self.path = path
-"""
+class NutSound:
+    def __init__(self, path:str, volume:float = 0.5, pitch:float = 1):
+        self.file_path = path
+        self.raylib_audio:pyray.Sound = pyray.load_sound(self.file_path)
+        self.volume = volume
+        self.pitch = pitch
+        self.pan = 0.5
+        self.length = self.raylib_audio
+
+        pyray.set_sound_volume(self.raylib_audio, self.volume)
+        pyray.set_sound_pitch(self.raylib_audio, self.pitch)
+
+class NutMusic:
+    def __init__(self, path:str, looped:bool = False, volume:float = 0.5, pitch:float = 1):
+        self.file_path = path
+        self.raylib_audio:pyray.Music = pyray.load_music_stream(self.file_path)
+        self.looped = looped
+        self.volume = volume
+        self.pitch = pitch
+        self.paused = False
+        self.pan = 0.5
+
+        pyray.set_music_volume(self.raylib_audio, self.volume)
+        pyray.set_music_pitch(self.raylib_audio, self.pitch)
 
 # Will add soon too
 """
@@ -422,6 +441,20 @@ class NutKeyboard:
             elif pyray.is_mouse_button_down(i): curState.onMouseInput(i, NutKeyState.PRESSED, mousePos)
             elif pyray.is_mouse_button_released(i): curState.onMouseInput(i, NutKeyState.JUST_RELEASED, mousePos)
 
+class NutAudioManager:
+    def __init__(self):
+        self.sounds:dict[str, NutSound] = []
+        self.music:dict[str, NutMusic] = []
+
+    def store_audio(self, audio:NutSound | NutMusic, name:str):
+        if type(audio) == NutSound: self.sounds[name] = audio
+        else: self.music[name] = audio
+
+    def play_audio(self, is_sound:bool, name:str):
+        if is_sound: pyray.play_sound(self.sounds[name])
+        else:
+            pyray.play_music_stream(self.music[name])   
+
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
         self.winWidth = winWidth
@@ -430,6 +463,7 @@ class NutGame:
         self.fps = fps
         self.curScene = NutScene()
         self.keyboard = NutKeyboard()
+        self.audioManager = NutAudioManager()
         self.awaitingLoad = False
 
     def loadScene(self, scene:NutScene) -> None:
@@ -441,6 +475,7 @@ class NutGame:
 
     def start(self) -> None:
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
+        pyray.init_audio_device()
         pyray.set_target_fps(self.fps)
 
         while not pyray.window_should_close():
@@ -457,4 +492,5 @@ class NutGame:
             
             self.curScene.onUpdatedPost()
 
+        pyray.close_audio_device()
         pyray.close_window()
