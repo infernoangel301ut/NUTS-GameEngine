@@ -142,6 +142,11 @@ class NutAnimationType(IntEnum):
     SPRITESHEET = 0
     SPARROW = 1
 
+class NutAudioProperty(IntEnum):
+    VOLUME = 0
+    PITCH = 1
+    PAN = 2
+
 class NutVector2:
     def __init__(self, x:float = 0, y:float = 0):
         self.x = x
@@ -232,15 +237,15 @@ class NutAnimationController:
         self.img_size:NutVector2 = img_size
         self.anim_playing:bool = False
 
-    def setup_spritesheet_animation(self, frame_width:int, frame_height:int):
+    def setupSpritesheetAnimation(self, frame_width:int, frame_height:int):
         self.anim_type = 0
         self.spritesheet_size = NutVector2(frame_width, frame_height)
 
-    def setup_sparrow_animation(self, xml_file_dir:str):
+    def setupSparrowAnimation(self, xml_file_dir:str):
         self.anim_type = 1
         self.anim_xml = XmlTree.parse(xml_file_dir).getroot()
 
-    def make_spritesheet_animation(self, name:str, anim:list[int], reversed:bool = False, looped:bool = False, fps:int = 60):
+    def makeSpritesheetAnimation(self, name:str, anim:list[int], reversed:bool = False, looped:bool = False, fps:int = 60):
         if self.anim_type != 0: return
         if self.spritesheet_size == None: return
 
@@ -258,7 +263,7 @@ class NutAnimationController:
             ))
         self.animations[name] = anim_object
 
-    def make_sparrow_animation(self, name:str, anim_name:str, reversed:bool = False, looped:bool = False, fps:int = 60):
+    def makeSparrowAnimation(self, name:str, anim_name:str, reversed:bool = False, looped:bool = False, fps:int = 60):
         if self.anim_type != 1: return
         if self.anim_xml == None: return
 
@@ -280,7 +285,7 @@ class NutAnimationController:
             anim_element = find_xml_element_by_name_atr(self.anim_xml, anim_name + extend_zeros(str(count), 4))
         self.animations[name] = anim_object
 
-    def play_animation(self, anim_name:str):
+    def playAnimation(self, anim_name:str):
         if self.animations.get(anim_name) == None: return
         self.cur_frame = self.cur_frame_dec = 0
         self.cur_anim = anim_name
@@ -293,7 +298,7 @@ class NutAnimationController:
         self.anim_playing = False
         self.cur_frame = self.cur_frame_dec = 0
 
-    def is_animated(self) -> bool:
+    def isAnimated(self) -> bool:
         return self.anim_type != NutAnimationType.NO_ANIMATION
 
 class NutSprite(NutObject):
@@ -310,14 +315,14 @@ class NutSprite(NutObject):
         self.flipX:bool = False
         self.flipY:bool = False
 
-    def update_display(self):
+    def updateDisplay(self):
         self.image = pyray.load_texture(self.image_dir)
         self.display_image = self.image
         if self.flipX: self.display_image.width *= -1
         if self.flipY: self.display_image.height *= -1
     
     def render(self, globalPos:NutVector2):
-        if self.animation.is_animated() and len(self.animation.cur_anim) != 0:
+        if self.animation.isAnimated() and len(self.animation.cur_anim) != 0:
             cur_anim = self.animation.animations[self.animation.cur_anim]
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
             r_size = NutVector2(math.floor(cur_frame.img_size.x * self.scale.x), math.floor(cur_frame.img_size.y * self.scale.y))
@@ -359,8 +364,9 @@ class NutSound:
         self.raylib_audio:pyray.Sound = pyray.load_sound(self.file_path)
         self.volume = volume
         self.pitch = pitch
+        self.paused = False
+        self.playing = False
         self.pan = 0.5
-        self.length = self.raylib_audio
 
         pyray.set_sound_volume(self.raylib_audio, self.volume)
         pyray.set_sound_pitch(self.raylib_audio, self.pitch)
@@ -373,6 +379,7 @@ class NutMusic:
         self.volume = volume
         self.pitch = pitch
         self.paused = False
+        self.playing = False
         self.pan = 0.5
 
         pyray.set_music_volume(self.raylib_audio, self.volume)
@@ -418,7 +425,7 @@ class NutKeyboard:
         return NutKeyState.RELEASED
 
     def getMousePosition(self) -> NutVector2: return NutVector2(pyray.get_mouse_x(), pyray.get_mouse_y())
-
+    
     def update(self, curState:NutScene) -> None:
         # Keyboard
         updatedHeldKeys:list[int] = []
@@ -443,17 +450,61 @@ class NutKeyboard:
 
 class NutAudioManager:
     def __init__(self):
-        self.sounds:dict[str, NutSound] = []
-        self.music:dict[str, NutMusic] = []
+        self.sounds:dict[str, NutSound] = {}
+        self.music:dict[str, NutMusic] = {}
 
-    def store_audio(self, audio:NutSound | NutMusic, name:str):
-        if type(audio) == NutSound: self.sounds[name] = audio
-        else: self.music[name] = audio
-
-    def play_audio(self, is_sound:bool, name:str):
-        if is_sound: pyray.play_sound(self.sounds[name])
+    def storeAudio(self, audio:NutSound | NutMusic, name:str):
+        if type(audio) == NutSound:
+            if self.sounds.get(name) != None:
+                pyray.unload_sound(self.sounds[name].raylib_audio)
+                self.sounds[name] = None
+            self.sounds[name] = audio
         else:
-            pyray.play_music_stream(self.music[name])   
+            if self.music.get(name) != None:
+                pyray.unload_music_stream(self.music[name].raylib_audio)
+                self.music[name] = None
+            self.music[name] = audio
+
+    def playAudio(self, is_sound:bool, name:str):
+        if is_sound:
+            pyray.play_sound(self.sounds[name].raylib_audio)
+            self.sounds[name].playing = True
+        else:
+            pyray.play_music_stream(self.music[name].raylib_audio)
+            self.music[name].playing = True
+
+    def pauseAudio(self, is_sound:bool, name:str, pause:bool | None = None):
+        if is_sound:
+            self.sounds[name].paused = (not self.sounds[name].paused) if pause == None else pause
+            if self.sounds[name].paused: pyray.pause_sound(self.sounds[name].raylib_audio)
+            else: pyray.resume_sound(self.sounds[name].raylib_audio)
+        else:
+            self.music[name].paused = (not self.music[name].paused) if pause == None else pause
+            if self.music[name].paused: pyray.pause_music_stream(self.music[name].raylib_audio)
+            else: pyray.resume_music_stream(self.music[name].raylib_audio)
+
+    def stopAudio(self, is_sound:bool, name:str):
+        if is_sound:
+            pyray.stop_sound(self.sounds[name].raylib_audio)
+            self.sounds[name].playing = False
+        else:
+            pyray.stop_music_stream(self.music[name].raylib_audio)
+            self.music[name].playing = False
+
+    def updateAllAudios(self):
+        # Just updates music lol, sounds don't need to be updated
+        for i, v in self.music.items():
+            pyray.update_music_stream(v.raylib_audio)
+            if pyray.get_music_time_played(v.raylib_audio) / pyray.get_music_time_length(v.raylib_audio) > 1:
+                pyray.stop_music_stream(v.raylib_audio)
+                if v.looped: pyray.play_audio_stream(v.raylib_audio)
+                else: self.music[i].playing = False
+
+    def unloadAllCurrentAudios(self):
+        for i in self.music.values(): pyray.unload_music_stream(i.raylib_audio)
+        for i in self.sounds.values(): pyray.unload_sound(i.raylib_audio)
+        self.music = {}
+        self.sounds = {}
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
@@ -481,10 +532,12 @@ class NutGame:
         while not pyray.window_should_close():
             if self.awaitingLoad:
                 self.awaitingLoad = False
+                self.audioManager.unloadAllCurrentAudios()
                 self.curScene.onLoaded()
             self.curScene.onUpdated()
 
             self.keyboard.update(self.curScene)
+            self.audioManager.updateAllAudios()
 
             pyray.begin_drawing()
             self.curScene.render()
@@ -492,5 +545,6 @@ class NutGame:
             
             self.curScene.onUpdatedPost()
 
+        self.audioManager.unloadAllCurrentAudios()
         pyray.close_audio_device()
         pyray.close_window()
