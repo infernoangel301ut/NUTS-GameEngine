@@ -142,11 +142,6 @@ class NutAnimationType(IntEnum):
     SPRITESHEET = 0
     SPARROW = 1
 
-class NutAudioProperty(IntEnum):
-    VOLUME = 0
-    PITCH = 1
-    PAN = 2
-
 class NutVector2:
     def __init__(self, x:float = 0, y:float = 0):
         self.x = x
