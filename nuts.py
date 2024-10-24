@@ -150,12 +150,6 @@ class NutVector2:
 
     def __add__(self, other:"NutVector2"): return NutVector2(self.x + other.x, self.y + other.y)
     def __sub__(self, other:"NutVector2"): return NutVector2(self.x - other.x, self.y - other.y)
-    def __mul__(self, other:"NutVector2" | int | float):
-        if type(other) in (int, float): return NutVector2(self.x * other, self.y * other)
-        return NutVector2(self.x * other.x, self.y * other.y)
-    def __div__(self, other:"NutVector2" | int | float):
-        if type(other) in (int, float): return NutVector2(self.x / other, self.y / other)
-        return NutVector2(self.x / other.x, self.y / other.y)
 
     def __repr__(self): return f"({self.x} , {self.y})"
 
@@ -188,8 +182,10 @@ class NutTweenEase:
     @staticmethod
     def linear(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
         op = lambda i, e : ((e - i)/d)*x + i
-        if type(s) in (int, float, NutVector2):
+        if type(s) in (int, float):
             return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        elif type(s) == NutVector2:
+            return NutVector2(op(s.x, f.x), op(s.y, f.y))
         return NutColor(
             op(s.r, f.r),
             op(s.g, f.g),
@@ -200,8 +196,10 @@ class NutTweenEase:
     @staticmethod
     def exponentialOut(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
         op = lambda i, e : ((e - i)/(d*d)) * (x*x) + i
-        if type(s) in (int, float, NutVector2):
+        if type(s) in (int, float):
             return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        elif type(s) == NutVector2:
+            return NutVector2(op(s.x, f.x), op(s.y, f.y))
         return NutColor(
             op(s.r, f.r),
             op(s.g, f.g),
@@ -212,20 +210,10 @@ class NutTweenEase:
     @staticmethod
     def exponentialIn(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
         op = lambda i, e : -((e - i)/(d*d)) * (x*x) + 2*((e-i)/d)*x + i
-        if type(s) in (int, float, NutVector2):
+        if type(s) in (int, float):
             return math.floor(op(s, f)) if type(s) == int else op(s, f)
-        return NutColor(
-            op(s.r, f.r),
-            op(s.g, f.g),
-            op(s.b, f.b),
-            op(s.a, f.a)
-        )
-    
-    @staticmethod
-    def exponentialBoth(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
-        op = lambda i, e : -(((x-(d/2))**3)/((-(d/2)**3)/((e-i)/2))) + (e-i)/2 + i
-        if type(s) in (int, float, NutVector2):
-            return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        elif type(s) == NutVector2:
+            return NutVector2(op(s.x, f.x), op(s.y, f.y))
         return NutColor(
             op(s.r, f.r),
             op(s.g, f.g),
@@ -238,9 +226,11 @@ class NutObject:
         self.children:dict[str, NutObject] = {}
         self.position:NutVector2 = position
     
-    def render(self, globalPos:NutVector2) -> None:
+    def render(self, globalPos:NutVector2, parent:"NutObject | None") -> None:
         for i in self.children.values():
-            i.render(self.position + globalPos)
+            if type(i) == NutTween: 
+                if i.cur_val != None: self.__setattr__(i.attribute_to_change, i.cur_val)
+            i.render(self.position + globalPos, self)
 
     def centerX(self) -> None: self.position.x = pyray.get_screen_width() / 2
     def centerY(self) -> None: self.position.y = pyray.get_screen_height() / 2
@@ -252,7 +242,7 @@ class NutRect(NutObject):
         self.color:NutColor = color
         self.angle:float = 0
 
-    def render(self, globalPos:NutVector2) -> None:
+    def render(self, globalPos:NutVector2, parent:"NutObject | None") -> None:
         pyray.draw_rectangle_pro(
             pyray.Rectangle(
                 int(self.position.x + globalPos.x + self.size.x/2),
@@ -261,7 +251,7 @@ class NutRect(NutObject):
                 int(self.size.y)
             ), pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
         )
-        super().render(globalPos)
+        super().render(globalPos, self)
 
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
@@ -376,7 +366,7 @@ class NutSprite(NutObject):
         if self.flipX: self.display_image.width *= -1
         if self.flipY: self.display_image.height *= -1
     
-    def render(self, globalPos:NutVector2):
+    def render(self, globalPos:NutVector2, parent:"NutObject | None"):
         if self.animation.isAnimated() and len(self.animation.cur_anim) != 0:
             cur_anim = self.animation.animations[self.animation.cur_anim]
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
@@ -408,7 +398,7 @@ class NutSprite(NutObject):
                 pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2, self.position.y + globalPos.y + r_size.y/2, r_size.x, r_size.y),
                 pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
-        super().render(globalPos)
+        super().render(globalPos, self)
 
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
@@ -459,7 +449,7 @@ class NutText(NutObject):
         self.font = None
         self.raylib_font = None
 
-    def render(self, globalPos:NutVector2):
+    def render(self, globalPos:NutVector2, parent:"NutObject | None"):
         font_check = self.raylib_font if self.raylib_font != None else pyray.get_font_default()
         center = pyray.measure_text_ex(font_check, self.text, self.size, self.spacing)
         center.x /= 2
@@ -469,7 +459,7 @@ class NutText(NutObject):
             font_check, self.text, pyray.Vector2(self.position.x + center.x, self.position.y + center.y),
             center, self.angle, self.size, self.spacing, self.color.toRaylibColor()
         )
-        super().render(globalPos)
+        super().render(globalPos, self)
 
     def centerX(self): self.position.x = (pyray.get_screen_width() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).x) / 2
     def centerY(self): self.position.y = (pyray.get_screen_height() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).y) / 2
@@ -481,24 +471,64 @@ class NutTimer(NutObject):
         self.loops = loops
         self.current_time:float = 0
         self.current_loops:int = 0
+        self.playing:bool = False
+        self.on_timer_completed:Callable = NutTimer.empty_timer_function
+        self.on_loop_completed:Callable = NutTimer.empty_timer_function
+        self.on_timer_update:Callable = NutTimer.empty_timer_function
 
-class NutTween(NutObject):
-    def __init__(self, tweened_object:str, attribute_to_change:str, initial_val:any_numeric_value, final_val:any_numeric_value, time:float):
-        super().__init__()
-        self.tweened_object:str = tweened_object
+    def play(self):
+        self.playing = True
+
+    def stop(self):
+        self.playing = False
+        self.current_time = 0
+        self.current_loops = 0
+
+    def pause(self, paused:bool | None = None):
+        self.playing = not self.playing if paused == None else paused
+
+    def update(self):
+        if not self.playing: return
+
+        self.current_time += pyray.get_frame_time()
+        self.on_timer_update(self)
+        if self.current_time > self.time:
+            self.on_loop_completed(self)
+            self.current_time = 0
+            self.current_loops += 1
+            if self.current_loops == self.loops:
+                self.on_timer_completed(self)
+                self.stop()
+
+    def render(self, globalPos: NutVector2, parent:"NutObject | None") -> None:
+        self.update()
+        super().render(globalPos, self)
+
+    @staticmethod
+    def empty_timer_function(timer:"NutTimer"): pass
+
+class NutTween(NutTimer):
+    def __init__(self, attribute_to_change:str, initial_val:any_numeric_value, final_val:any_numeric_value, time:float, ease:Callable = NutTweenEase.linear):
+        super().__init__(time)
         self.attribute_to_change:str = attribute_to_change
         self.initial_val = initial_val
         self.final_val = final_val
-        self.time = time
+        self.cur_val:any_numeric_value | None = None
+        self.ease:Callable = ease
+
+    def render(self, globalPos: NutVector2, parent:"NutObject | None"):
+        if not self.playing: self.cur_val = parent.__getattribute__(self.attribute_to_change)
+        else: self.cur_val = self.ease(self.initial_val, self.final_val, self.time, self.current_time)
+        super().render(globalPos, self)
 
 class NutScene(NutObject):
     def __init__(self):
         super().__init__()
         self.bgColor = NutColor(0, 0, 0)
 
-    def render(self) -> None:
+    def render(self, globalPos: NutVector2, parent:"NutObject | None") -> None:
         pyray.clear_background(self.bgColor.toRaylibColor())
-        super().render(self.position)
+        super().render(self.position + globalPos, self)
     
     def onLoaded(self) -> None: pass
     def onUpdated(self) -> None: pass
@@ -605,10 +635,6 @@ class NutAudioManager:
         self.music = {}
         self.sounds = {}
 
-class NutTweenManager:
-    def __init__(self):
-        self.tweens = {}
-
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
         self.winWidth = winWidth
@@ -643,7 +669,7 @@ class NutGame:
             self.audioManager.updateAllAudios()
 
             pyray.begin_drawing()
-            self.curScene.render()
+            self.curScene.render(NutVector2(), None)
             pyray.end_drawing()
             
             self.curScene.onUpdatedPost()
