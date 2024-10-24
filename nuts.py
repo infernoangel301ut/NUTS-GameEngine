@@ -2,6 +2,7 @@ import pyray
 import math
 import xml.etree.ElementTree as XmlTree
 from enum import IntEnum
+from typing import Callable
 
 def extend_zeros(num:str, amount:int) -> str:
     "Function made for XML animation help."
@@ -149,6 +150,12 @@ class NutVector2:
 
     def __add__(self, other:"NutVector2"): return NutVector2(self.x + other.x, self.y + other.y)
     def __sub__(self, other:"NutVector2"): return NutVector2(self.x - other.x, self.y - other.y)
+    def __mul__(self, other:"NutVector2" | int | float):
+        if type(other) in (int, float): return NutVector2(self.x * other, self.y * other)
+        return NutVector2(self.x * other.x, self.y * other.y)
+    def __div__(self, other:"NutVector2" | int | float):
+        if type(other) in (int, float): return NutVector2(self.x / other, self.y / other)
+        return NutVector2(self.x / other.x, self.y / other.y)
 
     def __repr__(self): return f"({self.x} , {self.y})"
 
@@ -174,6 +181,57 @@ class NutColor:
     
     def __str__(self) -> str:
         return f"r = {self.r}; g = {self.g}; b = {self.b}; a = {self.a};"
+    
+any_numeric_value = int | float | NutVector2 | NutColor
+
+class NutTweenEase:
+    @staticmethod
+    def linear(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
+        op = lambda i, e : ((e - i)/d)*x + i
+        if type(s) in (int, float, NutVector2):
+            return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        return NutColor(
+            op(s.r, f.r),
+            op(s.g, f.g),
+            op(s.b, f.b),
+            op(s.a, f.a)
+        )
+    
+    @staticmethod
+    def exponentialOut(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
+        op = lambda i, e : ((e - i)/(d*d)) * (x*x) + i
+        if type(s) in (int, float, NutVector2):
+            return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        return NutColor(
+            op(s.r, f.r),
+            op(s.g, f.g),
+            op(s.b, f.b),
+            op(s.a, f.a)
+        )
+
+    @staticmethod
+    def exponentialIn(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
+        op = lambda i, e : -((e - i)/(d*d)) * (x*x) + 2*((e-i)/d)*x + i
+        if type(s) in (int, float, NutVector2):
+            return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        return NutColor(
+            op(s.r, f.r),
+            op(s.g, f.g),
+            op(s.b, f.b),
+            op(s.a, f.a)
+        )
+    
+    @staticmethod
+    def exponentialBoth(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
+        op = lambda i, e : -(((x-(d/2))**3)/((-(d/2)**3)/((e-i)/2))) + (e-i)/2 + i
+        if type(s) in (int, float, NutVector2):
+            return math.floor(op(s, f)) if type(s) == int else op(s, f)
+        return NutColor(
+            op(s.r, f.r),
+            op(s.g, f.g),
+            op(s.b, f.b),
+            op(s.a, f.a)
+        )
     
 class NutObject:
     def __init__(self, position:NutVector2 = NutVector2()):
@@ -416,6 +474,23 @@ class NutText(NutObject):
     def centerX(self): self.position.x = (pyray.get_screen_width() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).x) / 2
     def centerY(self): self.position.y = (pyray.get_screen_height() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).y) / 2
 
+class NutTimer(NutObject):
+    def __init__(self, time:float, loops:int = 1):
+        super().__init__()
+        self.time = time
+        self.loops = loops
+        self.current_time:float = 0
+        self.current_loops:int = 0
+
+class NutTween(NutObject):
+    def __init__(self, tweened_object:str, attribute_to_change:str, initial_val:any_numeric_value, final_val:any_numeric_value, time:float):
+        super().__init__()
+        self.tweened_object:str = tweened_object
+        self.attribute_to_change:str = attribute_to_change
+        self.initial_val = initial_val
+        self.final_val = final_val
+        self.time = time
+
 class NutScene(NutObject):
     def __init__(self):
         super().__init__()
@@ -529,6 +604,10 @@ class NutAudioManager:
         for i in self.sounds.values(): pyray.unload_sound(i.raylib_audio)
         self.music = {}
         self.sounds = {}
+
+class NutTweenManager:
+    def __init__(self):
+        self.tweens = {}
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
