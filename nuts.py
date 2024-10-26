@@ -521,6 +521,27 @@ class NutTween(NutTimer):
         else: self.cur_val = self.ease(self.initial_val, self.final_val, self.time, self.current_time)
         super().render(globalPos, self)
 
+class NutCamera(NutObject):
+    def __init__(self):
+        super().__init__()
+        self.angle:float = 0
+        self.zoom:float = 1
+        self.raylib_camera:pyray.Camera2D = pyray.Camera2D(
+            pyray.Vector2(pyray.get_screen_width() / 2, pyray.get_screen_height() / 2),
+            self.position.toRaylibVector2(),
+            self.angle,
+            self.zoom
+        )
+
+    def render(self, globalPos: NutVector2, parent:"NutObject | None"):
+        self.raylib_camera.target = self.position.toRaylibVector2()
+        self.raylib_camera.rotation = self.angle
+        self.raylib_camera.zoom = self.zoom
+
+        pyray.begin_mode_2d(self.raylib_camera)
+        super().render(globalPos + self.position, self)
+        pyray.end_mode_2d()
+
 class NutScene(NutObject):
     def __init__(self):
         super().__init__()
