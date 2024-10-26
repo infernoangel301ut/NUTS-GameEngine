@@ -635,6 +635,19 @@ class NutAudioManager:
         self.music = {}
         self.sounds = {}
 
+class NutSaveProperty:
+    def __init__(self, name:str):
+        self.name = name
+
+class NutSaveFile:
+    def __init__(self, file_dir:str):
+        self.file_dir = file_dir
+        self.properties:dict[str, NutSaveFile] = {}
+
+class NutSaveManager:
+    def __init__(self):
+        self.files:dict[str, NutSaveFile] = {}
+
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
         self.winWidth = winWidth
@@ -644,7 +657,9 @@ class NutGame:
         self.curScene = NutScene()
         self.keyboard = NutKeyboard()
         self.audioManager = NutAudioManager()
+        self.saveManager = NutSaveManager()
         self.awaitingLoad = False
+        self.gameShouldEnd:bool = False
 
     def loadScene(self, scene:NutScene) -> None:
         self.curScene.onUnloaded()
@@ -652,6 +667,8 @@ class NutGame:
         self.awaitingLoad = True
     
     def reloadScene(self) -> None: self.loadScene(self.curScene)
+
+    def close(self): self.gameShouldEnd = True
 
     def start(self) -> None:
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
@@ -673,6 +690,8 @@ class NutGame:
             pyray.end_drawing()
             
             self.curScene.onUpdatedPost()
+
+            if self.gameShouldEnd: break
 
         self.audioManager.unloadAllCurrentAudios()
         pyray.close_audio_device()

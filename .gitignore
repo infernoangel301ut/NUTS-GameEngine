@@ -2,3 +2,5 @@
 !nuts.py
 /assets
 /__pycache__
+/dist
+*.spec
