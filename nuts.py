@@ -3,6 +3,8 @@ import math
 import xml.etree.ElementTree as XmlTree
 from enum import IntEnum
 from typing import Callable
+import os
+import builtins
 
 def extend_zeros(num:str, amount:int) -> str:
     "Function made for XML animation help."
@@ -142,6 +144,21 @@ class NutAnimationType(IntEnum):
     NO_ANIMATION = -1
     SPRITESHEET = 0
     SPARROW = 1
+
+class NutLogType(IntEnum):
+    INFO = 0
+    WARNING = 1
+    ERROR = 2
+
+class NutLogger:
+    def __init__(self, log_name:str):
+        self.log_name = log_name
+
+    def log(self, message:str, log_type:NutLogType = NutLogType.INFO):
+        log_type_str = ("INFO" if log_type == NutLogType.INFO else "ERROR") if log_type != NutLogType.WARNING else "WARNING"
+        print(f"({self.log_name}) : <{log_type_str}> -> {message}")
+
+nuts_default_logger = NutLogger("NUTS")
 
 class NutVector2:
     def __init__(self, x:float = 0, y:float = 0):
@@ -656,18 +673,78 @@ class NutAudioManager:
         self.music = {}
         self.sounds = {}
 
+class NutSaveValue:
+    def __init__(self, value, value_type:type):
+        self.value_type = value_type
+        self.value = value
+
+    def parseVal(self):
+        if self.value_type not in (int, float, bool, str, NutVector2, NutColor):
+            nuts_default_logger.log(f"Can't log value with type \"{self.value_type.__name__}\"")
+            return ""
+        if self.value_type == NutVector2: return f"{self.value.x},{self.value.y}"
+        elif self.value_type == NutColor: return f"{self.value.r},{self.value.g},{self.value.b},{self.value.a}"
+        return str(self.value)
+
 class NutSaveProperty:
-    def __init__(self, name:str):
+    def __init__(self, name:str, val_type:type, val):
         self.name = name
+        self.val = NutSaveValue(val, val_type)
 
 class NutSaveFile:
-    def __init__(self, file_dir:str):
+    def __init__(self, file_dir:str, file_name:str):
         self.file_dir = file_dir
-        self.properties:dict[str, NutSaveFile] = {}
+        self.file_name = file_name
+        self.properties:dict[str, NutSaveProperty] = {}
 
-class NutSaveManager:
-    def __init__(self):
-        self.files:dict[str, NutSaveFile] = {}
+    def setProperty(self, property:NutSaveProperty):
+        self.properties[property.name] = property
+
+    def parsePropertiesAsStr(self) -> str | None:
+        result = ""
+        for i in self.properties.values(): result += f'"{i.name}" "{i.val.value_type.__name__}" "{i.val.parseVal()}"\n'
+        return result
+
+    def saveFile(self):
+        file = open(self.file_dir + "/" + self.file_name + ".nutsave", "w")
+        file.write(self.parsePropertiesAsStr())
+        file.close()
+
+    def loadFile(self):
+        contents = open(self.file_dir + "/" + self.file_name + ".nutsave", "r").readlines()
+        for i in contents:
+            str_started = False
+            vals:list[str] = []
+            cur_val = ""
+            for j in i:
+                if j == '"':
+                    str_started = not str_started
+                    if not str_started:
+                        vals.append(cur_val)
+                        #print(cur_val)
+                    cur_val = ""
+                else:
+                    if not str_started: continue
+                    cur_val += j
+            type_val = None
+            try:
+                type_val = getattr(builtins, vals[1])
+            except:
+                t = globals().get(vals[1])
+                type_val = t if isinstance(t, type) else None
+            
+            if type_val == None: continue
+
+            val_value = vals[2]
+            if type_val in (NutVector2, NutColor):
+                val_list = vals[2].split(",")
+                if type_val == NutVector2: val_value = NutVector2(float(val_list[0]), float(val_list[1]))
+                else: val_value = NutColor(int(val_list[0]), int(val_list[1]), int(val_list[2]), int(val_list[3]))
+            else:
+                if type_val == bool: val_value = vals[2] == "True"
+                else: val_value = type_val(vals[2])
+
+            self.setProperty(NutSaveProperty(vals[0], type_val, val_value))
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
@@ -678,9 +755,15 @@ class NutGame:
         self.curScene = NutScene()
         self.keyboard = NutKeyboard()
         self.audioManager = NutAudioManager()
-        self.saveManager = NutSaveManager()
+        self.saveFiles:dict[str, NutSaveFile] = {}
         self.awaitingLoad = False
         self.gameShouldEnd:bool = False
+
+    def saveFileExists(self, file_dir:str, file_name:str):
+        return os.path.exists(file_dir + "/" + file_name + ".nutsave")
+
+    def addSaveFile(self, save:NutSaveFile):
+        self.saveFiles[save.file_name] = save
 
     def loadScene(self, scene:NutScene) -> None:
         self.curScene.onUnloaded()
