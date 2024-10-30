@@ -154,7 +154,7 @@ class NutLogger:
     def __init__(self, log_name:str):
         self.log_name = log_name
 
-    def log(self, message:str, log_type:NutLogType = NutLogType.INFO):
+    def log(self, message, log_type:NutLogType = NutLogType.INFO):
         log_type_str = ("INFO" if log_type == NutLogType.INFO else "ERROR") if log_type != NutLogType.WARNING else "WARNING"
         print(f"({self.log_name}) : <{log_type_str}> -> {message}")
 
@@ -745,6 +745,49 @@ class NutSaveFile:
                 else: val_value = type_val(vals[2])
 
             self.setProperty(NutSaveProperty(vals[0], type_val, val_value))
+
+class NutCollisionManager:
+    @staticmethod
+    def checkCollision(objA:NutObject, objB:NutObject):
+        objA_rect = pyray.Rectangle(objA.position.x, objA.position.y, 0, 0)
+        objB_rect = pyray.Rectangle(objB.position.x, objB.position.y, 0, 0)
+        if type(objA) == NutRect:
+            objA_rect.width = objA.size.x
+            objA_rect.height = objA.size.y
+        elif type(objA) == NutText:
+            text_size = pyray.measure_text_ex(objA.raylib_font, objA.text, objA.size, objA.spacing)
+            objA_rect.width = text_size.x
+            objA_rect.height = text_size.y
+        elif type(objA) == NutSprite:
+            if not objA.animation.isAnimated():
+                objA_rect.width = objA.size.x * objA.scale.x
+                objA_rect.height = objA.size.y * objA.scale.y
+            else:
+                frame = objA.animation.animations[objA.animation.cur_anim].frames[objA.animation.cur_frame]
+                objA_rect.width = frame.size_offset.x * objA.scale.x
+                objA_rect.height = frame.size_offset.y * objA.scale.y
+                objA_rect.x += frame.offset.x
+                objA_rect.y += frame.offset.y
+        
+        if type(objB) == NutRect:
+            objB_rect.width = objB.size.x
+            objB_rect.height = objB.size.y
+        elif type(objB) == NutText:
+            text_size = pyray.measure_text_ex(objB.raylib_font, objB.text, objB.size, objB.spacing)
+            objB_rect.width = text_size.x
+            objB_rect.height = text_size.y
+        elif type(objB) == NutSprite:
+            if not objB.animation.isAnimated():
+                objB_rect.width = objB.size.x * objB.scale.x
+                objB_rect.height = objB.size.y * objB.scale.y
+            else:
+                frame = objB.animation.animations[objB.animation.cur_anim].frames[objB.animation.cur_frame]
+                objB_rect.width = frame.size_offset.x * objB.scale.x
+                objB_rect.height = frame.size_offset.y * objB.scale.y
+                objB_rect.x += frame.offset.x
+                objB_rect.y += frame.offset.y
+
+        return pyray.check_collision_recs(objA_rect, objB_rect)
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
