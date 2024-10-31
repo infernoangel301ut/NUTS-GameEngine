@@ -18,11 +18,11 @@ The vertical value.
 
 ### Attributes
 
-###### x : float = 0
+###### x : float
 
 The horizontal value.
 
-###### y : float = 0
+###### y : float
 
 The vertical value.
 
