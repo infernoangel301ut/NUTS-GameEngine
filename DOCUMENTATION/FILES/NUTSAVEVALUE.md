@@ -6,7 +6,7 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 Value designed to be save file-friendly.
 
-Created automatically by NutSaveProperty, which is also created with NutSaveFile.
+Created automatically by NutSaveProperty.
 
 ### init method(value : any, value_type : type)
 
