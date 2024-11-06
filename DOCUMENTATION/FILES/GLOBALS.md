@@ -40,10 +40,10 @@ The animation frame name, with the numbers.
 
 ### Variables
 
-#### nuts_default_logger : NutLogger = NutLogger("NUTS")
+#### nuts_default_logger : [NutLogger](/DOCUMENTATION/FILES/NUTLOGGER.md) = NutLogger("NUTS")
 
 The logger that NUTS uses by default.
 
-#### any_numeric_value : type = int | float | NutVector2 | NutColor
+#### any_numeric_value : type = int | float | [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) | [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
 Type used for type checking when trying to use any numeric value.
