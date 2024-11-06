@@ -6,27 +6,27 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 Manages and runs audio-related stuff.
 
-Recommended way to use is by using the NutGame `audioManager` attribute.
+Recommended way to use is by using the [NutGame](/DOCUMENTATION/FILES/NUTGAME.md) `audioManager` attribute.
 
 ### init method()
 
 ### Attributes
 
-###### sounds : dict[str, NutSound]
+###### sounds : dict[str, [NutSound](/DOCUMENTATION/FILES/NUTSOUND.md)]
 
 Dictionary that contains all stored sound effects and assigns them a name.
 
-###### music : dict[str, NutMusic]
+###### music : dict[str, [NutMusic](/DOCUMENTATION/FILES/NUTMUSIC.md)]
 
 Dictionary that contains all stored music and assigns them a name.
 
 ### Methods
 
-#### storeAudio(audio : NutSound | NutMusic, name : str) -> None
+#### storeAudio(audio : [NutSound](/DOCUMENTATION/FILES/NUTSOUND.md) | [NutMusic](/DOCUMENTATION/FILES/NUTMUSIC.md), name : str) -> None
 
 Saves an audio (either a sound effect or a song) with a name, which you can use to play the audio.
 
-###### audio : NutSound | NutMusic
+###### audio : [NutSound](/DOCUMENTATION/FILES/NUTSOUND.md) | [NutMusic](/DOCUMENTATION/FILES/NUTMUSIC.md)
 
 The audio to save. Will save on the `sounds` attribute if its type is NutSound, and on the `music` attribute if its type is NutMusic.
 
