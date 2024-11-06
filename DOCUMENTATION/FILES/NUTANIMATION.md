@@ -8,7 +8,7 @@ An animation for animated objects, contains all necessary information for a sing
 
 ### Attributes
 
-###### frames : list[NutFrame]
+###### frames : list[[NutFrame](/DOCUMENTATION/FILES/NUTFRAME.md)]
 
 The frames that this animation contains (in order).
 
