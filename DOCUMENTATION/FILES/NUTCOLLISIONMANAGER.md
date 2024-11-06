@@ -8,14 +8,14 @@ Designed to do collision related stuff.
 
 ### Methods
 
-#### [static] checkCollision(objA : NutObject, objB : NutObject) -> bool
+#### [static] checkCollision(objA : [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md), objB : [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md)) -> bool
 
 Whether objA and objA are colliding or not.
 
-###### objA : NutObject
+###### objA : [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md)
 
 First object.
 
-###### objB : NutObject
+###### objB : [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md)
 
 Second object.
