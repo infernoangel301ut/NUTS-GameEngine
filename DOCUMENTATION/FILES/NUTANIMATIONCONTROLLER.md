@@ -6,15 +6,15 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 The class that controls animations for a sprite.
 
-### init method (img_size : NutVector2)
+### init method (img_size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md))
 
-###### img_size : NutVector2
+###### img_size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The size of the original image for the sprite.
 
 ### Attributes
 
-###### animations : dict[str, NutAnimation]
+###### animations : dict[str, [NutAnimation](/DOCUMENTATION/FILES/NUTANIMATION.md)]
 
 Contains all animations.
 
@@ -26,7 +26,7 @@ Current animation that's being played.
 
 The animation's XML file (for sparrow animation system).
 
-###### anim_type : NutAnimationType
+###### anim_type : [NutAnimationType](/DOCUMENTATION/FILES/NUTANIMATIONTYPE.md)
 
 The current animation system being used.
 
@@ -38,11 +38,11 @@ The frame being displayed in the current animation. Floored version of cur_frame
 
 The actual version of cur_frame, with the decimals.
 
-###### spritesheet_size : NutVector2 | None
+###### spritesheet_size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) | None
 
 The size of every frame, used for the spritesheet animation system.
 
-###### img_size : NutVector2
+###### img_size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The size of the original image for the sprite.
 
