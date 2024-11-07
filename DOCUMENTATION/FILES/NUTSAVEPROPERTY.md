@@ -26,6 +26,6 @@ The value you want to save.
 
 The name of the property. Will be used to access it.
 
-###### val : NutSaveValue
+###### val : [NutSaveValue](/DOCUMENTATION/FILES/NUTSAVEVALUE.md)
 
 The value that will be saved.
