@@ -4,21 +4,21 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 ## NutSprite Class
 
-[This class extends the NutObject class, attributes and methods inherited from it will not be shown for simplicity]
+[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
 
 A sprite that is displayed on the screen.
 
-### init method (image_dir : str, position : NutVector2 = NutVector2(), size : NutVector2 | None = None)
+### init method (image_dir : str, position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2(), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)NutVector2 | None = None)
 
 ###### image_dir : str
 
 The sprite image directory.
 
-###### position : NutVector2() = NutVector2()
+###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2()
 
 The sprite position.
 
-###### size : NutVector2() | None = None
+###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) | None = None
 
 The sprite's size.
 
@@ -38,7 +38,7 @@ The actual image to be displayed.
 
 The `image` attribute, but modified to match the rest of the attributes.
 
-###### size : NutVector2
+###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The displayed image size.
 
@@ -46,15 +46,15 @@ The displayed image size.
 
 The sprite rotation.
 
-###### color : NutColor
+###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
 The sprite color modification, `NutColor(255, 255, 255)` by default.
 
-###### animation : NutAnimationController
+###### animation : [NutAnimationController](/DOCUMENTATION/FILES/NUTANIMATIONCONTROLLER.md)
 
 Manages the sprite animations, in case it is animated.
 
-###### scale : NutVector2
+###### scale : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The relative size multiplier. Original size is NutVector2(1, 1).
 
