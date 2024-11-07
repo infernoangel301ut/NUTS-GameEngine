@@ -42,19 +42,19 @@ The game window's title.
 
 The fps the game will run at.
 
-###### curScene : NutScene
+###### curScene : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)
 
 The scene currently being displayed on screen.
 
-###### keyboard : NutKeyboard
+###### keyboard : [NutKeyboard](/DOCUMENTATION/FILES/NUTKEYBOARD.md)
 
 The main input manager, checks for keyboard and mouse inputs.
 
-###### audioManager : NutAudioManager
+###### audioManager : [NutAudioManager](/DOCUMENTATION/FILES/NUTAUDIOMANAGER.md)
 
 The main audio controller, plays and saves sound and music.
 
-###### saveFiles : dict[str, NutSaveFile]
+###### saveFiles : dict[str, [NutSaveFile](/DOCUMENTATION/FILES/NUTSAVEFILE.md)]
 
 The save file storage, all save information is in this dictionary.
 
@@ -84,19 +84,19 @@ The folder on which the save file should be located in.
 
 The name of the file to check on. Do not add the file extension.
 
-#### addSaveFile(save : NutSaveFile) -> None
+#### addSaveFile(save : [NutSaveFile](/DOCUMENTATION/FILES/NUTSAVEFILE.md)) -> None
 
 Adds the save file to the saveFiles attribute, assigning its key to the save file's file_name attribute.
 
-###### save : NutSaveFile
+###### save : [NutSaveFile](/DOCUMENTATION/FILES/NUTSAVEFILE.md)
 
 The save file to add in.
 
-#### loadScene(scene : NutScene) -> None
+#### loadScene(scene : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)) -> None
 
 Loads the specified scene and unloads the previous one.
 
-###### scene : NutScene
+###### scene : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)
 
 The scene to load in.
 
