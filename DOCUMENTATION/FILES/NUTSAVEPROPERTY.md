@@ -14,7 +14,7 @@ The name of the property. Will be used to access it.
 
 ###### val_type : type
 
-The type of the value you want to save. Only accepts the following: int, float, bool, str, NutVector2, NutColor.
+The type of the value you want to save. Only accepts the following: int, float, bool, str, [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md).
 
 ###### val : any
 
