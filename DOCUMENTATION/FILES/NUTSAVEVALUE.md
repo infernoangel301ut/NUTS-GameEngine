@@ -6,7 +6,7 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 Value designed to be save file-friendly.
 
-Created automatically by NutSaveProperty.
+Created automatically by [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md).
 
 ### init method(value : any, value_type : type)
 
@@ -18,7 +18,7 @@ The value to save.
 
 The type of the value to save.
 
-Only accepts the following types: int, float, bool, str, NutVector2, NutColor.
+Only accepts the following types: int, float, bool, str, [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md).
 
 ### Attributes
 
@@ -30,7 +30,7 @@ The value to save.
 
 The type of the value to save.
 
-Only accepts the following types: int, float, bool, str, NutVector2, NutColor.
+Only accepts the following types: int, float, bool, str, [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md).
 
 ### Methods
 
