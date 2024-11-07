@@ -20,7 +20,7 @@ The name that appears in the logs created by this logger.
 
 ### Methods
 
-#### log(message : Any, log_type : NutLogType = NutLogType.INFO) -> None
+#### log(message : Any, log_type : [NutLogType](/DOCUMENTATION/FILES/NUTLOGTYPE.md) = NutLogType.INFO) -> None
 
 Logs `message` in the console with the `log_type` type. (Fancier printing system lol).
 
@@ -28,6 +28,6 @@ Logs `message` in the console with the `log_type` type. (Fancier printing system
 
 The message to log.
 
-###### log_type : NutLogType = NutLogType.INFO
+###### log_type : [NutLogType](/DOCUMENTATION/FILES/NUTLOGTYPE.md) = NutLogType.INFO
 
 The type of the message that will be logged.
