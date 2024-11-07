@@ -4,13 +4,13 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 ## NutText Class
 
-[This class extends the NutObject class, attributes and methods inherited from it will not be shown for simplicity]
+[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
 
 The text object (displays text, what a surprise).
 
-### init method (position : NutVector2, text : str, size : int, color : NutColor = NutColor(255, 255, 255))
+### init method (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), text : str, size : int, color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md) = NutColor(255, 255, 255))
 
-###### position : NutVector2
+###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The text position.
 
@@ -22,7 +22,7 @@ The string of text to be shown in the object.
 
 The text size (not to be confused with the object size).
 
-###### color : NutColor = NutColor(255, 255, 255)
+###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md) = NutColor(255, 255, 255)
 
 The text color.
 
@@ -44,7 +44,7 @@ The directory for the font being used.
 
 The raylib font object, used for rendering.
 
-###### color : NutColor
+###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
 The text color.
 
