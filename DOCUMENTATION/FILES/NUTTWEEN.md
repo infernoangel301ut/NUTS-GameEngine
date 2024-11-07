@@ -4,11 +4,11 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 ## NutTween Class
 
-[This class extends the NutTimer class, attributes and methods inherited from it will not be shown for simplicity]
+[This class extends the [NutTimer](/DOCUMENTATION/FILES/NUTTIMER.md) class, attributes and methods inherited from it will not be shown for simplicity]
 
 Changes a property from ___its parent___ (very important) in a smooth way.
 
-### init method (attribute_to_change : str, initial_val : any_numeric_value, final_val : any_numeric_value, time : float, ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = NutTweenEase.linear)
+### init method (attribute_to_change : str, initial_val : any_numeric_value, final_val : any_numeric_value, time : float, ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear)
 
 ###### attribute_to_change : str
 
@@ -26,9 +26,9 @@ The ending value for the tween.
 
 The time it takes for the tween to end.
 
-###### ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = NutTweenEase.linear
+###### ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear
 
-The ease of the tween, a.k.a. how it will move. You can use a method from NutTweenEase or make your own.
+The ease of the tween, a.k.a. how it will move. You can use a method from [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md) or make your own.
 
 ### Attributes
 
@@ -46,4 +46,4 @@ The ending value for the tween.
 
 ###### ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value
 
-The ease of the tween, a.k.a. how it will move. You can use a method from NutTweenEase or make your own.
+The ease of the tween, a.k.a. how it will move. You can use a method from [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md) or make your own.
