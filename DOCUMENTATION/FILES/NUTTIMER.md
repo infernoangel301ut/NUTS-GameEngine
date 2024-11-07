@@ -4,7 +4,7 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 ## NutTimer Class
 
-[This class extends the NutObject class, attributes and methods inherited from it will not be shown for simplicity]
+[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
 
 Time that goes on until it finishes. Also runs certain events depending on what happens.
 
