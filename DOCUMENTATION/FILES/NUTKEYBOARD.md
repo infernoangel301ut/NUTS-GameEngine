@@ -12,36 +12,36 @@ Recommended way to use is by using the NutGame `keyboard` attribute.
 
 ### Attributes
 
-###### curHeldKeys : list[NutKey]
+###### curHeldKeys : list[[NutKey](/DOCUMENTATION/FILES/NUTKEY.md)]
 
 Saves all keys that have been pressed but not yet released.
 
 ### Methods
 
-#### getKeyState(key : NutKey) -> NutKeyState
+#### getKeyState(key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md)) -> [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
 
 Returns in which state the key is found in.
 
-###### key : NutKey
+###### key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md)
 
 The key to give information on.
 
-#### getMouseState(action : NutMouseAction) -> NutKeyState
+#### getMouseState(action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md)) -> [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
 
 Returns in which state the mouse button is found in.
 
-###### action : NutMouseAction
+###### action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md)
 
 The mouse button to give information on.
 
-#### getMousePosition() -> NutVector2
+#### getMousePosition() -> [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 Gives the current mouse position.
 
-#### update(curState : NutScene) -> None
+#### update(curState : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)) -> None
 
 Updates all the key related information and runs the input events for the current loaded scene in case there are.
 
-###### curState : NutScene
+###### curState : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)
 
 The current loaded scene.
