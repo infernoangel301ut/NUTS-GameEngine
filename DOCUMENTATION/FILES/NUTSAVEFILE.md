@@ -26,17 +26,17 @@ The folder on which the save file will be stored.
 
 The name of the actual file (extension will be added on creating the file).
 
-###### properties : dict[str, NutSaveProperty]
+###### properties : dict[str, [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)]
 
 The properties stored in the save file.
 
 ### Methods
 
-#### setProperty(property : NutSaveProperty) -> None
+#### setProperty(property : [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)) -> None
 
 Stores a property on the save file.
 
-###### property : NutsaveProperty
+###### property : [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)
 
 The property to save.
 
