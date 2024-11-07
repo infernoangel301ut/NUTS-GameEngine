@@ -12,7 +12,7 @@ To make your own scene, you usually extend this class.
 
 ### Attributes
 
-###### bgColor : NutColor
+###### bgColor : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
 This scene's background color.
 
@@ -34,30 +34,30 @@ Event that runs after everything on the scene has been updated, and therefore al
 
 Event that runs once another scene has been loaded (so this one is replaced).
 
-#### OnKeyInput(key : NutKey, state : NutKeyState) -> None
+#### OnKeyInput(key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md), state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)) -> None
 
 Event that runs once an input has been done by the keyboard.
 
-###### key : NutKey
+###### key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md)
 
 The key related to the input.
 
-###### state : NutKeyState
+###### state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
 
 The press state the key was found in.
 
-#### onMouseInput(action : NutMouseAction, state : NutKeyState, position : NutVector2) -> None
+#### onMouseInput(action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md), state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md), position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)) -> None
 
 Event that runs once an input has been done by the mouse.
 
-###### action : NutMouseAction
+###### action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md)
 
 Which mouse button was pressed.
 
-###### state : NutKeyState
+###### state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
 
 The press state the mouse button was found it.
 
-###### position : NutVector2
+###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The mouse position at the time of the input.
