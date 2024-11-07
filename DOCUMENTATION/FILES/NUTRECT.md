@@ -8,27 +8,27 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 Rectangle that is displayed on screen.
 
-### init method (position : NutVector2, size : NutVector2, color : NutColor)
+### init method (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md))
 
-###### position : NutVector2
+###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The NutRect's position on the screen.
 
-###### size : NutVector2
+###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The NutRect's size.
 
-###### color : NutColor
+###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
 The NutRect's color.
 
 ### Attributes
 
-###### size : NutVector2
+###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The NutRect's size.
 
-###### color : NutColor
+###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
 The NutRect's color.
 
