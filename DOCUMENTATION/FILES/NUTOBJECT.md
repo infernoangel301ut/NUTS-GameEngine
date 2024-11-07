@@ -6,9 +6,9 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 The base on-screen object, everything that gets rendered comes from this class.
 
-### init method (position : NutVector2 = NutVector2())
+### init method (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2())
 
-###### position : NutVector2 = NutVector2
+###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2()
 
 The object position in the window (still won't be visible though lol, because this is NOTHING).
 
@@ -18,19 +18,19 @@ The object position in the window (still won't be visible though lol, because th
 
 The other NutObjects that depend on this current one.
 
-###### position : NutVector2
+###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The object position in the window.
 
 ### Methods
 
-#### render(globalPos : NutVector2, parent : NutObject | None) -> None
+#### render(globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), parent : NutObject | None) -> None
 
 Renders this object on the screen.
 
 (This method is automatically ran by the NutGame class, there's no need to run it yourself).
 
-###### globalPos : NutVector2
+###### globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
 The parent's position, to adjust this current object's position.
 
