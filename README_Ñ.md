@@ -10,6 +10,12 @@ NUTS es un motor de desarrollo de videojuegos que usa Python y Raylib (o al meno
 
 Su manera de emplearse esta altamente inspirada por otro motor llamado HaxeFlixel, y también toma otros elementos de otros motores, tales como Unity y Godot, mientras también añade sus propias caracteristicas.
 
+TEN EN CUENTA QUE NUTS ESTA EN UNA VERSION MUY TEMPRANA, LO CUAL SIGNIFICA QUE HAY MUCHOS BUGS!!
+
+SI ENCUENTRAS ALGUNO, ASEGURATE DE REPORTALO EN GITHUB!!
+
+TODAVIA SE ESTA TRABAJANDO EN LA DOCUMENTACIÓN EN ESPAÑOL!!
+
 ## ¿Como instalo NUTS?
 
 Para empezar, necesitarás el lenguaje de programación Python, así que si todavía no lo tienes, [haz click aquí](https://www.python.org/) para ir a la web oficial.
