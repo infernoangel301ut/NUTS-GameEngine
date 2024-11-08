@@ -10,6 +10,10 @@ NUTS is a game engine that uses Python and Raylib (or at least a Python port of 
 
 Its way to be used is highly inspired by another game engine called HaxeFlixel, and also takes other elements from other game engines, such as Unity and Godot, while also adding its own elements.
 
+KEEP IN MIND NUTS IS CURRENTLY IN A REALLY EARLY VERSION, CAUSING IT TO HAVE LOTS OF BUGS!!
+
+IF YOU FIND ANY, MAKE SURE TO REPORT THEM ON GITHUB!!
+
 ## How do I install NUTS?
 
 First of all, you will need the Python programming language, so if you don't have it yet, [click here](https://www.python.org/) to go to the official website.
