@@ -196,47 +196,46 @@ class NutColor:
 any_numeric_value = int | float | NutVector2 | NutColor
 
 class NutTweenEase:
+    # ** = Power
+    # x**0.5 = sqrt(x) (learn exponential properties lol)
     @staticmethod
-    def linear(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
-        op = lambda i, e : ((e - i)/d)*x + i
-        if type(s) in (int, float):
-            return math.floor(op(s, f)) if type(s) == int else op(s, f)
-        elif type(s) == NutVector2:
-            return NutVector2(op(s.x, f.x), op(s.y, f.y))
-        return NutColor(
-            op(s.r, f.r),
-            op(s.g, f.g),
-            op(s.b, f.b),
-            op(s.a, f.a)
-        )
-    
-    @staticmethod
-    def exponentialOut(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
-        op = lambda i, e : ((e - i)/(d*d)) * (x*x) + i
-        if type(s) in (int, float):
-            return math.floor(op(s, f)) if type(s) == int else op(s, f)
-        elif type(s) == NutVector2:
-            return NutVector2(op(s.x, f.x), op(s.y, f.y))
-        return NutColor(
-            op(s.r, f.r),
-            op(s.g, f.g),
-            op(s.b, f.b),
-            op(s.a, f.a)
-        )
+    def linear(x:float): return x
 
     @staticmethod
-    def exponentialIn(s:any_numeric_value, f:any_numeric_value, d:float, x:float):
-        op = lambda i, e : -((e - i)/(d*d)) * (x*x) + 2*((e-i)/d)*x + i
-        if type(s) in (int, float):
-            return math.floor(op(s, f)) if type(s) == int else op(s, f)
-        elif type(s) == NutVector2:
-            return NutVector2(op(s.x, f.x), op(s.y, f.y))
-        return NutColor(
-            op(s.r, f.r),
-            op(s.g, f.g),
-            op(s.b, f.b),
-            op(s.a, f.a)
-        )
+    def quadIn(x:float): return x*x
+
+    @staticmethod
+    def quadOut(x:float): return -(x*x) + 2*x
+
+    @staticmethod
+    def quadBoth(x:float): return 2*x*x if x <= 0.5 else 2*(-(x*x) + 2*x) - 1
+
+    @staticmethod
+    def sineIn(x:float): return -math.sin((math.pi*x + math.pi)/2) + 1
+
+    @staticmethod
+    def sineOut(x:float): return math.sin((math.pi*x)/2)
+
+    @staticmethod
+    def sineBoth(x:float): return (math.sin(math.pi*x - math.pi/2)+1)/2
+
+    @staticmethod
+    def expoIn(x:float): return 2**(10*(x-1))
+
+    @staticmethod
+    def expoOut(x:float): return -(2**(-10*x))+1
+
+    @staticmethod
+    def expoBoth(x:float): return (2**(10*(x*2-1)))/2 if x <= 0.5 else (-(2**(-10*(2*x-1)))+2)/2
+
+    @staticmethod
+    def circOut(x:float): return x**0.5
+
+    @staticmethod
+    def circIn(x:float): return x**1.5
+
+    @staticmethod
+    def circBoth(x:float): return ((2*x)**0.5)/2 if x <= 0.5 else (2*(x**3) + 2)**0.5 - 1
     
 class NutObject:
     def __init__(self, position:NutVector2 = NutVector2()):
@@ -251,6 +250,9 @@ class NutObject:
 
     def centerX(self) -> None: self.position.x = pyray.get_screen_width() / 2
     def centerY(self) -> None: self.position.y = pyray.get_screen_height() / 2
+    def center(self) -> None:
+        self.centerX()
+        self.centerY()
 
 class NutRect(NutObject):
     def __init__(self, position:NutVector2, size:NutVector2, color:NutColor):
@@ -511,11 +513,12 @@ class NutTimer(NutObject):
         self.on_timer_update(self)
         if self.current_time > self.time:
             self.on_loop_completed(self)
-            self.current_time = 0
             self.current_loops += 1
-            if self.current_loops == self.loops:
+            if self.current_loops >= self.loops:
                 self.on_timer_completed(self)
                 self.stop()
+            else:
+                self.current_time = 0
 
     def render(self, globalPos: NutVector2, parent:"NutObject | None") -> None:
         self.update()
@@ -525,17 +528,33 @@ class NutTimer(NutObject):
     def empty_timer_function(timer:"NutTimer"): pass
 
 class NutTween(NutTimer):
-    def __init__(self, attribute_to_change:str, initial_val:any_numeric_value, final_val:any_numeric_value, time:float, ease:Callable = NutTweenEase.linear):
+    def __init__(self, attribute_to_change:str, final_val:any_numeric_value, time:float, ease:Callable = NutTweenEase.linear):
         super().__init__(time)
         self.attribute_to_change:str = attribute_to_change
-        self.initial_val = initial_val
         self.final_val = final_val
+        self.cur_progress:float = 0
         self.cur_val:any_numeric_value | None = None
+        self.initial_val:any_numeric_value | None = None
         self.ease:Callable = ease
+        self.progress:float = 0
 
     def render(self, globalPos: NutVector2, parent:"NutObject | None"):
-        if not self.playing: self.cur_val = parent.__getattribute__(self.attribute_to_change)
-        else: self.cur_val = self.ease(self.initial_val, self.final_val, self.time, self.current_time)
+        if self.initial_val == None: self.initial_val = parent.__getattribute__(self.attribute_to_change)
+
+        if not self.playing:self.cur_val = parent.__getattribute__(self.attribute_to_change)
+        else:
+            self.progress = self.ease(self.current_time/self.time)
+            if self.progress > 1: self.progress = math.floor(self.progress)
+            if type(self.initial_val) == float: self.cur_val = self.initial_val + (self.final_val - self.initial_val) * self.progress
+            elif type(self.initial_val) == int: self.cur_val = math.floor(self.initial_val + (self.final_val - self.initial_val) * self.progress)
+            elif type(self.initial_val) == NutVector2: self.cur_val = self.initial_val + NutVector2((self.final_val.x - self.initial_val.x) * self.progress, (self.final_val.y - self.initial_val.y) * self.progress)
+            elif type(self.initial_val) == NutColor:
+                self.cur_val = NutColor(
+                    self.initial_val.r + (self.final_val.r - self.initial_val.r) * self.progress,
+                    self.initial_val.g + (self.final_val.g - self.initial_val.g) * self.progress,
+                    self.initial_val.b + (self.final_val.b - self.initial_val.b) * self.progress,
+                    self.initial_val.a + (self.final_val.a - self.initial_val.a) * self.progress
+                )
         super().render(globalPos, self)
 
 class NutCamera(NutObject):
@@ -563,6 +582,7 @@ class NutScene(NutObject):
     def __init__(self):
         super().__init__()
         self.bgColor = NutColor(0, 0, 0)
+        self.keepAudioOnUnload:bool = False
 
     def render(self, globalPos: NutVector2, parent:"NutObject | None") -> None:
         pyray.clear_background(self.bgColor.toRaylibColor())
@@ -801,6 +821,7 @@ class NutGame:
         self.saveFiles:dict[str, NutSaveFile] = {}
         self.awaitingLoad = False
         self.gameShouldEnd:bool = False
+        self.awaitingAudioClear:bool = False
 
     def saveFileExists(self, file_dir:str, file_name:str):
         return os.path.exists(file_dir + "/" + file_name + ".nutsave")
@@ -810,6 +831,7 @@ class NutGame:
 
     def loadScene(self, scene:NutScene) -> None:
         self.curScene.onUnloaded()
+        self.awaitingAudioClear = not self.curScene.keepAudioOnUnload
         self.curScene = scene
         self.awaitingLoad = True
     
@@ -825,7 +847,9 @@ class NutGame:
         while not pyray.window_should_close():
             if self.awaitingLoad:
                 self.awaitingLoad = False
-                self.audioManager.unloadAllCurrentAudios()
+                if self.awaitingAudioClear:
+                    self.awaitingAudioClear = False
+                    self.audioManager.unloadAllCurrentAudios()
                 self.curScene.onLoaded()
             self.curScene.onUpdated()
 
