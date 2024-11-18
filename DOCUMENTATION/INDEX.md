@@ -32,5 +32,6 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 * [NutSaveValue](/DOCUMENTATION/FILES/NUTSAVEVALUE.md)
 * [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)
 * [NutSaveFile](/DOCUMENTATION/FILES/NUTSAVEFILE.md)
+* [NutCollisionDirection](/DOCUMENTATION/FILES/NUTCOLLISIONDIRECTION.md)
 * [NutCollisionManager](/DOCUMENTATION/FILES/NUTCOLLISIONMANAGER.md)
 * [NutGame](/DOCUMENTATION/FILES/NUTGAME.md)

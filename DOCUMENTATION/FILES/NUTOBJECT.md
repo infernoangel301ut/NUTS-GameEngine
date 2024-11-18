@@ -47,3 +47,7 @@ Centers the NutObject on the X axis.
 #### centerY() -> None
 
 Centers the NutObject on the Y axis.
+
+#### center() -> None
+
+Centers the NutObject on both the X and Y axis.

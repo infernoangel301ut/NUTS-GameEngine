@@ -8,15 +8,11 @@ Si prefieres leer la documentación en español, [haga click aquí](https://www.
 
 Changes a property from ___its parent___ (very important) in a smooth way.
 
-### init method (attribute_to_change : str, initial_val : any_numeric_value, final_val : any_numeric_value, time : float, ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear)
+### init method (attribute_to_change : str, final_val : any_numeric_value, time : float, ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear)
 
 ###### attribute_to_change : str
 
 The name of the attribute you wanna change from the parent.
-
-###### initial_val : any_numeric_value
-
-The starting value for the tween.
 
 ###### final_Val : any_numeric_value
 
@@ -26,7 +22,7 @@ The ending value for the tween.
 
 The time it takes for the tween to end.
 
-###### ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear
+###### ease : (x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear
 
 The ease of the tween, a.k.a. how it will move. You can use a method from [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md) or make your own.
 
@@ -47,3 +43,7 @@ The ending value for the tween.
 ###### ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value
 
 The ease of the tween, a.k.a. how it will move. You can use a method from [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md) or make your own.
+
+###### progress : float
+
+How much of the way the tween has done (cur_time divided by time with the tween ease applied to it).

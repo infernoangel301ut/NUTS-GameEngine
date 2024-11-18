@@ -532,7 +532,6 @@ class NutTween(NutTimer):
         super().__init__(time)
         self.attribute_to_change:str = attribute_to_change
         self.final_val = final_val
-        self.cur_progress:float = 0
         self.cur_val:any_numeric_value | None = None
         self.initial_val:any_numeric_value | None = None
         self.ease:Callable = ease

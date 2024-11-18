@@ -16,6 +16,10 @@ To make your own scene, you usually extend this class.
 
 This scene's background color.
 
+###### keepAudioOnUnload : bool
+
+Whether all audio should be cleared on loading another scene. (True by default)
+
 ### Methods
 
 #### onLoaded() -> None

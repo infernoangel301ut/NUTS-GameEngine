@@ -8,26 +8,36 @@ Class that contains functions for tween movement. (Kinda works like an Enum lol)
 
 ### Recurrent parameters
 
-###### s : any_numeric_value
-
-Starting value.
-
-###### f : any_numeric_value
-
-Final value
-
-###### d : float
-
-Time for the tween to finish.
-
 ###### x : float
 
-Current time taken.
+The tween progress, with a value from 0 to 1.
 
 ### Methods
 
-#### [static] linear(s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value
+#### [static] linear(x : float) -> float
 
-#### [static] exponentialOut(s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value
+#### [static] linear(x : float) -> float
 
-#### [static] exponentialIn(s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value
+#### [static] quadIn(x : float) -> float
+
+#### [static] quadOut(x : float) -> float
+
+#### [static] quadBoth(x : float) -> float
+
+#### [static] sineIn(x : float) -> float
+
+#### [static] sineOut(x : float) -> float
+
+#### [static] sineBoth(x : float) -> float
+
+#### [static] expoIn(x : float) -> float
+
+#### [static] expoOut(x : float) -> float
+
+#### [static] expoBoth(x : float) -> float
+
+#### [static] circIn(x : float) -> float
+
+#### [static] circOut(x : float) -> float
+
+#### [static] circBoth(x : float) -> float

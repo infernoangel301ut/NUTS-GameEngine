@@ -64,6 +64,12 @@ Checks whether it should run the states onLoaded() event.
 
 It is recommended that you do not change it by yourself.
 
+###### awaitingAudioClear : bool
+
+Whether it is expected to clear the audio next frame or not.
+
+It is automatically set by changing the scene, and will have to do with its clearAudioOnUnload attribute.
+
 ###### gameShouldEnd : bool
 
 Whether the game should close on the next frame or not.
