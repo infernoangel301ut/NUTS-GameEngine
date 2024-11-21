@@ -514,7 +514,7 @@ class NutTimer(NutObject):
         if self.current_time > self.time:
             self.on_loop_completed(self)
             self.current_loops += 1
-            if self.current_loops >= self.loops:
+            if self.current_loops == self.loops:
                 self.on_timer_completed(self)
                 self.stop()
             else:
