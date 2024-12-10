@@ -5,8 +5,6 @@ from enum import IntEnum
 from typing import Callable
 import os
 import builtins
-import socket
-import threading
 
 def extend_zeros(num:str, amount:int) -> str:
     "Function made for XML animation help."
@@ -516,7 +514,7 @@ class NutTimer(NutObject):
         if self.current_time > self.time:
             self.on_loop_completed(self)
             self.current_loops += 1
-            if self.current_loops >= self.loops:
+            if self.current_loops == self.loops:
                 self.on_timer_completed(self)
                 self.stop()
             else:
@@ -590,8 +588,8 @@ class NutScene(NutObject):
         super().render(self.position + globalPos, self)
     
     def onLoaded(self) -> None: pass
-    def onUpdated(self) -> None: pass
-    def onUpdatedPost(self) -> None: pass
+    def onUpdated(self, elapsed:float) -> None: pass
+    def onUpdatedPost(self, elapsed:float) -> None: pass
     def onUnloaded(self) -> None: pass
     def onKeyInput(self, key:NutKey, state:NutKeyState) -> None: pass
     def onMouseInput(self, action:NutMouseAction, state:NutKeyState, position:NutVector2) -> None: pass
@@ -813,34 +811,6 @@ class NutCollisionManager:
             not (objA_rect.y + objA_rect.height > objB_rect.y + objB_rect.height or objA_rect.y + objA_rect.height < objB_rect.y)
         )
 
-class NutServer:
-    def __init__(self, ip:str, port:int, max_clients:int):
-        self.ip = ip
-        self.port = port
-        self.max_clients = max_clients
-        self.socket:socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.bind((self.ip, self.port))
-        self.socket.listen(self.max_clients)
-        self.on_client_join:Callable = self.on_client_join_event_empty
-        self.events:dict[str, Callable] = {}
-
-    def listen_client(self, client:socket.socket):
-        while True:
-            data = client.recv(1024).decode()
-            event = self.events.get(data)
-            if event != None: event()
-
-        client.close()
-
-    def on_client_join_event_empty(self, client:socket.socket, addr:socket._RetAddress): pass
-
-class NutClient:
-    def __init__(self, server_ip:str, server_port:int):
-        self.server_ip = server_ip
-        self.server_port = server_port
-        self.socket:socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.server_ip, self.server_port))
-
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
         self.winWidth = winWidth
@@ -854,7 +824,6 @@ class NutGame:
         self.awaitingLoad = False
         self.gameShouldEnd:bool = False
         self.awaitingAudioClear:bool = False
-        self.network:NutServer | NutClient | None = None
 
     def saveFileExists(self, file_dir:str, file_name:str):
         return os.path.exists(file_dir + "/" + file_name + ".nutsave")
@@ -884,7 +853,7 @@ class NutGame:
                     self.awaitingAudioClear = False
                     self.audioManager.unloadAllCurrentAudios()
                 self.curScene.onLoaded()
-            self.curScene.onUpdated()
+            self.curScene.onUpdated(pyray.get_frame_time())
 
             self.keyboard.update(self.curScene)
             self.audioManager.updateAllAudios()
@@ -892,16 +861,8 @@ class NutGame:
             pyray.begin_drawing()
             self.curScene.render(NutVector2(), None)
             pyray.end_drawing()
-
-            if self.network != None:
-                if type(self.network) == NutServer:
-                    client_sock, client_addr = self.network.socket.accept()
-                    self.network.on_client_join(client_sock, client_addr)
-                    threading.Thread(target=self.network.listen_client, args=(client_sock)).start()
-                else:
-                    pass
             
-            self.curScene.onUpdatedPost()
+            self.curScene.onUpdatedPost(pyray.get_frame_time())
 
             if self.gameShouldEnd: break
 
