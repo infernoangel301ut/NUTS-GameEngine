@@ -242,11 +242,11 @@ class NutObject:
         self.children:dict[str, NutObject] = {}
         self.position:NutVector2 = position
     
-    def render(self, globalPos:NutVector2, parent:"NutObject | None") -> None:
+    def render(self, globalPos:NutVector2, parent:"NutObject | None", paused:bool) -> None:
         for i in self.children.values():
             if type(i) == NutTween: 
                 if i.cur_val != None: self.__setattr__(i.attribute_to_change, i.cur_val)
-            i.render(self.position + globalPos, self)
+            i.render(self.position + globalPos, self, paused)
 
     def centerX(self) -> None: self.position.x = pyray.get_screen_width() / 2
     def centerY(self) -> None: self.position.y = pyray.get_screen_height() / 2
@@ -261,7 +261,7 @@ class NutRect(NutObject):
         self.color:NutColor = color
         self.angle:float = 0
 
-    def render(self, globalPos:NutVector2, parent:"NutObject | None") -> None:
+    def render(self, globalPos:NutVector2, parent:"NutObject | None", paused:bool) -> None:
         pyray.draw_rectangle_pro(
             pyray.Rectangle(
                 int(self.position.x + globalPos.x + self.size.x/2),
@@ -270,7 +270,7 @@ class NutRect(NutObject):
                 int(self.size.y)
             ), pyray.Vector2(self.size.x/2, self.size.y/2), self.angle, self.color.toRaylibColor()
         )
-        super().render(globalPos, self)
+        super().render(globalPos, self, paused)
 
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
@@ -385,7 +385,7 @@ class NutSprite(NutObject):
         if self.flipX: self.display_image.width *= -1
         if self.flipY: self.display_image.height *= -1
     
-    def render(self, globalPos:NutVector2, parent:"NutObject | None"):
+    def render(self, globalPos:NutVector2, parent:"NutObject | None", paused:bool):
         if self.animation.isAnimated() and len(self.animation.cur_anim) != 0:
             cur_anim = self.animation.animations[self.animation.cur_anim]
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
@@ -400,7 +400,7 @@ class NutSprite(NutObject):
                 pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2 - cur_frame.offset.x, self.position.y + globalPos.y + r_size.y/2 - cur_frame.offset.y, r_size.x, r_size.y),
                 pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
-            window_fps = pyray.get_fps()
+            window_fps = pyray.get_fps() if not paused else 0
             if self.animation.anim_playing and window_fps != 0:
                 self.animation.cur_frame_dec += (cur_anim.fps / window_fps)
                 self.animation.cur_frame = math.floor(self.animation.cur_frame_dec)
@@ -417,7 +417,7 @@ class NutSprite(NutObject):
                 pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2, self.position.y + globalPos.y + r_size.y/2, r_size.x, r_size.y),
                 pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
             )
-        super().render(globalPos, self)
+        super().render(globalPos, self, paused)
 
     def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
     def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
@@ -468,7 +468,7 @@ class NutText(NutObject):
         self.font = None
         self.raylib_font = None
 
-    def render(self, globalPos:NutVector2, parent:"NutObject | None"):
+    def render(self, globalPos:NutVector2, parent:"NutObject | None", paused:bool):
         font_check = self.raylib_font if self.raylib_font != None else pyray.get_font_default()
         center = pyray.measure_text_ex(font_check, self.text, self.size, self.spacing)
         center.x /= 2
@@ -478,7 +478,7 @@ class NutText(NutObject):
             font_check, self.text, pyray.Vector2(self.position.x + center.x, self.position.y + center.y),
             center, self.angle, self.size, self.spacing, self.color.toRaylibColor()
         )
-        super().render(globalPos, self)
+        super().render(globalPos, self, paused)
 
     def centerX(self): self.position.x = (pyray.get_screen_width() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).x) / 2
     def centerY(self): self.position.y = (pyray.get_screen_height() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).y) / 2
@@ -520,9 +520,9 @@ class NutTimer(NutObject):
             else:
                 self.current_time = 0
 
-    def render(self, globalPos: NutVector2, parent:"NutObject | None") -> None:
-        self.update()
-        super().render(globalPos, self)
+    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool) -> None:
+        if not paused: self.update()
+        super().render(globalPos, self, paused)
 
     @staticmethod
     def empty_timer_function(timer:"NutTimer"): pass
@@ -537,10 +537,10 @@ class NutTween(NutTimer):
         self.ease:Callable = ease
         self.progress:float = 0
 
-    def render(self, globalPos: NutVector2, parent:"NutObject | None"):
+    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool):
         if self.initial_val == None: self.initial_val = parent.__getattribute__(self.attribute_to_change)
 
-        if not self.playing:self.cur_val = parent.__getattribute__(self.attribute_to_change)
+        if not self.playing: self.cur_val = parent.__getattribute__(self.attribute_to_change)
         else:
             self.progress = self.ease(self.current_time/self.time)
             if self.progress > 1: self.progress = math.floor(self.progress)
@@ -554,7 +554,7 @@ class NutTween(NutTimer):
                     self.initial_val.b + (self.final_val.b - self.initial_val.b) * self.progress,
                     self.initial_val.a + (self.final_val.a - self.initial_val.a) * self.progress
                 )
-        super().render(globalPos, self)
+        super().render(globalPos, self, paused)
 
 class NutCamera(NutObject):
     def __init__(self):
@@ -568,13 +568,13 @@ class NutCamera(NutObject):
             self.zoom
         )
 
-    def render(self, globalPos: NutVector2, parent:"NutObject | None"):
+    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool):
         self.raylib_camera.target = self.position.toRaylibVector2()
         self.raylib_camera.rotation = self.angle
         self.raylib_camera.zoom = self.zoom
 
         pyray.begin_mode_2d(self.raylib_camera)
-        super().render(globalPos + self.position, self)
+        super().render(globalPos + self.position, self, paused)
         pyray.end_mode_2d()
 
 class NutScene(NutObject):
@@ -582,10 +582,12 @@ class NutScene(NutObject):
         super().__init__()
         self.bgColor = NutColor(0, 0, 0)
         self.keepAudioOnUnload:bool = False
+        self.update_paused:bool = False
+        self.drawing_paused:bool = False
 
-    def render(self, globalPos: NutVector2, parent:"NutObject | None") -> None:
+    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool) -> None:
         pyray.clear_background(self.bgColor.toRaylibColor())
-        super().render(self.position + globalPos, self)
+        super().render(self.position + globalPos, self, paused or self.drawing_paused)
     
     def onLoaded(self) -> None: pass
     def onUpdated(self, elapsed:float) -> None: pass
@@ -837,7 +839,7 @@ class NutGame:
         self.curScene = scene
         self.awaitingLoad = True
     
-    def reloadScene(self) -> None: self.loadScene(self.curScene)
+    def reloadScene(self) -> None: self.loadScene(type(self.curScene)())
 
     def close(self): self.gameShouldEnd = True
 
@@ -853,16 +855,16 @@ class NutGame:
                     self.awaitingAudioClear = False
                     self.audioManager.unloadAllCurrentAudios()
                 self.curScene.onLoaded()
-            self.curScene.onUpdated(pyray.get_frame_time())
+            if not self.curScene.update_paused: self.curScene.onUpdated(pyray.get_frame_time())
 
             self.keyboard.update(self.curScene)
-            self.audioManager.updateAllAudios()
+            if not self.curScene.update_paused: self.audioManager.updateAllAudios()
 
             pyray.begin_drawing()
-            self.curScene.render(NutVector2(), None)
+            self.curScene.render(NutVector2(), None, False)
             pyray.end_drawing()
             
-            self.curScene.onUpdatedPost(pyray.get_frame_time())
+            if not self.curScene.update_paused: self.curScene.onUpdatedPost(pyray.get_frame_time())
 
             if self.gameShouldEnd: break
 
