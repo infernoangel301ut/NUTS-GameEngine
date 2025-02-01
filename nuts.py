@@ -7,17 +7,44 @@ import os
 import builtins
 
 def extend_zeros(num:str, amount:int) -> str:
-    "Function made for XML animation help."
+    """
+    Function made for XML animation help.
+    
+    Returns `num` extended to have as many 0s in the left in order to have `amount` number of digits.
+
+    ### Parameters:
+    * num : str - The str that contains the frame number for the Sparrow animation.
+    * amount : int - How many digits the result will have.
+
+    #### Returns:
+    str
+    """
     while len(num) < amount: num = "0" + num
     return num
 
 def find_xml_element_by_name_atr(xml_root:XmlTree.Element, name:str) -> XmlTree.Element | None:
-    "Function made for XML animation help."
+    """
+    Function made for XML animation help.
+    
+    Returns the XML element containing the name element called `name` or None if it was not found.
+
+    ### Parameters:
+    * xml_root : ElementTree.Element - The XML file's root element (a.k.a. the element that contains everything else).
+    * name : str - The name attribute you're looking for.
+
+    #### Returns:
+    ElementTree.Element | None
+    """
     for anim in xml_root:
         if anim.get("name") == name: return anim
     return None
 
 class NutKey(IntEnum):
+    """
+    Enum that contains all keyboard keys.
+
+    (Might have kind of stolen this from raylib's code lol)
+    """
     NULL = 0
     APOSTROPHE = 39
     COMMA = 44
@@ -130,22 +157,34 @@ class NutKey(IntEnum):
     VOLUME_DOWN = 25
 
 class NutMouseAction(IntEnum):
+    """
+    Enum that contains the buttons you can press with a mouse.
+    """
     LEFT = 0
     RIGHT = 1
     MIDDLE = 2
 
 class NutKeyState(IntEnum):
+    """
+    Enum that contains the possible states a key or mouse button can be in.
+    """
     PRESSED = 0
     JUST_PRESSED = 1
     JUST_RELEASED = 2
     RELEASED = 3
 
 class NutAnimationType(IntEnum):
+    """
+    Enum that contains the animation techniques used for sprites.
+    """
     NO_ANIMATION = -1
     SPRITESHEET = 0
     SPARROW = 1
 
 class NutLogType(IntEnum):
+    """
+    Enum that contains the types when logging (using `NutLogger`).
+    """
     INFO = 0
     WARNING = 1
     ERROR = 2
@@ -596,6 +635,34 @@ class NutScene(NutObject):
     def onKeyInput(self, key:NutKey, state:NutKeyState) -> None: pass
     def onMouseInput(self, action:NutMouseAction, state:NutKeyState, position:NutVector2) -> None: pass
 
+class NutSubScene(NutScene):
+    def __init__(self, parentScene:NutScene, transarentBG:bool = True):
+        super().__init__()
+        self.parentScene = parentScene
+        self.activated:bool = False
+        self.awaitingLoad:bool = False
+        self.awaitingUnload:bool = False
+        self.bgColor.a = 63 if transarentBG else 255
+
+    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool) -> None:
+        pyray.clear_background(self.bgColor.toRaylibColor())
+        if self.awaitingLoad:
+            self.awaitingLoad = False
+            self.onLoaded()
+        if self.awaitingUnload:
+            self.awaitingUnload = False
+            self.onUnloaded()
+        self.onUpdated(pyray.get_frame_time())
+        if self.activated: super().render(self.position + globalPos, self, self.drawing_paused)
+        self.onUpdatedPost(pyray.get_frame_time())
+        # unlike other objects, NutSubScene does not give a fuck whether its parent is paused
+        # this also applies for its scene methods
+
+    def toggleActivate(self, value:bool | None = None):
+        self.activated = value if value != None else not self.activated
+        self.awaitingLoad = self.activated
+        self.awaitingUnload = not self.activated
+
 class NutKeyboard:
     def __init__(self):
         self.curHeldKeys:list[int] = []
@@ -635,6 +702,10 @@ class NutKeyboard:
             if pyray.is_mouse_button_pressed(i): curState.onMouseInput(i, NutKeyState.JUST_PRESSED, mousePos)
             elif pyray.is_mouse_button_down(i): curState.onMouseInput(i, NutKeyState.PRESSED, mousePos)
             elif pyray.is_mouse_button_released(i): curState.onMouseInput(i, NutKeyState.JUST_RELEASED, mousePos)
+
+        for v in curState.children.values():
+            if type(v) != NutScene: continue
+            self.update(v)
 
 class NutAudioManager:
     def __init__(self):
