@@ -645,16 +645,20 @@ class NutSubScene(NutScene):
         self.bgColor.a = 63 if transarentBG else 255
 
     def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool) -> None:
-        pyray.clear_background(self.bgColor.toRaylibColor())
-        if self.awaitingLoad:
-            self.awaitingLoad = False
-            self.onLoaded()
         if self.awaitingUnload:
             self.awaitingUnload = False
             self.onUnloaded()
-        self.onUpdated(pyray.get_frame_time())
-        if self.activated: super().render(self.position + globalPos, self, self.drawing_paused)
-        self.onUpdatedPost(pyray.get_frame_time())
+            self.children.clear()
+            # Clearing children because they will be created with the onLoaded method.
+            # Which will also run when the NutSubScene gets activated.
+        if self.activated:
+            pyray.draw_rectangle(0, 0, pyray.get_render_width(), pyray.get_render_height(), self.bgColor.toRaylibColor())
+            if self.awaitingLoad:
+                self.awaitingLoad = False
+                self.onLoaded()
+            self.onUpdated(pyray.get_frame_time())
+            super().render(self.position + globalPos, self, self.drawing_paused)
+            self.onUpdatedPost(pyray.get_frame_time())
         # unlike other objects, NutSubScene does not give a fuck whether its parent is paused
         # this also applies for its scene methods
 
