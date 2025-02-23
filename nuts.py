@@ -601,7 +601,7 @@ class NutCamera(NutObject):
         self.angle:float = 0
         self.zoom:float = 1
         self.raylib_camera:pyray.Camera2D = pyray.Camera2D(
-            pyray.Vector2(pyray.get_screen_width() / 2, pyray.get_screen_height() / 2),
+            pyray.Vector2(0, 0),
             self.position.toRaylibVector2(),
             self.angle,
             self.zoom
@@ -890,8 +890,8 @@ class NutCollisionManager:
 
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
-        self.winWidth = winWidth
-        self.winHeight = winHeight
+        self.winWidth, self.viewWidth = winWidth, winWidth
+        self.winHeight, self.viewHeight = winHeight, winHeight
         self.title = title
         self.fps = fps
         self.curScene = NutScene()
@@ -901,6 +901,12 @@ class NutGame:
         self.awaitingLoad = False
         self.gameShouldEnd:bool = False
         self.awaitingAudioClear:bool = False
+        self.viewportCamera:pyray.Camera2D = pyray.Camera2D(pyray.Vector2(0, 0), pyray.Vector2(0, 0), 0, 1)
+        self.shouldUpdateSize:bool = False
+        self.resizable:bool = True
+        self.fullscreen:bool = False
+        self.borderless:bool = False
+        self.allowsTransparency:bool = False
 
     def saveFileExists(self, file_dir:str, file_name:str):
         return os.path.exists(file_dir + "/" + file_name + ".nutsave")
@@ -917,6 +923,16 @@ class NutGame:
     def reloadScene(self) -> None: self.loadScene(type(self.curScene)())
 
     def close(self): self.gameShouldEnd = True
+
+    def updateWindowProperties(self):
+        pyray.set_window_title(self.title)
+        if self.shouldUpdateSize: pyray.set_window_size(self.winWidth, self.winHeight)
+        pyray.set_config_flags(
+            pyray.ConfigFlags.FLAG_WINDOW_RESIZABLE * self.resizable |
+            pyray.ConfigFlags.FLAG_FULLSCREEN_MODE * self.fullscreen |
+            pyray.ConfigFlags.FLAG_BORDERLESS_WINDOWED_MODE * self.borderless |
+            pyray.ConfigFlags.FLAG_WINDOW_TRANSPARENT * self.allowsTransparency
+        )
 
     def start(self) -> None:
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
@@ -936,7 +952,44 @@ class NutGame:
             if not self.curScene.update_paused: self.audioManager.updateAllAudios()
 
             pyray.begin_drawing()
+            # No raylib support for good window resizing? I don't fucking care, I'm making it myself.
+            if pyray.is_window_resized():
+                self.winWidth = pyray.get_render_width()
+                self.winHeight = pyray.get_render_height()
+                resizedViewWidth = self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight)
+                resizedViewHeight = self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight)
+                self.viewportCamera.offset = pyray.Vector2(
+                    (self.winWidth - resizedViewWidth)/2,
+                    (self.winHeight - resizedViewHeight)/2
+                )
+                self.viewportCamera.zoom = ((resizedViewWidth**2 + resizedViewHeight**2)**0.5)/((self.winWidth**2 + self.winHeight**2)**0.5)
+            pyray.begin_mode_2d(self.viewportCamera)
             self.curScene.render(NutVector2(), None, False)
+            pyray.end_mode_2d()
+            # Left border
+            pyray.draw_rectangle(
+                0, 0, math.ceil((self.winWidth - self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
+                math.ceil(self.winHeight), pyray.Color(0,0,0,255)
+            )
+            # Right border
+            pyray.draw_rectangle(
+                math.ceil(self.winWidth - (self.winWidth - self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2), 0,
+                math.ceil((self.winWidth - self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
+                math.ceil(self.winHeight), pyray.Color(0,0,0,255)
+            )
+            # Top border
+            pyray.draw_rectangle(
+                0, 0, math.ceil(self.winWidth),
+                math.ceil((self.winHeight - self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
+                pyray.Color(0,0,0,255)
+            )
+            # Bottom border
+            pyray.draw_rectangle(
+                0, math.ceil(self.winHeight - (self.winHeight - self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
+                math.ceil(self.winWidth), math.ceil((self.winHeight - self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
+                pyray.Color(0,0,0,255)
+            )
+
             pyray.end_drawing()
             
             if not self.curScene.update_paused: self.curScene.onUpdatedPost(pyray.get_frame_time())

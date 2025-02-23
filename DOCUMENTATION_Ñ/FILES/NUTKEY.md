@@ -1,12 +1,12 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you rather reading the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutKey Enum
+## Enumerador NutKey
 
-Used to get specific keyboard keys (for input detection).
+Usado para obtener teclas del teclado especificas (para detección de inputs).
 
-### Enum Values
+### Valores del enumerador
 
 ###### NULL = 0
 ###### APOSTROPHE = 39
