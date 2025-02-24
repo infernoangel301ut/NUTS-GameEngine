@@ -6,6 +6,9 @@ from typing import Callable
 import os
 import builtins
 
+view_width = 640
+view_height = 480 # Both of these are by default, but get changed with NutGame
+
 def extend_zeros(num:str, amount:int) -> str:
     """
     Function made for XML animation help.
@@ -287,8 +290,8 @@ class NutObject:
                 if i.cur_val != None: self.__setattr__(i.attribute_to_change, i.cur_val)
             i.render(self.position + globalPos, self, paused)
 
-    def centerX(self) -> None: self.position.x = pyray.get_screen_width() / 2
-    def centerY(self) -> None: self.position.y = pyray.get_screen_height() / 2
+    def centerX(self) -> None: self.position.x = view_width / 2
+    def centerY(self) -> None: self.position.y = view_height / 2
     def center(self) -> None:
         self.centerX()
         self.centerY()
@@ -311,8 +314,8 @@ class NutRect(NutObject):
         )
         super().render(globalPos, self, paused)
 
-    def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
-    def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
+    def centerX(self) -> None: self.position.x = (view_width - self.size.x) / 2
+    def centerY(self) -> None: self.position.y = (view_height - self.size.y) / 2
 
 class NutFrame:
     def __init__(self, img_position:NutVector2, img_size:NutVector2, offset:NutVector2 | None = None, size_offset:NutVector2 | None = None):
@@ -458,8 +461,8 @@ class NutSprite(NutObject):
             )
         super().render(globalPos, self, paused)
 
-    def centerX(self) -> None: self.position.x = (pyray.get_screen_width() - self.size.x) / 2
-    def centerY(self) -> None: self.position.y = (pyray.get_screen_height() - self.size.y) / 2
+    def centerX(self) -> None: self.position.x = (view_width - self.size.x) / 2
+    def centerY(self) -> None: self.position.y = (view_height - self.size.y) / 2
 
 class NutSound:
     def __init__(self, path:str, volume:float = 0.5, pitch:float = 1):
@@ -519,8 +522,8 @@ class NutText(NutObject):
         )
         super().render(globalPos, self, paused)
 
-    def centerX(self): self.position.x = (pyray.get_screen_width() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).x) / 2
-    def centerY(self): self.position.y = (pyray.get_screen_height() - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).y) / 2
+    def centerX(self): self.position.x = (view_width - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).x) / 2
+    def centerY(self): self.position.y = (view_height - pyray.measure_text_ex(self.raylib_font if self.raylib_font != None else pyray.get_font_default(), self.text, self.size, self.spacing).y) / 2
 
 class NutTimer(NutObject):
     def __init__(self, time:float, loops:int = 1):
@@ -892,6 +895,10 @@ class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
         self.winWidth, self.viewWidth = winWidth, winWidth
         self.winHeight, self.viewHeight = winHeight, winHeight
+        global view_width
+        global view_height
+        view_width = math.floor(self.viewWidth)
+        view_height = math.floor(self.viewHeight)
         self.title = title
         self.fps = fps
         self.curScene = NutScene()
@@ -907,6 +914,7 @@ class NutGame:
         self.fullscreen:bool = False
         self.borderless:bool = False
         self.allowsTransparency:bool = False
+        self.viewBorderColor:NutColor = NutColor(0, 0, 0, 255)
 
     def saveFileExists(self, file_dir:str, file_name:str):
         return os.path.exists(file_dir + "/" + file_name + ".nutsave")
@@ -939,6 +947,9 @@ class NutGame:
         pyray.init_audio_device()
         pyray.set_target_fps(self.fps)
 
+        global view_width
+        global view_height
+
         while not pyray.window_should_close():
             if self.awaitingLoad:
                 self.awaitingLoad = False
@@ -951,6 +962,9 @@ class NutGame:
             self.keyboard.update(self.curScene)
             if not self.curScene.update_paused: self.audioManager.updateAllAudios()
 
+            view_width = math.floor(self.viewWidth)
+            view_height = math.floor(self.viewHeight)
+
             pyray.begin_drawing()
             # No raylib support for good window resizing? I don't fucking care, I'm making it myself.
             if pyray.is_window_resized():
@@ -962,32 +976,32 @@ class NutGame:
                     (self.winWidth - resizedViewWidth)/2,
                     (self.winHeight - resizedViewHeight)/2
                 )
-                self.viewportCamera.zoom = ((resizedViewWidth**2 + resizedViewHeight**2)**0.5)/((self.winWidth**2 + self.winHeight**2)**0.5)
+                self.viewportCamera.zoom = ((resizedViewWidth**2 + resizedViewHeight**2)**0.5)/((self.viewWidth**2 + self.viewHeight**2)**0.5)
             pyray.begin_mode_2d(self.viewportCamera)
             self.curScene.render(NutVector2(), None, False)
             pyray.end_mode_2d()
             # Left border
             pyray.draw_rectangle(
                 0, 0, math.ceil((self.winWidth - self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
-                math.ceil(self.winHeight), pyray.Color(0,0,0,255)
+                math.ceil(self.winHeight), self.viewBorderColor.toRaylibColor()
             )
             # Right border
             pyray.draw_rectangle(
                 math.ceil(self.winWidth - (self.winWidth - self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2), 0,
                 math.ceil((self.winWidth - self.viewWidth * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
-                math.ceil(self.winHeight), pyray.Color(0,0,0,255)
+                math.ceil(self.winHeight), self.viewBorderColor.toRaylibColor()
             )
             # Top border
             pyray.draw_rectangle(
                 0, 0, math.ceil(self.winWidth),
                 math.ceil((self.winHeight - self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
-                pyray.Color(0,0,0,255)
+                self.viewBorderColor.toRaylibColor()
             )
             # Bottom border
             pyray.draw_rectangle(
                 0, math.ceil(self.winHeight - (self.winHeight - self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
                 math.ceil(self.winWidth), math.ceil((self.winHeight - self.viewHeight * min(self.winWidth/self.viewWidth, self.winHeight/self.viewHeight))/2),
-                pyray.Color(0,0,0,255)
+                self.viewBorderColor.toRaylibColor()
             )
 
             pyray.end_drawing()
