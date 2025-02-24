@@ -6,6 +6,10 @@ from typing import Callable
 import os
 import builtins
 
+# NUTS version info
+version:str = "0.1.0"
+is_early_version:bool = True
+
 view_width = 640
 view_height = 480 # Both of these are by default, but get changed with NutGame
 
@@ -193,6 +197,9 @@ class NutLogType(IntEnum):
     ERROR = 2
 
 class NutLogger:
+    """
+    Object used for fancy printing lmao
+    """
     def __init__(self, log_name:str):
         self.log_name = log_name
 
@@ -203,6 +210,11 @@ class NutLogger:
 nuts_default_logger = NutLogger("NUTS")
 
 class NutVector2:
+    """
+    General two-dimensional value.
+    
+    I could use complex numbers instead but that's for NERDS.
+    """
     def __init__(self, x:float = 0, y:float = 0):
         self.x = x
         self.y = y
@@ -215,6 +227,9 @@ class NutVector2:
     def toRaylibVector2(self) -> pyray.Vector2: return pyray.Vector2(self.x, self.y)
 
 class NutColor:
+    """
+    Color value.
+    """
     def __init__(self, r:int, g:int, b:int, a:int=255):
         self.r = r
         self.g = g
@@ -235,11 +250,14 @@ class NutColor:
     def __str__(self) -> str:
         return f"r = {self.r}; g = {self.g}; b = {self.b}; a = {self.a};"
     
-any_numeric_value = int | float | NutVector2 | NutColor
+any_numeric_value = int | float | NutVector2 | NutColor # For tweens
 
 class NutTweenEase:
     # ** = Power
-    # x**0.5 = sqrt(x) (learn exponential properties lol)
+    # x**0.5 = sqrt(x) (square root, learn exponential properties lol)
+
+    # Desmos url with all these tweens being displayed:
+    # https://www.desmos.com/calculator/hmaufhan7z
     @staticmethod
     def linear(x:float): return x
 
@@ -280,6 +298,11 @@ class NutTweenEase:
     def circBoth(x:float): return ((2*x)**0.5)/2 if x <= 0.5 else (2*(x**3) + 2)**0.5 - 1
     
 class NutObject:
+    """
+    Main object class for NUTS.
+    
+    Used for pretty much everything: NutScene, NutSprite, NutRect, NutText, etc.
+    """
     def __init__(self, position:NutVector2 = NutVector2()):
         self.children:dict[str, NutObject] = {}
         self.position:NutVector2 = position
@@ -946,6 +969,9 @@ class NutGame:
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
         pyray.init_audio_device()
         pyray.set_target_fps(self.fps)
+
+        nuts_default_logger.log(f"NUTS Game Engine v{version} has been initialized.")
+        if is_early_version: nuts_default_logger.log("\n\tYou are using an early version of NUTS,\n\twhich means it may contain LOTS of bugs and glitches.\n\n\tPlease report them on the github page if you find any!\n\thttps://github.com/infernoangel301ut/NUTS-GameEngine", NutLogType.WARNING)
 
         global view_width
         global view_height
