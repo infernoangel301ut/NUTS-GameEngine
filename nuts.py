@@ -18,33 +18,36 @@ def extend_zeros(num:str, amount:int) -> str:
     Function made for XML animation help.
     
     Returns `num` extended to have as many 0s in the left in order to have `amount` number of digits.
-
-    ### Parameters:
-    * num : str - The str that contains the frame number for the Sparrow animation.
-    * amount : int - How many digits the result will have.
-
-    #### Returns:
-    str
     """
     while len(num) < amount: num = "0" + num
     return num
 
-def find_xml_element_by_name_atr(xml_root:XmlTree.Element, name:str) -> XmlTree.Element | None:
+def find_xml_elements_by_name_atr(xml_root:XmlTree.Element, name:str) -> list[XmlTree.Element] | None:
     """
     Function made for XML animation help.
     
-    Returns the XML element containing the name element called `name` or None if it was not found.
-
-    ### Parameters:
-    * xml_root : ElementTree.Element - The XML file's root element (a.k.a. the element that contains everything else).
-    * name : str - The name attribute you're looking for.
-
-    #### Returns:
-    ElementTree.Element | None
+    Returns the XML elements containing the name element called `name` or None if not found.
     """
+    vals:dict[int, XmlTree.Element] = {}
     for anim in xml_root:
-        if anim.get("name") == name: return anim
-    return None
+        val = anim.get("name")
+        num = val[len(val)-4:]
+        try: num = int(num)
+        except: continue
+
+        if val[:len(val)-4] == name: vals[num] = anim
+    
+    if len(vals) == 0: return None
+
+    def element_sort(x):
+        try: v = list(vals.values()).index(x)
+        except ValueError: return -999
+        return list(vals.keys())[v]
+    
+    res = list(vals.values())
+    res.sort(key=element_sort)
+
+    return res
 
 class NutKey(IntEnum):
     """
@@ -225,6 +228,9 @@ class NutVector2:
     def __repr__(self): return f"({self.x} , {self.y})"
 
     def toRaylibVector2(self) -> pyray.Vector2: return pyray.Vector2(self.x, self.y)
+    @staticmethod
+    def convert(x:type[pyray.Vector2] | list | tuple):
+        return NutVector2(x.x, x.y) if type(x) not in (list, tuple) else NutVector2(x[0], x[1])
 
 class NutColor:
     """
@@ -246,6 +252,12 @@ class NutColor:
     def fromHex(hexadecimal:str) -> "NutColor":
         return NutColor(int(hexadecimal[:2], 16), int(hexadecimal[2:4], 16), int(hexadecimal[4:6], 16),
                         int(hexadecimal[6:], 16) if len(hexadecimal) > 6 else 255)
+    
+    @staticmethod
+    def convert(x:type[pyray.Color] | list | tuple | int):
+        if type(x) == pyray.Color: return NutColor(x.r, x.g, x.b, x.a)
+        elif type(x) == int: return NutColor.fromHex(extend_zeros(hex(x), 6 if len(hex(x)) <= 6 else 8))
+        else: return NutColor(x[0], x[1], x[2], x[3])
     
     def __str__(self) -> str:
         return f"r = {self.r}; g = {self.g}; b = {self.b}; a = {self.a};"
@@ -310,7 +322,11 @@ class NutObject:
     def render(self, globalPos:NutVector2, parent:"NutObject | None", paused:bool) -> None:
         for i in self.children.values():
             if type(i) == NutTween: 
-                if i.cur_val != None: self.__setattr__(i.attribute_to_change, i.cur_val)
+                if i.cur_val != None:
+                    item = self
+                    if len(i.attribute_to_change) > 1:
+                        for j in i.attribute_to_change[:len(i.attribute_to_change)-1]: item = item.__getattribute__(j)
+                    item.__setattr__(i.attribute_to_change[len(i.attribute_to_change)-1], i.cur_val)
             i.render(self.position + globalPos, self, paused)
 
     def centerX(self) -> None: self.position.x = view_width / 2
@@ -341,11 +357,14 @@ class NutRect(NutObject):
     def centerY(self) -> None: self.position.y = (view_height - self.size.y) / 2
 
 class NutFrame:
-    def __init__(self, img_position:NutVector2, img_size:NutVector2, offset:NutVector2 | None = None, size_offset:NutVector2 | None = None):
+    def __init__(self, img_position:NutVector2, img_size:NutVector2, offset:NutVector2 | None = None, size_offset:NutVector2 | None = None, flipX:bool = False, flipY:bool = False, rotated:bool = False):
         self.img_position = img_position
         self.img_size = img_size
         self.offset = offset if offset != None else NutVector2()
         self.size_offset = size_offset if size_offset != None else self.img_size
+        self.flipX = flipX
+        self.flipY = flipY
+        self.rotated = rotated
 
 class NutAnimation:
     def __init__(self):
@@ -400,19 +419,22 @@ class NutAnimationController:
         anim_object.fps = fps
         anim_object.reversed = reversed
         anim_object.looped = looped
-        count = 0
-        anim_element = find_xml_element_by_name_atr(self.anim_xml, anim_name + extend_zeros(str(count), 4))
+        anim_elements:list[XmlTree.Element] | None = find_xml_elements_by_name_atr(self.anim_xml, anim_name)
 
-        while anim_element != None:
+        if anim_elements == None:
+            nuts_default_logger.log(f"Tried to make animation '{name}', but no '{anim_name}' was found.", NutLogType.ERROR)
+            return
+
+        for i in anim_elements:
             anim_object.frames.append(NutFrame(
-                NutVector2(int(anim_element.get("x")), int(anim_element.get("y"))),
-                NutVector2(int(anim_element.get("width")), int(anim_element.get("height"))),
-                NutVector2(int(anim_element.get("frameX", "0")), int(anim_element.get("frameY", "0"))),
-                NutVector2(int(anim_element.get("frameWidth", anim_element.get("width"))), int(anim_element.get("frameHeight", anim_element.get("height"))))
+                NutVector2(int(i.get("x")), int(i.get("y"))),
+                NutVector2(int(i.get("width")), int(i.get("height"))),
+                NutVector2(int(i.get("frameX", "0")), int(i.get("frameY", "0"))),
+                NutVector2(int(i.get("frameWidth", i.get("width"))), int(i.get("frameHeight", i.get("height")))),
+                i.get("flipX", "false").lower() == "true", i.get("flipY", "false").lower() == "true",
+                i.get("rotated", "false").lower() == "true", 
             ))
-            count += 1
-            anim_element = find_xml_element_by_name_atr(self.anim_xml, anim_name + extend_zeros(str(count), 4))
-        self.animations[name] = anim_object
+            self.animations[name] = anim_object
 
     def playAnimation(self, anim_name:str):
         if self.animations.get(anim_name) == None: return
@@ -437,7 +459,7 @@ class NutSprite(NutObject):
         self.image = pyray.load_texture(self.image_dir)
         self.display_image = self.image
         self.size = NutVector2(self.display_image.width, self.display_image.height) if size == None else size
-        self.angle = 0
+        self.angle:float = 0
         self.color = NutColor(255, 255, 255)
         self.animation = NutAnimationController(NutVector2(self.image.width, self.image.height))
         self.scale = NutVector2(1, 1)
@@ -453,17 +475,22 @@ class NutSprite(NutObject):
     def render(self, globalPos:NutVector2, parent:"NutObject | None", paused:bool):
         if self.animation.isAnimated() and len(self.animation.cur_anim) != 0:
             cur_anim = self.animation.animations[self.animation.cur_anim]
+            #print(cur_anim.frames)
             cur_frame = cur_anim.frames[self.animation.cur_frame] if not cur_anim.reversed else cur_anim.frames[::-1][self.animation.cur_frame]
-            r_size = NutVector2(math.floor(cur_frame.img_size.x * self.scale.x), math.floor(cur_frame.img_size.y * self.scale.y))
             pyray.draw_texture_pro(
                 self.display_image,
                 pyray.Rectangle(
-                    cur_frame.img_position.x if not self.flipX else self.display_image.width - cur_frame.img_position.x - cur_frame.img_size.x,
-                    cur_frame.img_position.y if not self.flipY else self.display_image.height - cur_frame.img_position.y - cur_frame.img_size.y,
+                    cur_frame.img_position.x if not (self.flipX ^ cur_frame.flipX) else self.image.width - cur_frame.img_position.x - cur_frame.img_size.x,
+                    cur_frame.img_position.y if not (self.flipY ^ cur_frame.flipY) else self.image.height - cur_frame.img_position.y - cur_frame.img_size.y,
                     cur_frame.img_size.x, cur_frame.img_size.y
                 ),
-                pyray.Rectangle(self.position.x + globalPos.x + r_size.x/2 - cur_frame.offset.x, self.position.y + globalPos.y + r_size.y/2 - cur_frame.offset.y, r_size.x, r_size.y),
-                pyray.Vector2(r_size.x/2, r_size.y/2), self.angle, self.color.toRaylibColor()
+                pyray.Rectangle(
+                    self.position.x - cur_frame.offset.x*self.scale.x,
+                    self.position.y - (cur_frame.offset.y + (0 if not cur_frame.rotated else cur_frame.img_size.x))*self.scale.y,
+                    cur_frame.img_size.x*self.scale.x,
+                    cur_frame.img_size.y*self.scale.y
+                ),
+                pyray.Vector2(0, 0), self.angle if not cur_frame.rotated else self.angle - 90, self.color.toRaylibColor()
             )
             window_fps = pyray.get_fps() if not paused else 0
             if self.animation.anim_playing and window_fps != 0:
@@ -484,8 +511,8 @@ class NutSprite(NutObject):
             )
         super().render(globalPos, self, paused)
 
-    def centerX(self) -> None: self.position.x = (view_width - self.size.x) / 2
-    def centerY(self) -> None: self.position.y = (view_height - self.size.y) / 2
+    def centerX(self) -> None: self.position.x = abs(view_width - self.size.x*self.scale.x) / 2
+    def centerY(self) -> None: self.position.y = abs(view_height - self.size.y*self.scale.y) / 2
 
 class NutSound:
     def __init__(self, path:str, volume:float = 0.5, pitch:float = 1):
@@ -523,7 +550,7 @@ class NutText(NutObject):
         self.raylib_font:pyray.Font | None = None
         self.color = color
         self.spacing = 2
-        self.angle = 0
+        self.angle:float = 0
 
     def loadFont(self, font_dir:str):
         self.font = font_dir
@@ -595,29 +622,45 @@ class NutTimer(NutObject):
 class NutTween(NutTimer):
     def __init__(self, attribute_to_change:str, final_val:any_numeric_value, time:float, ease:Callable = NutTweenEase.linear):
         super().__init__(time)
-        self.attribute_to_change:str = attribute_to_change
+        self.attribute_to_change:list[str] = attribute_to_change.split(".")
         self.final_val = final_val
         self.cur_val:any_numeric_value | None = None
         self.initial_val:any_numeric_value | None = None
         self.ease:Callable = ease
         self.progress:float = 0
 
-    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool):
-        if self.initial_val == None: self.initial_val = parent.__getattribute__(self.attribute_to_change)
+    def get_attr_val(self, parent:NutObject) -> any_numeric_value:
+        cur_val:any_numeric_value | None = None
+        for i, v in enumerate(self.attribute_to_change):
+            obj = cur_val if i != 0 else parent
+            cur_val = obj.__getattribute__(v)
 
-        if not self.playing: self.cur_val = parent.__getattribute__(self.attribute_to_change)
+        return cur_val
+    
+    def update_progress(self): self.progress = max(min(1, self.ease(self.current_time/self.time)), 0)
+    
+    def stop(self):
+        self.update_progress()
+        if self.progress <= 0: self.cur_val = self.initial_val
+        elif self.progress >= 1: self.cur_val = self.final_val
+        super().stop()
+    
+    def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool):
+        if self.initial_val == None: self.initial_val = self.get_attr_val(parent)
+
+        self.update_progress()
+
+        if not self.playing: self.cur_val = self.get_attr_val(parent)
         else:
-            self.progress = self.ease(self.current_time/self.time)
-            if self.progress > 1: self.progress = math.floor(self.progress)
             if type(self.initial_val) == float: self.cur_val = self.initial_val + (self.final_val - self.initial_val) * self.progress
             elif type(self.initial_val) == int: self.cur_val = math.floor(self.initial_val + (self.final_val - self.initial_val) * self.progress)
             elif type(self.initial_val) == NutVector2: self.cur_val = self.initial_val + NutVector2((self.final_val.x - self.initial_val.x) * self.progress, (self.final_val.y - self.initial_val.y) * self.progress)
             elif type(self.initial_val) == NutColor:
                 self.cur_val = NutColor(
-                    self.initial_val.r + (self.final_val.r - self.initial_val.r) * self.progress,
-                    self.initial_val.g + (self.final_val.g - self.initial_val.g) * self.progress,
-                    self.initial_val.b + (self.final_val.b - self.initial_val.b) * self.progress,
-                    self.initial_val.a + (self.final_val.a - self.initial_val.a) * self.progress
+                    math.floor(self.initial_val.r + (self.final_val.r - self.initial_val.r) * self.progress),
+                    math.floor(self.initial_val.g + (self.final_val.g - self.initial_val.g) * self.progress),
+                    math.floor(self.initial_val.b + (self.final_val.b - self.initial_val.b) * self.progress),
+                    math.floor(self.initial_val.a + (self.final_val.a - self.initial_val.a) * self.progress)
                 )
         super().render(globalPos, self, paused)
 
@@ -922,6 +965,7 @@ class NutGame:
         global view_height
         view_width = math.floor(self.viewWidth)
         view_height = math.floor(self.viewHeight)
+        self.winPos:NutVector2 = NutVector2()
         self.title = title
         self.fps = fps
         self.curScene = NutScene()
@@ -932,10 +976,12 @@ class NutGame:
         self.gameShouldEnd:bool = False
         self.awaitingAudioClear:bool = False
         self.viewportCamera:pyray.Camera2D = pyray.Camera2D(pyray.Vector2(0, 0), pyray.Vector2(0, 0), 0, 1)
-        self.shouldUpdateSize:bool = False
         self.resizable:bool = True
         self.fullscreen:bool = False
+        self.was_fullscreen:bool = False
+        self.shouldRestoreAfterFullscreen:bool = False
         self.borderless:bool = False
+        self.was_borderless:bool = False
         self.allowsTransparency:bool = False
         self.viewBorderColor:NutColor = NutColor(0, 0, 0, 255)
 
@@ -955,15 +1001,29 @@ class NutGame:
 
     def close(self): self.gameShouldEnd = True
 
+    def updateWindowSize(self): pyray.set_window_size(self.winWidth, self.winHeight)
+    def updateWindowPos(self): pyray.set_window_position(math.floor(self.winPos.x), math.floor(self.winPos.y))
+
     def updateWindowProperties(self):
         pyray.set_window_title(self.title)
-        if self.shouldUpdateSize: pyray.set_window_size(self.winWidth, self.winHeight)
         pyray.set_config_flags(
             pyray.ConfigFlags.FLAG_WINDOW_RESIZABLE * self.resizable |
-            pyray.ConfigFlags.FLAG_FULLSCREEN_MODE * self.fullscreen |
-            pyray.ConfigFlags.FLAG_BORDERLESS_WINDOWED_MODE * self.borderless |
             pyray.ConfigFlags.FLAG_WINDOW_TRANSPARENT * self.allowsTransparency
         )
+        if self.borderless != self.was_borderless:
+            pyray.toggle_borderless_windowed()
+            self.was_borderless = self.borderless
+            self.updateWindowSize()
+            self.updateWindowPos()
+        if self.fullscreen != self.was_fullscreen:
+            if self.fullscreen:
+                self.shouldRestoreAfterFullscreen = not pyray.is_window_maximized()
+                pyray.maximize_window()
+            pyray.toggle_fullscreen()
+            if not self.fullscreen and self.shouldRestoreAfterFullscreen:
+                pyray.restore_window()
+                self.shouldRestoreAfterFullscreen = False
+            self.was_fullscreen = self.fullscreen
 
     def start(self) -> None:
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
@@ -972,6 +1032,8 @@ class NutGame:
 
         nuts_default_logger.log(f"NUTS Game Engine v{version} has been initialized.")
         if is_early_version: nuts_default_logger.log("\n\tYou are using an early version of NUTS,\n\twhich means it may contain LOTS of bugs and glitches.\n\n\tPlease report them on the github page if you find any!\n\thttps://github.com/infernoangel301ut/NUTS-GameEngine", NutLogType.WARNING)
+
+        self.winPos = NutVector2.convert(pyray.get_window_position())
 
         global view_width
         global view_height
@@ -992,6 +1054,7 @@ class NutGame:
             view_height = math.floor(self.viewHeight)
 
             pyray.begin_drawing()
+            if pyray.get_window_position() != self.winPos.toRaylibVector2(): self.winPos = NutVector2.convert(pyray.get_window_position())
             # No raylib support for good window resizing? I don't fucking care, I'm making it myself.
             if pyray.is_window_resized():
                 self.winWidth = pyray.get_render_width()
