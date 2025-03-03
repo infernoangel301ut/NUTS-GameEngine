@@ -1,114 +1,96 @@
 # NUTS Game Engine
 
-Si prefieres leer el documento en español, [haga click aquí](/README_Ñ.md).
+Si deseas leer este documento en español, [haz click aquí](/README_Ñ.md).
 
 ## What is NUTS?
 
-Well, we're definetly not talking about actual **_nuts_**.
+Deez NUTS! HAHA! OK, now for real.
 
-NUTS is a game engine that uses Python and Raylib (or at least a Python port of it).
+NUTS is a game engine whose sole purpose is to give full freedom to the developer using it:
 
-Its way to be used is highly inspired by another game engine called HaxeFlixel, and also takes other elements from other game engines, such as Unity and Godot, while also adding its own elements.
+Anything is modifiable, anything is usable, ***anything is allowed***.
 
-KEEP IN MIND NUTS IS CURRENTLY IN A REALLY EARLY VERSION, CAUSING IT TO HAVE LOTS OF BUGS!!
+It is kinda like an anarchy for game development.
 
-IF YOU FIND ANY, MAKE SURE TO REPORT THEM ON GITHUB!!
+NUTS uses a structure similar to [HaxeFlixel](https://haxeflixel.com/) and a node-like structure for objects (a.k.a. a hierarchy-like structure).
+
+It uses Python as its programming language and [Raylib](https://www.raylib.com/) as its base ([or at least a Python port of it](https://electronstudio.github.io/raylib-python-cffi/)).
+
+NUTS is, and will always be open-source. You are free to modify NUTS to adjust it to your liking and even add features which are currently not added.
+
+Just remember to credit the author in case of releasing a modified version of NUTS: infernoangel301 (me lmao).
+
+Oh yea, the name? Yea it doesn't mean anything, just thought the name NUTS sounded funny.
+
+## Which features can be found in NUTS?
+
+NUTS is planned to have as many options for anything as possible, so even if a feature does not currently exists, you can suggest it yourself to be added in the future.
+
+As for currently-added features:
+* Two ways for input detection (`game.keyboard` or the scene's `onKeyInput` and `onMouseInput` events).
+* Dynamic window resizing (the window adapts when being resized).
+* Custom object creation.
+* Conversions between types.
+* Compatible with Raylib.
+* And much more!
+
+NUTS is currently in a really early development stage, so if you find any bugs, please make sure to report them on Github!
 
 ## How do I install NUTS?
 
-First of all, you will need the Python programming language, so if you don't have it yet, [click here](https://www.python.org/) to go to the official website.
+Actually, that's pretty simple.
 
-Next, you will need the dependencies, which fortunately for you, you will only need the Python port for Raylib. So you can [click here](https://electronstudio.github.io/raylib-python-cffi/README.html#installation) to go to the documentation... or you can stay here and run the following commands to be a lot faster, your choice.
+The recommended way of installing NUTS is by going into the GitHub releases section and downloading the nuts.py file from the version you want to install.
 
-These are the two commands to run:
+The non-recommended way of installing NUTS is by downloading the [nuts.py](/nuts.py) file in the repository itself (I might have missed something there, thus why it is not recommended).
 
-```bash
-python -m pip install setuptools
-python -m pip install raylib
-```
-
-And now that all the dependencies are installed, it is time to install NUTS!
-
-Just download the file in the repository called [**nuts.py**](/nuts.py) and add it to your game folder. Yes, that's it.
-
-## How do I start using NUTS?
-
-Well, first of all, you must create a separate Python file ("main.py", "game.py"... just make sure it ends with ".py"). Make sure "nuts.py" and your main file are in the same directory.
-
-Next, you want to import NUTS, to do so, just add the following line at the start of your code:
+To use NUTS, just create a Python file and import the NUTS file you just downloaded:
 
 ```python
+# Like this
 import nuts
+
+# Or like this
+from nuts import *
 ```
 
-Now you wanna store your game as a variable, to do so, do the following (also remember to change the parameters):
+## How do I use NUTS?
+
+Well, I will not be going into detail about it, since you should definetly check out the tutorials for that, but I'll explain some simple stuff:
+
+You first wanna create a folder for your whole project, then add the nuts.py file you *probably* installed in.
+
+Then create a separate Python file, and from there import nuts, just like it is specified in the above section.
+
+The main code should look something like this:
 
 ```python
-game = nuts.NutGame(960, 720, "NUTS game")
-```
+from nuts import *
 
-You now have the game, but you need a scene to show content to the player.
+game = NutGame(640, 480, "cool title") # Window width, window height and window title respectively.
 
-You will need to make a new class that extends the class NutScene and add anything you need:
+class MainScene(NutScene):
+    def onLoaded(self): # Runs once the scene has been loaded.
+        print("Hey look! I'm going NUTS!!!")
 
-```python
-class TestScene(nuts.NutScene):
-    def __init__(self):
-        super().__init__()
-        # Store your scene attributes here, remember to use self
+    def onUpdated(self): # Runs in a loop until the scene gets unloaded.
+        print("WEEWOO")
 
-    def onLoaded(self):
-        print("The testing scene has been loaded!")
-        # Will run once the scene has been loaded
-    
-    def onUpdated(self):
-        pass
-        # Will run every frame
-
-    def onKeyInput(self, key:nuts.NutKey, key_state:nuts.NutKeyState):
-        pass
-        # Will run everytime a key is pressed or released
-```
-
-Every method inside the class has its functionalities:
-* **init()**: Anything inside it will run even before the scene has been loaded. It is used to store attributes and values.
-* **onLoaded()**: It will run once `game.loadScene()` has been ran with this scene.
-* **onUpdated()**: It will run every frame, and therefore all the time, allowing you to do constant changes.
-* **onKeyInput(key, key_state)**: It will run when the user pressed or released a key, the `key` parameter contains the key that was pressed, while the `key_state` parameter indicates whether the key is pressed, held or released.
-
-Now we have a scene to show, so lastly, we need to get the game to display it and finally run.
-
-To do so, you will add these last lines:
-
-```python
-game.loadScene(TestScene())
+game.loadScene(MainScene())
 game.start()
 ```
 
-So our first NUTS project has started, here is the full code in case you are lazy and just want to copy and paste:
+As an addition, you can also create a separate folder for your game assets to keep everything organized.
 
-```python
-import nuts
+## How the fuck did you come up with NUTS?
 
-game = nuts.NutGame(960, 720, "NUTS game")
+Well, long story short, I came up with NUTS because of a project for school we *have* to work on for the entire grade (you heard me right, "*have*", not "*had*").
 
-class TestScene(nuts.NutScene):
-    def __init__(self):
-        super().__init__()
-        # Store your scene attributes here, remember to use self
+I initially had a couple ideas, but I decided to stick with a game engine, mainly because:
 
-    def onLoaded(self):
-        print("The testing scene has been loaded!")
-        # Will run once the scene has been loaded
-    
-    def onUpdated(self):
-        pass
-        # Will run every frame
+1. It's not really game so it kinda counts lmao.
+2. We all have seen how a game is made, but what about the engines they use? We barely get any explanation on their functionality.
 
-    def onKeyInput(self, key:nuts.NutKey, key_state:nuts.NutKeyState):
-        pass
-        # Will run everytime a key is pressed or released
+Midway through development, I was actually proud of how it was looking so far, so I decided that I would also be publishing it for everyone to use, plus doing more updates to it.
 
-game.loadScene(TestScene())
-game.start()
-```
+I mean, were you really expecting a game engine called ***NUTS*** to have an *emotive* backstory? lmao.

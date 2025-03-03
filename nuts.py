@@ -911,52 +911,6 @@ class NutSaveFile:
 
             self.setProperty(NutSaveProperty(vals[0], type_val, val_value))
 
-class NutCollisionDirection: # Only used alongside NutCollisionManager
-    def __init__(self, left:bool, right:bool, up:bool, down:bool):
-        self.left = left
-        self.right = right
-        self.up = up
-        self.down = down
-
-class NutCollisionManager:
-    @staticmethod
-    def getCollisionRect(obj:NutObject) -> pyray.Rectangle:
-        obj_rect = pyray.Rectangle(obj.position.x, obj.position.y, 0, 0)
-        if type(obj) == NutRect:
-            obj_rect.width = obj.size.x
-            obj_rect.height = obj.size.y
-        elif type(obj) == NutText:
-            text_size = pyray.measure_text_ex(obj.raylib_font, obj.text, obj.size, obj.spacing)
-            obj_rect.width = text_size.x
-            obj_rect.height = text_size.y
-        elif type(obj) == NutSprite:
-            if not obj.animation.isAnimated():
-                obj_rect.width = obj.size.x * obj.scale.x
-                obj_rect.height = obj.size.y * obj.scale.y
-            else:
-                frame = obj.animation.animations[obj.animation.cur_anim].frames[obj.animation.cur_frame]
-                obj_rect.width = frame.size_offset.x * obj.scale.x
-                obj_rect.height = frame.size_offset.y * obj.scale.y
-                obj_rect.x += frame.offset.x
-                obj_rect.y += frame.offset.y
-
-        return obj_rect
-
-    @staticmethod
-    def checkCollision(objA:NutObject, objB:NutObject):
-        return pyray.check_collision_recs(NutCollisionManager.getCollisionRect(objA), NutCollisionManager.getCollisionRect(objB))
-
-    @staticmethod
-    def checkSideCollisons(colliding:NutObject, collision:NutObject) -> NutCollisionDirection:
-        objA_rect = NutCollisionManager.getCollisionRect(colliding)
-        objB_rect = NutCollisionManager.getCollisionRect(collision)
-        return NutCollisionDirection(
-            not (objA_rect.x > objB_rect.x + objB_rect.width or objA_rect.x < objB_rect.x),
-            not (objA_rect.x + objA_rect.width > objB_rect.x + objB_rect.width or objA_rect.x + objA_rect.width < objB_rect.x),
-            not (objA_rect.y > objB_rect.y + objB_rect.height or objA_rect.y < objB_rect.y),
-            not (objA_rect.y + objA_rect.height > objB_rect.y + objB_rect.height or objA_rect.y + objA_rect.height < objB_rect.y)
-        )
-
 class NutGame:
     def __init__(self, winWidth:float, winHeight:float, title:str, fps:int = 60):
         self.winWidth, self.viewWidth = winWidth, winWidth
@@ -1026,6 +980,7 @@ class NutGame:
             self.was_fullscreen = self.fullscreen
 
     def start(self) -> None:
+        self.updateWindowProperties()
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)
         pyray.init_audio_device()
         pyray.set_target_fps(self.fps)
