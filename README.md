@@ -40,6 +40,20 @@ NUTS is currently in a really early development stage, so if you find any bugs, 
 
 Actually, that's pretty simple.
 
+First, install the required Python modules:
+
+(pip is used here, but if your Python build has issues, you can run whatever you need)
+
+```
+pip install setuptools
+pip install raylib
+pip install PyInstaller
+```
+
+* setuptools: raylib dependency.
+* raylib: The module NUTS works on.
+* PyInstaller: Used to export ([tutorial](https://imgur.com/FK8gPlc.png))
+
 The recommended way of installing NUTS is by going into the GitHub releases section and downloading the nuts.py file from the version you want to install.
 
 The non-recommended way of installing NUTS is by downloading the [nuts.py](/nuts.py) file in the repository itself (I might have missed something there, thus why it is not recommended).
