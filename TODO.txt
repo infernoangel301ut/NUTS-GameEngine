@@ -1,0 +1,24 @@
+Stuff to be done, just to remember.
+
+Before public release:
+- Get NUTS to, at the very least, a state which can actually be useful [STATUS: DONE, 100%]
+- Test and fix any remaining errors on NUTS. [STATUS: DONE, 100%]
+- Remake the README file, both in English and Spanish. [STATUS: DONE, 100%]
+- Remake the documentation, both in English and Spanish. [STATUS: NOT DONE, 0%]
+- Create tutorials, both in English and Spanish. [STATUS: NOT DONE, 0%]
+- Create a Release on GitHub. [STATUS: NOT DONE, 0%] [INFO: Not doing this yet since I might find some bug while doing the other stuff]
+- Promote NUTS (probably YouTube or TikTok). [STATUS: NOT DONE, 0%]
+
+After public release:
+- Readd collision system (it was working extremely bad, and since it was something kinda secondary, I removed it temporarily).
+- Fix bugs reported on Github or found by myself.
+- Add more animation systems (like Aseprite).
+- Finding other people to work on NUTS? (they'll have to work for free since I'm not making any money from this).
+- Adding more utils to NutVector2 and NutColor.
+- Getting a logo (please let it not be hairy testicles lmao).
+- Making and adding a placeholder for when sprites are not found (kinda like how HaxeFlixel does it).
+- Adding a 3D system because would be cool.
+- Adding multiple windows support (this is going to get crazy).
+- Adding UI objects (like buttons, text inputs, and stuff like that).
+- Adding shader support.
+- Other stuff that I might think of in the future (or suggestions from people).
