@@ -42,6 +42,18 @@ Actualmente, NUTS está en una etapa del desarrollo muy temprana, así que si en
 
 De hecho, eso es bastante simple.
 
+Primero, instala los módulos de Python necesarios:
+
+```
+pip install setuptools
+pip install raylib
+pip install PyInstaller
+```
+
+* setuptools: Dependencia de raylib.
+* raylib: El módulo con el que trabaja NUTS.
+* PyInstaller: Usado para exportar ([tutorial](https://imgur.com/FK8gPlc.png)).
+
 La manera recomendada de hacerlo es descargando el archivo nuts.py de la sección de "Releases" de Github, desde la versión que quieras instalar.
 
 La manera no recomendada de hacerlo es descargando el archivo [nuts.py](/nuts.py) del repositorio en sí (puedo haberme dejado algo sin revisar, de ahí que no este recomendado).
@@ -55,3 +67,44 @@ import nuts
 # O así
 from nuts import *
 ```
+
+## ¿Cómo se usa NUTS?
+
+Bueno, no lo voy a explicar a detalle, ya que para ello deberías comprobar los tutoriales, pero explicaré algunas cosas simples:
+
+Primero crea una carpeta para tu proyecto, y después añade el archivo nuts.py que *probablemente* has instalado.
+
+Después crea un archivo de Python por separado, y de ahí importa nuts, de la misma manera que se hace en el apartado de arriba.
+
+El código principal deberia verse algo así:
+
+```python
+from nuts import *
+
+game = NutGame(640, 480, "titulo epico") # Ancho, alto, y título de la ventana respectivamente.
+
+class MainScene(NutScene):
+    def onLoaded(self): # Se ejecuta una vez la escena se ha cargado.
+        print("Malas NUTicias mi gente, malas NUTicias.")
+
+    def onUpdated(self): # Se ejecuta en forma de bucle hasta que la escena ya no este presente.
+        print("WAZAAAAAAAA")
+
+game.loadScene(MainScene())
+game.start()
+```
+
+Cabe añadir que también puedes crear una carpeta para meter todos los archivos para tu juego, y así mantenerlo todo organizado.
+
+## ¿Cómo cojones se te ha ocurrido crear NUTS?
+
+Bueno, en resumidas cuentas, se me ocurrió trabajar en NUTS debido a un proyecto para el instituto en el que tenemos que trabajar por todo el curso (me has oido bien, "tenemos", no "teniamos").
+
+Inicialmente tuve unas cuantas ideas, pero decidi hacer un motor de juego, principalmente por que:
+
+1. No es realmente un juego, así que en principio cuenta XD.
+2. Ya todos hemos visto como se hace un juego, ¿pero y los motores que usan? Casi nunca recibimos una explicación sobre como funciona.
+
+Durante el desarrollo, me estaba gustando bastante como estaba quedando, así que decidi que lo hiba a publicar de manera que cualquier persona pudiese usarlo, además de hacerle más actualizaciones.
+
+A ver, ¿esperabas que un motor de juego llamado ***NUTS*** tuviese un trasfondo *emotivo*? XD.
