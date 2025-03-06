@@ -2,6 +2,8 @@
 
 Si deseas leer este documento en español, [haz click aquí](/README_Ñ.md).
 
+[DOCUMENTATION](/DOCUMENTATION/INDEX.md)
+
 ## What is NUTS?
 
 Deez NUTS! HAHA! OK, now for real.
