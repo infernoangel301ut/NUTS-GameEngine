@@ -22,11 +22,13 @@ The number value as a string.
 
 The amount of digits for the result to be.
 
-#### find_xml_element_by_name_atr(xml_root:XmlTree.Element, name:str) -> XmlTree.Element | None
+#### find_xml_elements_by_name_atr(xml_root:XmlTree.Element, name:str) -> list[XmlTree.Element] | None
 
-Function designed to get the frame of an XML animation for the sparrow system.
+Function designed to get the frames of an XML animation for the sparrow system.
 
-Gets the XML file element by its name attribute.
+Gets all of the XML elements using the name attribute provided.
+
+(Additionally, it places them in order).
 
 ##### Parameters
 
@@ -36,9 +38,25 @@ The XML's root element, containing all of the animations.
 
 ###### name : str
 
-The animation frame name, with the numbers.
+The animation name, without the numbers, that is for the frames.
 
 ### Variables
+
+#### version : str
+
+NUTS' current version.
+
+#### is_early_version : bool
+
+Whether the NUTS version being used is really early or not. Only used to display a message on the console.
+
+#### view_width : int
+
+The viewport width. Not to be confused with the window width.
+
+#### view_height : int
+
+The viewport height. Not to be confused with the window height.
 
 #### nuts_default_logger : [NutLogger](/DOCUMENTATION/FILES/NUTLOGGER.md) = NutLogger("NUTS")
 
