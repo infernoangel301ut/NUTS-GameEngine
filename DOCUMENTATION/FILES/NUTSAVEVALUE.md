@@ -1,6 +1,8 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTSAVEVALUE.md).
 
 ## NutSaveValue Class
 
@@ -34,6 +36,6 @@ Only accepts the following types: int, float, bool, str, [NutVector2](/DOCUMENTA
 
 ### Methods
 
-#### parseVal() -> None
+#### parseVal() -> str
 
 Converts the value to a string, which will be used in the save file.

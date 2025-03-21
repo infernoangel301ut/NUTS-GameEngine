@@ -1,6 +1,8 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTTIMER.md).
 
 ## NutTimer Class
 
@@ -46,15 +48,15 @@ Whether the timer is playing or not.
 
 ###### on_timer_completed : (timer : NutTimer) -> None
 
-Function that runs when the timer has finished all loops and therefore stops playing.
+Event that runs when the timer has finished all loops and therefore stops playing.
 
 ###### on_loop_completed : (timer : NutTimer) -> None
 
-Function that runs when the timer has completed a loop.
+Event that runs when the timer has completed a loop.
 
 ###### on_timer_update : (timer : NutTimer) -> None
 
-Function that runs while the timer is playing.
+Event that runs while the timer is playing.
 
 ### Methods
 
@@ -77,5 +79,7 @@ If paused is None, it will toggle the pause. Otherwise, it will pause it accordi
 Updates the timer progress.
 
 #### [static] empty_timer_function(timer : NutTimer) -> None
+
+Method that does nothing at all.
 
 Default value for all events (you can see them in the attributes).

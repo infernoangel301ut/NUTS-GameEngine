@@ -1,14 +1,14 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTAUDIOMANAGER.md).
 
 ## NutAudioManager Class
 
 Manages and runs audio-related stuff.
 
 Recommended way to use is by using the [NutGame](/DOCUMENTATION/FILES/NUTGAME.md) `audioManager` attribute.
-
-### init method()
 
 ### Attributes
 
@@ -28,7 +28,7 @@ Saves an audio (either a sound effect or a song) with a name, which you can use 
 
 ###### audio : [NutSound](/DOCUMENTATION/FILES/NUTSOUND.md) | [NutMusic](/DOCUMENTATION/FILES/NUTMUSIC.md)
 
-The audio to save. Will save on the `sounds` attribute if its type is NutSound, and on the `music` attribute if its type is NutMusic.
+The audio to save. Will save on the `sounds` attribute if its type is [NutSound](/DOCUMENTATION/FILES/NUTSOUND.md), and on the `music` attribute if its type is [NutMusic](/DOCUMENTATION/FILES/NUTMUSIC.md).
 
 ###### name : str
 
@@ -80,10 +80,10 @@ The name the audio will be saved with. Will have to be used later in order to pl
 
 Update all information on the audios.
 
-Is automatically ran by NutGame, so no need to run it yourself.
+Is automatically ran by [NutGame](/DOCUMENTATION/FILES/NUTGAME.md), so no need to run it yourself.
 
 #### unloadAllCurrentAudios() -> None
 
 Gets rid of all currently stored audios.
 
-Is automatically ran by NutGame, but you can still run it if needed.
+Is automatically ran by [NutGame](/DOCUMENTATION/FILES/NUTGAME.md), but you can still run it if needed.

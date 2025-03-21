@@ -1,10 +1,14 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md).
 
 ## NutTweenEase Class
 
 Class that contains functions for tween movement. (Kinda works like an Enum lol)
+
+To see all tween eases visually as a graph, [click here](https://www.desmos.com/calculator/hmaufhan7z).
 
 ### Recurrent parameters
 
@@ -13,8 +17,6 @@ Class that contains functions for tween movement. (Kinda works like an Enum lol)
 The tween progress, with a value from 0 to 1.
 
 ### Methods
-
-#### [static] linear(x : float) -> float
 
 #### [static] linear(x : float) -> float
 

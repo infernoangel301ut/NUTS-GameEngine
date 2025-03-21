@@ -1,20 +1,20 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTKEYBOARD.md).
 
 ## NutKeyboard Class
 
 Manages inputs from both mouse and keyboard.
 
-Recommended way to use is by using the NutGame `keyboard` attribute.
-
-### init method ()
+Recommended way to use is by using the [NutGame](/DOCUMENTATION/FILES/NUTGAME.md) `keyboard` attribute.
 
 ### Attributes
 
 ###### curHeldKeys : list[[NutKey](/DOCUMENTATION/FILES/NUTKEY.md)]
 
-Saves all keys that have been pressed but not yet released.
+Stores all keys that are being held down.
 
 ### Methods
 
@@ -40,7 +40,7 @@ Gives the current mouse position.
 
 #### update(curState : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)) -> None
 
-Updates all the key related information and runs the input events for the current loaded scene in case there are.
+Updates all the key related information and runs the input events for the current loaded scene and its subscenes, in case there are any inputs.
 
 ###### curState : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)
 

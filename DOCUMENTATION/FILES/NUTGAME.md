@@ -1,6 +1,8 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTGAME.md).
 
 ## NutGame Class
 
@@ -33,6 +35,18 @@ The game window's width.
 ###### winHeight : float
 
 The game window's height.
+
+###### viewWidth : float
+
+The viewport's width.
+
+###### viewHeight : float
+
+The viewport's height.
+
+###### winPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
+
+The current position of the window in the desktop.
 
 ###### title : str
 
@@ -76,6 +90,46 @@ Whether the game should close on the next frame or not.
 
 Alternatively, you can run the close() method which will automatically set this attribute to True.
 
+###### viewportCamera : pyray.Camera2D
+
+The raylib camera containing the view relative to the window size.
+
+[EXPLANATION!!! The window is what you're seeing on your desktop, while the viewport, is what the window itself is containing. They can both have different sizes.]
+
+[The viewport maintains the initial size while adapting itself to the window, thus making resizing the window less glitchy.]
+
+###### resizable : bool
+
+Whether the window can be resized or not. Use the `updateWindowProperties` method to apply.
+
+###### fullscreen : bool
+
+Whether the game should be on fullscreen or windowed. Use the `updateWindowProperties` method to apply.
+
+###### was_fullscreen : bool
+
+Whether the game was previously on fullscreen or windowed, used to avoid glitches.
+
+###### shouldRestoreAfterFullscreen : bool
+
+Whether the game should apply some changes after fullscreen, used to avoid glitches.
+
+###### borderless : bool
+
+Whether the window should have borders or not. Use the `updateWindowProperties` method to apply.
+
+###### was_borderless : bool
+
+Whether the game was previously on borderless or not, used to avoid glitches.
+
+###### allowsTransparency : bool
+
+Whether the game allows for actual window transparency or not. Use the `updateWindowProperties` method to apply.
+
+###### viewBorderColor : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
+
+The color used for the viewport obrders.
+
 ### Methods
 
 #### saveFileExists(file_dir : str, file_name : str) -> bool
@@ -113,6 +167,18 @@ Runs the loadScene method using the current scene, reloading it.
 #### close() -> None
 
 Closes the game window.
+
+#### updateWindowSize() -> None
+
+Updates the window size according to the `winWidth` and `winHeight` attributes.
+
+#### updateWindowPos() -> None
+
+Updates the window position according to the `winPos` attributes.
+
+#### updateWindowProperties() -> None
+
+Updates the window according to the attributes defining it.
 
 #### start() -> None
 

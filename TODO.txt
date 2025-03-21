@@ -2,9 +2,9 @@ Stuff to be done, just to remember.
 
 Before public release:
 - Get NUTS to, at the very least, a state which can actually be useful [STATUS: DONE, 100%]
-- Test and fix any remaining errors on NUTS. [STATUS: DONE, 100%]
+- Test and fix any remaining bugs in NUTS. [STATUS: DONE, 100%]
 - Remake the README file, both in English and Spanish. [STATUS: DONE, 100%]
-- Remake the documentation, both in English and Spanish. [STATUS: NOT DONE, 0%]
+- Remake the documentation, both in English and Spanish. [STATUS: W.I.P., 50%]
 - Create tutorials, both in English and Spanish. [STATUS: NOT DONE, 0%]
 - Create a Release on GitHub. [STATUS: NOT DONE, 0%] [INFO: Not doing this yet since I might find some bug while doing the other stuff]
 - Promote NUTS (probably YouTube or TikTok). [STATUS: NOT DONE, 0%]

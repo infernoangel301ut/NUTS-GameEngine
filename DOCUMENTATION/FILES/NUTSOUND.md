@@ -1,10 +1,12 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTSOUND.md).
 
 ## NutSound Class
 
-The class used for sound effects (USE NutMusic FOR MUSIC).
+The class used for sound effects (USE [NutMusic](/DOCUMENTATION/FILES/NUTMUSIC.md) FOR MUSIC).
 
 ### init method (path : str, volume : float = 0.5, pitch : float = 1)
 

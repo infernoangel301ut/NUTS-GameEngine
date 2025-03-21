@@ -1,6 +1,6 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
 
 ## Index
 
@@ -27,11 +27,10 @@ Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATI
 * [NutTween](/DOCUMENTATION/FILES/NUTTWEEN.md)
 * [NutCamera](/DOCUMENTATION/FILES/NUTCAMERA.md)
 * [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)
+* [NutSubScene](/DOCUMENTATION/FILES/NUTSUBSCENE.md)
 * [NutKeyboard](/DOCUMENTATION/FILES/NUTKEYBOARD.md)
 * [NutAudioManager](/DOCUMENTATION/FILES/NUTAUDIOMANAGER.md)
 * [NutSaveValue](/DOCUMENTATION/FILES/NUTSAVEVALUE.md)
 * [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)
 * [NutSaveFile](/DOCUMENTATION/FILES/NUTSAVEFILE.md)
-* [NutCollisionDirection](/DOCUMENTATION/FILES/NUTCOLLISIONDIRECTION.md)
-* [NutCollisionManager](/DOCUMENTATION/FILES/NUTCOLLISIONMANAGER.md)
 * [NutGame](/DOCUMENTATION/FILES/NUTGAME.md)

@@ -724,11 +724,13 @@ class NutSubScene(NutScene):
             pyray.draw_rectangle(0, 0, pyray.get_render_width(), pyray.get_render_height(), self.bgColor.toRaylibColor())
             if self.awaitingLoad:
                 self.awaitingLoad = False
+                self.children.clear()
                 self.onLoaded()
-            self.onUpdated(pyray.get_frame_time())
+            if not self.update_paused: self.onUpdated(pyray.get_frame_time())
             super().render(self.position + globalPos, self, self.drawing_paused)
-            self.onUpdatedPost(pyray.get_frame_time())
+            if not self.update_paused: self.onUpdatedPost(pyray.get_frame_time())
         # unlike other objects, NutSubScene does not give a fuck whether its parent is paused
+        # it only cares whether THEY are paused or not
         # this also applies for its scene methods
 
     def toggleActivate(self, value:bool | None = None):
@@ -961,8 +963,8 @@ class NutGame:
     def updateWindowProperties(self):
         pyray.set_window_title(self.title)
         pyray.set_config_flags(
-            pyray.ConfigFlags.FLAG_WINDOW_RESIZABLE * self.resizable |
-            pyray.ConfigFlags.FLAG_WINDOW_TRANSPARENT * self.allowsTransparency
+            (pyray.ConfigFlags.FLAG_WINDOW_RESIZABLE * self.resizable) |
+            (pyray.ConfigFlags.FLAG_WINDOW_TRANSPARENT * self.allowsTransparency)
         )
         if self.borderless != self.was_borderless:
             pyray.toggle_borderless_windowed()

@@ -1,6 +1,8 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTSPRITE.md).
 
 ## NutSprite Class
 
@@ -8,7 +10,7 @@ Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATI
 
 A sprite that is displayed on the screen.
 
-### init method (image_dir : str, position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2(), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)NutVector2 | None = None)
+### init method (image_dir : str, position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2(), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) | None = None)
 
 ###### image_dir : str
 

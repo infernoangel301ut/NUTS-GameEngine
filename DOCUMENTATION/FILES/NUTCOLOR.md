@@ -1,6 +1,8 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md).
 
 ## NutColor Class
 
@@ -85,3 +87,11 @@ Allows you to get the NutColor value from a hexadecimal code.
 ###### hexadecimal : str
 
 The hexadecimal code for this color.
+
+#### [static] convert(x : pyray.Color | list | tuple | int) -> NutColor
+
+Converts `x` into a NutColor object.
+
+###### x : pyray.Vector2 | list | tuple
+
+The object to convert.

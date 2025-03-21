@@ -1,14 +1,16 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md).
 
 ## NutScene Class
 
-[This class extends the NutObject class, attributes and methods inherited from it will not be shown for simplicity]
+[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
 
 A scene to be displayed by the game, contains most of the main stuff for the game to run.
 
-To make your own scene, you usually extend this class.
+To make your own scene, extend this class.
 
 ### Attributes
 
@@ -19,6 +21,14 @@ This scene's background color.
 ###### keepAudioOnUnload : bool
 
 Whether all audio should be cleared on loading another scene. (True by default)
+
+###### update_paused : bool
+
+Whether the onUpdate event should be ran or not. (False by default)
+
+###### drawing_paused : bool
+
+Whether animated sprites in this scene should be paused or not. (False by default)
 
 ### Methods
 

@@ -1,6 +1,8 @@
 # NUTS Game Engine Documentation
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+Si deseas leer la documentación en español, [haz click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+
+O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md).
 
 ## NutObject Class
 
@@ -24,11 +26,11 @@ The object position in the window.
 
 ### Methods
 
-#### render(globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), parent : NutObject | None) -> None
+#### render(globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), parent : NutObject | None, paused : bool) -> None
 
 Renders this object on the screen.
 
-(This method is automatically ran by the NutGame class, there's no need to run it yourself).
+(This method is automatically ran by the [NutGame](/DOCUMENTATION/FILES/NUTGAME.md) class, there's no need to run it yourself).
 
 ###### globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
@@ -39,6 +41,10 @@ The parent's position, to adjust this current object's position.
 This NutObject's parent, or None if it has no parent (awesome fatherless joke).
 
 Used to get properties from the parent.
+
+###### paused : bool
+
+Whether it is paused or not.
 
 #### centerX() -> None
 
