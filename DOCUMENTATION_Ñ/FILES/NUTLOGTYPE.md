@@ -1,12 +1,14 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutLogType Enum
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTLOGTYPE.md).
 
-Used for types of logging.
+## Enumerador NutLogType
 
-### Enum Values
+Utilizado para tipos de loggear.
+
+### Valores del Enumerador
 
 ###### INFO = 0
 ###### WARNING = 1

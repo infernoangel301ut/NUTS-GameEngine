@@ -1,73 +1,75 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutSprite Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTSPRITE.md).
 
-[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
+## Clase NutSprite
 
-A sprite that is displayed on the screen.
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
 
-### init method (image_dir : str, position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2(), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)NutVector2 | None = None)
+Un sprite siendo mostrado en pantalla.
+
+### método init (image_dir : str, position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2(), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)NutVector2 | None = None)
 
 ###### image_dir : str
 
-The sprite image directory.
+El directorio de la imagen del sprite.
 
 ###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2()
 
-The sprite position.
+La posición del sprite.
 
 ###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) | None = None
 
-The sprite's size.
+El tamaño del sprite.
 
-If None, the size will be set to the image size.
+Si el valor es None, el tamaño se asignara a el tamaño de la imagen.
 
-### Attributes
+### Atributos
 
 ###### image_dir : str
 
-The sprite image directory.
+El directorio de la imagen del sprite.
 
 ###### image : pyray.Texture
 
-The actual image to be displayed.
+La verdadera imagen a ser mostrada.
 
 ###### display_image : pyray.Texture
 
-The `image` attribute, but modified to match the rest of the attributes.
+El atributo `image`, pero modificado para encajar con el resto de atributos.
 
 ###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The displayed image size.
+El tamaño de la imagen mostrada.
 
 ###### angle : float
 
-The sprite rotation.
+La rotación del sprite.
 
 ###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
-The sprite color modification, `NutColor(255, 255, 255)` by default.
+La modificación del color del sprite, `NutColor(255, 255, 255)` por predeterminado.
 
 ###### animation : [NutAnimationController](/DOCUMENTATION/FILES/NUTANIMATIONCONTROLLER.md)
 
-Manages the sprite animations, in case it is animated.
+Se encarga de las animaciones del sprite, en caso de estar animado.
 
 ###### scale : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The relative size multiplier. Original size is NutVector2(1, 1).
+El multiplicador de tamaño relativo. El tamaño original es NutVector2(1, 1).
 
 ###### flipX : bool
 
-Whether to flip the sprite horitzontally or not.
+Si invertir el sprite horizontalmente o no.
 
 ###### flipY : bool
 
-Whether to flip the sprite vertically or not.
+Si invertir el sprite verticalmente o no.
 
-### Methods
+### Métodos
 
 #### updateDisplay() -> None
 
-Updates the sprite to add the changed properties.
+Actualiza el sprite para añadir las propiedades cambiadas.

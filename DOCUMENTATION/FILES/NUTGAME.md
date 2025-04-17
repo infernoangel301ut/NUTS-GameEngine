@@ -8,7 +8,7 @@ O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATI
 
 The most important class, literally runs the whole thing.
 
-### init method(winWidth : float, winHeight : float, title : str, fps : int = 60)
+### init method (winWidth : float, winHeight : float, title : str, fps : int = 60)
 
 ###### winWidth : float
 
@@ -74,7 +74,7 @@ The save file storage, all save information is in this dictionary.
 
 ###### awaitingLoad : bool
 
-Checks whether it should run the states onLoaded() event.
+Checks whether it should run the scene's onLoaded() event.
 
 It is recommended that you do not change it by yourself.
 
@@ -82,7 +82,7 @@ It is recommended that you do not change it by yourself.
 
 Whether it is expected to clear the audio next frame or not.
 
-It is automatically set by changing the scene, and will have to do with its clearAudioOnUnload attribute.
+It is automatically set by changing the scene, and has to do with its clearAudioOnUnload attribute.
 
 ###### gameShouldEnd : bool
 
@@ -174,7 +174,7 @@ Updates the window size according to the `winWidth` and `winHeight` attributes.
 
 #### updateWindowPos() -> None
 
-Updates the window position according to the `winPos` attributes.
+Updates the window position according to the `winPos` attribute.
 
 #### updateWindowProperties() -> None
 

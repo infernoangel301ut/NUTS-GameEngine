@@ -269,7 +269,7 @@ class NutTweenEase:
     # x**0.5 = sqrt(x) (square root, learn exponential properties lol)
 
     # Desmos url with all these tweens being displayed:
-    # https://www.desmos.com/calculator/hmaufhan7z
+    # https://www.desmos.com/calculator/p6zalcgjl0
     @staticmethod
     def linear(x:float): return x
 
@@ -326,7 +326,7 @@ class NutObject:
                     item = self
                     if len(i.attribute_to_change) > 1:
                         for j in i.attribute_to_change[:len(i.attribute_to_change)-1]: item = item.__getattribute__(j)
-                    item.__setattr__(i.attribute_to_change[len(i.attribute_to_change)-1], i.cur_val)
+                    if i.playing: item.__setattr__(i.attribute_to_change[len(i.attribute_to_change)-1], i.cur_val)
             i.render(self.position + globalPos, self, paused)
 
     def centerX(self) -> None: self.position.x = view_width / 2
@@ -638,11 +638,16 @@ class NutTween(NutTimer):
         return cur_val
     
     def update_progress(self): self.progress = max(min(1, self.ease(self.current_time/self.time)), 0)
+
+    def play(self):
+        self.initial_val = None # Fixes a bug where it would use the previous property value instead of the new one
+        super().play()
     
     def stop(self):
         self.update_progress()
         if self.progress <= 0: self.cur_val = self.initial_val
         elif self.progress >= 1: self.cur_val = self.final_val
+        self.initial_val = None
         super().stop()
     
     def render(self, globalPos: NutVector2, parent:"NutObject | None", paused:bool):
@@ -779,8 +784,8 @@ class NutKeyboard:
             elif pyray.is_mouse_button_released(i): curState.onMouseInput(i, NutKeyState.JUST_RELEASED, mousePos)
 
         for v in curState.children.values():
-            if type(v) != NutScene: continue
-            self.update(v)
+            if type(v) != NutSubScene: continue
+            if v.activated: self.update(v)
 
 class NutAudioManager:
     def __init__(self):

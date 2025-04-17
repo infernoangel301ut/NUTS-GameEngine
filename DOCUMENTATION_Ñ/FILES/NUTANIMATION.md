@@ -1,6 +1,8 @@
 # Documentación de NUTS Game Engine
 
-If you rather reading the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTANIMATION.md).
 
 ## Clase NutAnimation
 

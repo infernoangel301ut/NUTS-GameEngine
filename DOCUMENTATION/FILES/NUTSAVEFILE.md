@@ -8,7 +8,7 @@ O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATI
 
 File that acts as a save file.
 
-### init method(file_dir : str, file_name : str)
+### init method (file_dir : str, file_name : str)
 
 ###### file_dir : str
 
@@ -36,7 +36,7 @@ The properties stored in the save file.
 
 #### setProperty(property : [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)) -> None
 
-Stores a property on the save file.
+Stores or modifies a property on the save file.
 
 ###### property : [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)
 

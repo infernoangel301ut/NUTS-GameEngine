@@ -1,61 +1,63 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutMusic Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTMUSIC.md).
 
-The class used for music (USE NutSound FOR SOUND EFFECTS).
+## Clase NutMusic
 
-### init method (path : str, looped : bool = False, volume : float = 0.5, pitch : float = 1)
+La clase utilizada para la música (UTILIZA [NutSound](/DOCUMENTATION_Ñ/FILES/NUTSOUND.md) PARA EFECTOS DE SONIDO).
+
+### método init (path : str, looped : bool = False, volume : float = 0.5, pitch : float = 1)
 
 ###### path : str
 
-The path of the music you want to play.
+La ubicación de la música que quieres reproducir.
 
 ###### looped : bool = False
 
-Whether the music should loop or not.
+Si la música debería reproducirse en bucle o no.
 
 ###### volume : float = 0.5
 
-The music volume.
+El volumen de la música.
 
 ###### pitch : float = 1
 
-The music pitch (original pitch is 1).
+El tono de la música (el tono original tiene como valor 1).
 
-### Attributes
+### Atributos
 
 ###### file_path : str
 
-The path of the music you want to play.
+La ubicación de la música que quieres reproducir.
 
 ###### raylib_audio : pyray.Music
 
-The raylib version of the music.
+La versión de raylib de la música.
 
 ###### looped : bool
 
-Whether the music should loop or not.
+Si la música debería reproducirse en bucle o no.
 
 ###### volume : float
 
-The music volume.
+El volumen de la música.
 
 ###### pitch : float
 
-The music pitch (original pitch is 1).
+El tono de la música (el tono original tiene como valor 1).
 
 ###### paused : bool
 
-Whether the music is paused or not.
+Si la música esta pausada o no.
 
 ###### playing : bool
 
-Whether the music is playing or not.
+Si la música se esta reproduciendo o no.
 
 ###### pan : float
 
-The direction the music goes to, mostly for headsets.
+La dirección a la que va la música, mayormente para auriculares.
 
-(0 is left, 1 is right, and 0.5 is centered).
+(0 es izquierda, 1 es derecha, y 0.5 es por el medio).

@@ -1,12 +1,14 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutKeyState Enum
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTKEYSTATE.md).
 
-Used to get the input type, the current state of an input.
+## Enumerador NutKeyState
 
-### Enum Values
+Utilizado para obtener el estado actual de un input.
+
+### Valores del Enumerador
 
 ###### PRESSED = 0
 ###### JUST_PRESSED = 1

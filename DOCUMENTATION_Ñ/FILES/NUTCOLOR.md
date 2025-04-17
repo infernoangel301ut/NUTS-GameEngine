@@ -1,12 +1,14 @@
 # Documentación de NUTS Game Engine
 
-If you rather reading the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTVECTOR2.md).
 
 ## Clase NutColor
 
 Tipo de valor diseñado para colores.
 
-### metodo init (r : int, g : int, b : int, a : int = 255)
+### método init (r : int, g : int, b : int, a : int = 255)
 
 ###### r : int
 
@@ -42,7 +44,7 @@ El valor azul para este color. [0, 255]
 
 El valor alfa (transparencia) para este color. [0, 255]
 
-### Metodos
+### Métodos
 
 #### toRaylibColor() -> pyray.Color
 
@@ -85,3 +87,11 @@ Te permite obtener el valor NutColor usando un código hexadecimal.
 ###### hexadecimal : str
 
 El código hexadecimal para este color.
+
+#### [estático] convert(x : pyray.Color | list | tuple | int) -> NutColor
+
+Convierte `x` en un objeto NutColor.
+
+###### x : pyray.Vector2 | list | tuple
+
+El objeto a convertir.

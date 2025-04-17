@@ -8,7 +8,7 @@ O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATI
 
 Property that is stored in a save file.
 
-### init method(name : str, val_type : type, val : any)
+### init method (name : str, val_type : type, val : any)
 
 ###### name : str
 

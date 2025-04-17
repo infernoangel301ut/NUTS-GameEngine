@@ -10,7 +10,7 @@ Value designed to be save file-friendly.
 
 Created automatically by [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md).
 
-### init method(value : any, value_type : type)
+### init method (value : any, value_type : type)
 
 ###### value : any
 

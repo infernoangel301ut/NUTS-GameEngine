@@ -1,6 +1,9 @@
+> [!IMPORTANT]
+> A pesar de estar traducido, se requiere saber hablar inglés debido a ciertos terminos y por el hecho de que NUTS en sí, a la hora de emplearlo, está en inglés. Tenlo en cuenta.
+
 # Documentación de NUTS Game Engine
 
-If you rather reading the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
 ## Indice
 
@@ -27,11 +30,10 @@ If you rather reading the documentation in English, [click here](/DOCUMENTATION/
 * [NutTween](/DOCUMENTATION_Ñ/FILES/NUTTWEEN.md)
 * [NutCamera](/DOCUMENTATION_Ñ/FILES/NUTCAMERA.md)
 * [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)
+* [NutSubScene](/DOCUMENTATION_Ñ/FILES/NUTSUBSCENE.md)
 * [NutKeyboard](/DOCUMENTATION_Ñ/FILES/NUTKEYBOARD.md)
 * [NutAudioManager](/DOCUMENTATION_Ñ/FILES/NUTAUDIOMANAGER.md)
 * [NutSaveValue](/DOCUMENTATION_Ñ/FILES/NUTSAVEVALUE.md)
 * [NutSaveProperty](/DOCUMENTATION_Ñ/FILES/NUTSAVEPROPERTY.md)
 * [NutSaveFile](/DOCUMENTATION_Ñ/FILES/NUTSAVEFILE.md)
-* [NutCollisionDirection](/DOCUMENTATION_Ñ/FILES/NUTCOLLISIONDIRECTION.md)
-* [NutCollisionManager](/DOCUMENTATION_Ñ/FILES/NUTCOLLISIONMANAGER.md)
 * [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md)

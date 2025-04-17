@@ -1,67 +1,77 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutScene Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTSCENE.md).
 
-[This class extends the NutObject class, attributes and methods inherited from it will not be shown for simplicity]
+## Clase NutScene
 
-A scene to be displayed by the game, contains most of the main stuff for the game to run.
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de él no se mostrarán por simplicidad]
 
-To make your own scene, you usually extend this class.
+Una escena para ser mostrada por el juego, contiene gran parte de las cosas principales para que se ejecute el juego.
 
-### Attributes
+Para hacer tu propia escena, extiende esta clase.
 
-###### bgColor : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
+### Atributos
 
-This scene's background color.
+###### bgColor : [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md)
+
+El color del fondo de esta escena.
 
 ###### keepAudioOnUnload : bool
 
-Whether all audio should be cleared on loading another scene. (True by default)
+Si todos los audios deberían ser eliminados en cambiar a otra escena. (True por predeterminado)
 
-### Methods
+###### update_paused : bool
+
+Si el evento onUpdated should be ejectuarse o no. (False por predeterminado)
+
+###### drawing_paused : bool
+
+Si los sprites animados en esta escena deberían pausarse o no. (False por predeterminado)
+
+### Métodos
 
 #### onLoaded() -> None
 
-Event that runs once the scene has been loaded (and then not anymore lol).
+Evento que se ejecuta cuando la escena ha sido cargada (y luego ya no XD).
 
 #### onUpdated() -> None
 
-Event that is running constantly.
+Evento que se ejecuta constantemente.
 
 #### onUpdatedPost() -> None
 
-Event that runs after everything on the scene has been updated, and therefore also runs constantly.
+Evento que se ejecuta después de que todo en la escena se haya actualizado, y por tanto también se ejecuta constantemente.
 
 #### OnUnloaded() -> None
 
-Event that runs once another scene has been loaded (so this one is replaced).
+Evento que se ejecuta cuando se ha cargado otra escena (así que esta queda reemplazada).
 
-#### OnKeyInput(key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md), state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)) -> None
+#### OnKeyInput(key : [NutKey](/DOCUMENTATION_Ñ/FILES/NUTKEY.md), state : [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md)) -> None
 
-Event that runs once an input has been done by the keyboard.
+Evento que se ejecuta cuando un input se ha hecho por el teclado.
 
-###### key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md)
+###### key : [NutKey](/DOCUMENTATION_Ñ/FILES/NUTKEY.md)
 
-The key related to the input.
+La tecla del input.
 
-###### state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
+###### state : [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md)
 
-The press state the key was found in.
+El estado en el que se encontraba la tecla.
 
-#### onMouseInput(action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md), state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md), position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)) -> None
+#### onMouseInput(action : [NutMouseAction](/DOCUMENTATION_Ñ/FILES/NUTMOUSEACTION.md), state : [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md), position : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)) -> None
 
-Event that runs once an input has been done by the mouse.
+Evento que se ejecuta cuando un input se ha hecho por el ratón.
 
-###### action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md)
+###### action : [NutMouseAction](/DOCUMENTATION_Ñ/FILES/NUTMOUSEACTION.md)
 
-Which mouse button was pressed.
+Que botón del ratón ha sido pulsado.
 
-###### state : [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
+###### state : [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md)
 
-The press state the mouse button was found it.
+El estado en el que se encontraba el botón del ratón.
 
-###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
+###### position : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)
 
-The mouse position at the time of the input.
+La posición del ratón en el momento del input.

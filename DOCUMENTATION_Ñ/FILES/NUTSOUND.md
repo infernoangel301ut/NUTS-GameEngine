@@ -1,53 +1,55 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutSound Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTSOUND.md).
 
-The class used for sound effects (USE NutMusic FOR MUSIC).
+## Clase NutSound
 
-### init method (path : str, volume : float = 0.5, pitch : float = 1)
+La clase empleada para efectos de sonido (UTILIZA [NutMusic](/DOCUMENTATION_Ñ/FILES/NUTMUSIC.md) PARA LA MÚSICA).
+
+### método init (path : str, volume : float = 0.5, pitch : float = 1)
 
 ###### path : str
 
-The path of the sound you want to play.
+La ubicación del sonido que quieres reproducir.
 
 ###### volume : float = 0.5
 
-The sound volume.
+El volumen del sonido.
 
 ###### pitch : float = 1
 
-The sound pitch (original pitch is 1).
+El tono del sonido (el tono original tiene como valor 1).
 
-### Attributes
+### Atributos
 
 ###### file_path : str
 
-The path of the sound you want to play.
+La ubicación del sonido que quieres reproducir.
 
 ###### raylib_audio : pyray.Sound
 
-The raylib version of the sound.
+La versión de raylib del sonido.
 
 ###### volume : float
 
-The sound volume.
+El volumen del sonido.
 
 ###### pitch : float
 
-The sound pitch (original pitch is 1).
+El tono del sonido (el tono original tiene como valor 1).
 
 ###### paused : bool
 
-Whether the sound effect is paused or not.
+Si el sonido esta pausado o no.
 
 ###### playing : bool
 
-Whether the sound effect is playing or not.
+Si el sonido se esta reproduciendo o no.
 
 ###### pan : float
 
-The direction the sound goes to, mostly for headsets.
+La dirección a la que va el sonido, mayormente para auriculares.
 
-(0 is left, 1 is right, and 0.5 is centered).
+(0 es izquierda, 1 es derecha, y 0.5 es por el medio).

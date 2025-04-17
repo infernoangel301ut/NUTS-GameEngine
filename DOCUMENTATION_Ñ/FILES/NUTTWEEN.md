@@ -1,49 +1,75 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutTween Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTTWEEN.md).
 
-[This class extends the [NutTimer](/DOCUMENTATION/FILES/NUTTIMER.md) class, attributes and methods inherited from it will not be shown for simplicity]
+## Clase NutTween
 
-Changes a property from ___its parent___ (very important) in a smooth way.
+[Esta clase extiende a la clase [NutTimer](/DOCUMENTATION_Ñ/FILES/NUTTIMER.md), aquellos atributos y mètodos obtenidos de el no se mostrarán por simplicidad]
 
-### init method (attribute_to_change : str, final_val : any_numeric_value, time : float, ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear)
+Cambia una propiedad de ___su parent___ (muy importante) de una manera suave.
+
+### método init (attribute_to_change : str, final_val : any_numeric_value, time : float, ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md).linear)
 
 ###### attribute_to_change : str
 
-The name of the attribute you wanna change from the parent.
+El nombre del atributo que quieres cambiar del parent.
+
+Por ejemplo, si quieres mover la posición x del parent, este valor debería ser "position.x".
+
+Solo puedes cambiar ints, floats, [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)s y [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md)s.
 
 ###### final_Val : any_numeric_value
 
-The ending value for the tween.
+El valor final para el tween.
+
+Solo puedes cambiar ints, floats, [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)s y [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md)s.
 
 ###### time : float
 
-The time it takes for the tween to end.
+El tiempo que le toma al tween para terminar.
 
-###### ease : (x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md).linear
+###### ease : (x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md).linear
 
-The ease of the tween, a.k.a. how it will move. You can use a method from [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md) or make your own.
+El movimiento que hará el tween. Puedes usar un método de [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) o hacer el tuyo propio (siempre  y cuando f(0) = 0 y f(1) = 1).
 
-### Attributes
+### Atributos
 
-###### attribute_to_change : str
+###### attribute_to_change : list[str]
 
-The name of the attribute you wanna change from the parent.
+La localización del atributo que quieres cambiar del parent.
 
-###### initial_val : any_numeric_value
+###### initial_val : any_numeric_value | None
 
-The starting value for the tween.
+El valor inicial del tween.
 
 ###### final_Val : any_numeric_value
 
-The ending value for the tween.
+El valor final del tween.
 
-###### ease : (s : any_numeric_value, f : any_numeric_value, d : float, x : float) -> any_numeric_value
+###### ease : (x : float) -> any_numeric_value
 
-The ease of the tween, a.k.a. how it will move. You can use a method from [NutTweenEase](/DOCUMENTATION/FILES/NUTTWEENEASE.md) or make your own.
+El movimiento que hará el tween. Puedes usar un método de [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) o hacer el tuyo propio (siempre  y cuando f(0) = 0 y f(1) = 1).
 
 ###### progress : float
 
-How much of the way the tween has done (cur_time divided by time with the tween ease applied to it).
+Cuanto progreso ha hecho el tween (en forma de porcentage).
+
+###### cur_val : any_numeric_value | None
+
+El valor actual del tween, según el progreso del tween. Es equivalente a `ease(progress)`.
+
+### Métodos
+
+#### get_attr_val(parent : [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md)) -> any_numeric_value
+
+Regresa el valor del atributo del tween.
+
+###### parent : [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md)
+
+El parent (es decir, el objeto del tween).
+
+#### update_progress() -> None
+
+Actualiza el atributo progress.

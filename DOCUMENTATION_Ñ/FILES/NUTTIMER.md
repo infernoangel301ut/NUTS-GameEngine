@@ -1,81 +1,83 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutTimer Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTTIMER.md).
 
-[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
+## Clase NutTimer
 
-Time that goes on until it finishes. Also runs certain events depending on what happens.
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de el no se mostrarán por simplicidad]
 
-### init method (time : float, loops : int = 1)
+Tiempo que sigue hasta que termina. También ejecuta ciertos eventos dependiendo de lo que pase.
+
+### método init (time : float, loops : int = 1)
 
 ###### time : float
 
-The time in seconds until a loop is finished.
+El tiempo en segundos hasta que una repetición haya terminado.
 
 ###### loops : int = 1
 
-The amount of times the timer will repeat itself.
+La cantidad de veces que el temporizador se repetirá.
 
-If the amount of loops is 0 or lower, the timer will loop infinitely.
+Si la cantidad de repeticiones es igual o menor a 0, el temporizador se repetirá infinitamente.
 
-### Attributes
+### Atributos
 
 ###### time : float
 
-The time in seconds until a loop is finished.
+El tiempo en segundos hasta que una repetición haya terminado.
 
 ###### loops : int
 
-The amount of times the timer will repeat itself.
+La cantidad de veces que el temporizador se repetirá.
 
-If the amount of loops is 0 or lower, the timer will loop infinitely.
+Si la cantidad de repeticiones es igual o menor a 0, el temporizador se repetirá infinitamente.
 
 ###### current_time : float
 
-The amount of time that went on.
+La cantidad de tiempo que ha pasado.
 
 ###### current_loops : int
 
-The amount of loops completed.
+La cantidad de repeticiones completadas.
 
 ###### playing : bool
 
-Whether the timer is playing or not.
+Si el temporizador se está reproduciendo o no.
 
 ###### on_timer_completed : (timer : NutTimer) -> None
 
-Function that runs when the timer has finished all loops and therefore stops playing.
+Función que se ejecuta cuando el temporizador ha terminado todas las repeticiones y por lo tanto, deja de reproducirse.
 
 ###### on_loop_completed : (timer : NutTimer) -> None
 
-Function that runs when the timer has completed a loop.
+Función que se ejecuta cuando el temporizador ha terminado una repetición.
 
 ###### on_timer_update : (timer : NutTimer) -> None
 
-Function that runs while the timer is playing.
+Función que se ejecuta mientras el temporizador se reproduce.
 
-### Methods
+### Métodos
 
 #### play() -> None
 
-Starts the timer.
+Inicia el temporizador.
 
 #### stop() -> None
 
-Stops the timer before actually ending.
+Detiene el temporizador antes de terminar.
 
 #### pause(paused : bool | None = None) -> None
 
-Pauses or resumes the timer.
+Pausa o continua el temporizador.
 
-If paused is None, it will toggle the pause. Otherwise, it will pause it according to it.
+Si paused es None, se cambiara el estado de la pausa. Si no, se pausará según el valor.
 
 #### update() -> None
 
-Updates the timer progress.
+Actualiza el progreso del temporizador.
 
 #### [static] empty_timer_function(timer : NutTimer) -> None
 
-Default value for all events (you can see them in the attributes).
+Valor por predeterminado para todos los eventos (puedes verlos en los atributos).

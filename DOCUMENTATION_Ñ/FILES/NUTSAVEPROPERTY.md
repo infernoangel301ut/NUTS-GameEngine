@@ -1,31 +1,33 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutSaveProperty Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md).
 
-Property that is stored in a save file.
+## Clase NutSaveProperty
 
-### init method(name : str, val_type : type, val : any)
+Propiedad que se almacena en un archivo de guardado.
+
+### método init (name : str, val_type : type, val : any)
 
 ###### name : str
 
-The name of the property. Will be used to access it.
+El nombre de la propiedad. Se utilizará para acceder a ella.
 
 ###### val_type : type
 
-The type of the value you want to save. Only accepts the following: int, float, bool, str, [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md).
+El tipo de valor que quieres guardar. Solo acepta los siguientes: int, float, bool, str, [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md), [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md).
 
 ###### val : any
 
-The value you want to save.
+El valor que quieres guardar.
 
-### Attributes
+### Atributos
 
 ###### name : str
 
-The name of the property. Will be used to access it.
+El nombre de la propiedad. Se utilizará para acceder a ella.
 
-###### val : [NutSaveValue](/DOCUMENTATION/FILES/NUTSAVEVALUE.md)
+###### val : [NutSaveValue](/DOCUMENTATION_Ñ/FILES/NUTSAVEVALUE.md)
 
-The value that will be saved.
+El valor que será guardado.

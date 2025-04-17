@@ -1,53 +1,55 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutSaveFile Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTSAVEFILE.md).
 
-File that acts as a save file.
+## Clase NutSaveFile
 
-### init method(file_dir : str, file_name : str)
+Archivo que hace de archivo de guardado.
 
-###### file_dir : str
-
-The folder on which the save file will be stored.
-
-###### file_name : str
-
-The name of the actual file (extension will be added on creating the file).
-
-### Attributes
+### método init (file_dir : str, file_name : str)
 
 ###### file_dir : str
 
-The folder on which the save file will be stored.
+El directorio en el que se almacenará el archivo de guardado.
 
 ###### file_name : str
 
-The name of the actual file (extension will be added on creating the file).
+El nombre del archivo en sí (la extensión se añadirá al crear el archivo).
 
-###### properties : dict[str, [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)]
+### Atributos
 
-The properties stored in the save file.
+###### file_dir : str
 
-### Methods
+El directorio en el que se almacenará el archivo de guardado.
 
-#### setProperty(property : [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)) -> None
+###### file_name : str
 
-Stores a property on the save file.
+El nombre del archivo en sí (la extensión se añadirá al crear el archivo).
 
-###### property : [NutSaveProperty](/DOCUMENTATION/FILES/NUTSAVEPROPERTY.md)
+###### properties : dict[str, [NutSaveProperty](/DOCUMENTATION_Ñ/FILES/NUTSAVEPROPERTY.md)]
 
-The property to save.
+Las propiedades almacenadas en el archivo de guardado.
+
+### Métodos
+
+#### setProperty(property : [NutSaveProperty](/DOCUMENTATION_Ñ/FILES/NUTSAVEPROPERTY.md)) -> None
+
+Almacena o modifica una propiedad en el archivo de guardado.
+
+###### property : [NutSaveProperty](/DOCUMENTATION_Ñ/FILES/NUTSAVEPROPERTY.md)
+
+La propiedad que almacenar o modificar.
 
 #### parsePropertiesAsStr() -> str | None
 
-Returns the contents of the save file as a string based on all the properties.
+Regresa los contenidos del archivo de guardado como un string basandose en las propiedades.
 
 #### saveFile() -> None
 
-Saves the file on the specified folder with the specified name with the file extension ".nutsave".
+Guarda el archivo en la carpeta especificada con el nombre especificado con la extensión de archivo ".nutsave".
 
 #### loadFile() -> None
 
-Loads the save file located on the specified folder with the specified name with the file extension ".nutsave".
+Carga el archivo de la carpeta especificada con el nombre especificado con la extensión de archivo ".nutsave".

@@ -14,8 +14,6 @@ Function designed to get the frame of an XML animation for the sparrow system.
 
 Gets the number, and adds zeros to the left until its length is the same as amount.
 
-##### Parameters
-
 ###### num : str
 
 The number value as a string.
@@ -32,15 +30,13 @@ Gets all of the XML elements using the name attribute provided.
 
 (Additionally, it places them in order).
 
-##### Parameters
-
 ###### xml_root : XmlTree.Element
 
 The XML's root element, containing all of the animations.
 
 ###### name : str
 
-The animation name, without the numbers, that is for the frames.
+The animation name, without the numbers, that is for the individual frames.
 
 ### Variables
 

@@ -1,71 +1,73 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutText Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTTEXT.md).
 
-[This class extends the [NutObject](/DOCUMENTATION/FILES/NUTOBJECT.md) class, attributes and methods inherited from it will not be shown for simplicity]
+## Clase NutText
 
-The text object (displays text, what a surprise).
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de el no se mostrarán por simplicidad]
 
-### init method (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), text : str, size : int, color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md) = NutColor(255, 255, 255))
+El objeto de texto (muestra texto, sorprendente).
 
-###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
+### método init (position : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md), text : str, size : int, color : [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md) = NutColor(255, 255, 255))
 
-The text position.
+###### position : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)
 
-###### text : str
-
-The string of text to be shown in the object.
-
-###### size : int
-
-The text size (not to be confused with the object size).
-
-###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md) = NutColor(255, 255, 255)
-
-The text color.
-
-### Attributes
+La posición del texto.
 
 ###### text : str
 
-The string of text to be shown in the object.
+El string de texto para ser mostrado en el objeto.
 
 ###### size : int
 
-The text size (not to be confused with the object size).
+El tamaño del texto (no confundir con el tamaño del objeto).
+
+###### color : [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md) = NutColor(255, 255, 255)
+
+El color del texto.
+
+### Atributos
+
+###### text : str
+
+El string de texto para ser mostrado en el objeto.
+
+###### size : int
+
+El tamaño del texto (no confundir con el tamaño del objeto).
 
 ###### font : str | None
 
-The directory for the font being used.
+El directorio de la fuente que se usa.
 
 ###### raylib_font : pyray.Font | None
 
-The raylib font object, used for rendering.
+El objeto de fuente de raylib, usado para renderizar.
 
-###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
+###### color : [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md)
 
-The text color.
+El color del texto.
 
 ###### spacing : int
 
-The space between each letter.
+El espacio entre cada letra.
 
 ###### angle : float
 
-The text rotation.
+La rotación del texto.
 
-### Methods
+### Métodos
 
 #### loadFont(font_dir : str) -> None
 
-Loads a font to be used for the text.
+Carga una fuente para ser usada en el texto.
 
 ###### font_dir : str
 
-The font directory.
+El directorio de la fuente.
 
 #### setDefaultFont() -> None
 
-Removes the current font and sets the default one instead.
+Elimina la fuente actual y asigna la predeterminada.

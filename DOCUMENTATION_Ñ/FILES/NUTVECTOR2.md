@@ -1,33 +1,45 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutVector2 Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTVECTOR2.md).
 
-Numeric value that contains 2 numbers. Used for two-dimensional values like position and size.
+## Clase NutVector2
 
-### init method (x : float = 0, y : float = 0)
+Valor numerico que contiene dos números. Usado para valores bidimensionales como posición y tamaño.
+
+Este objeto permite sumas y restas.
+
+### método init (x : float = 0, y : float = 0)
 
 ###### x : float = 0
 
-The horizontal value.
+El valor horizontal.
 
 ###### y : float = 0
 
-The vertical value.
+El valor vertical.
 
-### Attributes
+### Atributos
 
 ###### x : float
 
-The horizontal value.
+El valor horizontal.
 
 ###### y : float
 
-The vertical value.
+El valor vertical.
 
-### Methods
+### Métodos
 
 #### toRaylibVector2() -> pyray.Vector2
 
-Returns the current NutVector2 as a raylib Vector2 class.
+Regresa el NutVector2 actual en forma de clase Vector2 de raylib.
+
+#### [estático] convert(x : pyray.Vector2 | list | tuple) -> NutVector2
+
+Convierte `x` a un objeto NutVector2.
+
+###### x : pyray.Vector2 | list | tuple
+
+El objeto a convertir.

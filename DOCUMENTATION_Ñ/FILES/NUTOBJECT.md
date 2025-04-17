@@ -1,53 +1,59 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutObject Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTOBJECT.md).
 
-The base on-screen object, everything that gets rendered comes from this class.
+## Clase NutObject
 
-### init method (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2())
+La base para objetos ubicados en la pantalla, todo aquello que se renderiza proviene de esta clase.
+
+### método init (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2())
 
 ###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) = NutVector2()
 
-The object position in the window (still won't be visible though lol, because this is NOTHING).
+La posición del objeto en la ventana (aun así no será visible, por que no és NADA).
 
-### Attributes
+### Atributos
 
 ###### children : dict[str, NutObject]
 
-The other NutObjects that depend on this current one.
+Los otros NutObjects que dependen de este.
 
 ###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The object position in the window.
+La posición del objeto en la ventana.
 
-### Methods
+### Métodos
 
-#### render(globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), parent : NutObject | None) -> None
+#### render(globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), parent : NutObject | None, paused : bool) -> None
 
-Renders this object on the screen.
+Renderiza este objeto en la ventana.
 
-(This method is automatically ran by the NutGame class, there's no need to run it yourself).
+(Este método se ejecuta automáticamente por la clase [NutGame](/DOCUMENTATION/FILES/NUTGAME.md), no hay necesidad de ejecutarlo tú mismo).
 
 ###### globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The parent's position, to adjust this current object's position.
+La posición del parent, para ajustar la posición del objeto actual.
 
 ###### parent : NutObject | None
 
-This NutObject's parent, or None if it has no parent (awesome fatherless joke).
+El parent de este NutObject, o None si no tiene parent (chiste de sin papa gracioso).
 
-Used to get properties from the parent.
+Usado para obtener propiedades del parent.
+
+###### paused : bool
+
+Si está pausado o no.
 
 #### centerX() -> None
 
-Centers the NutObject on the X axis.
+Centra el NutObject en el eje X.
 
 #### centerY() -> None
 
-Centers the NutObject on the Y axis.
+Centra el NutObject en el eje Y.
 
 #### center() -> None
 
-Centers the NutObject on both the X and Y axis.
+Centra el NutObject tanto en el eje X como en el eje Y.

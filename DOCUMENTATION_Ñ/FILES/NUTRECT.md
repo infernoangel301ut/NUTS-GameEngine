@@ -1,37 +1,39 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutRect Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTRECT.md).
 
-[This class extends the NutObject class, attributes and methods inherited from it will not be shown for simplicity]
+## Clase NutRect
 
-Rectangle that is displayed on screen.
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
 
-### init method (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md))
+Rectangulo que se muestra en la pantalla.
+
+### método init (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md))
 
 ###### position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The NutRect's position on the screen.
+La posición del NutRect en la pantalla.
 
 ###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The NutRect's size.
+El tamaño del NutRect.
 
 ###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
-The NutRect's color.
+El color del NutRect.
 
-### Attributes
+### Atributos
 
 ###### size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-The NutRect's size.
+El tamaño del NutRect.
 
 ###### color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
-The NutRect's color.
+El color del NutRect.
 
 ###### angle : float
 
-The rotation of this NutRect.
+La rotación de este NutRect.

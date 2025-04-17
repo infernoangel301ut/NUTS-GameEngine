@@ -8,7 +8,7 @@ O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATI
 
 Class that contains functions for tween movement. (Kinda works like an Enum lol)
 
-To see all tween eases visually as a graph, [click here](https://www.desmos.com/calculator/hmaufhan7z).
+To see all tween eases visually as a graph, [click here](https://www.desmos.com/calculator/p6zalcgjl0).
 
 ### Recurrent parameters
 

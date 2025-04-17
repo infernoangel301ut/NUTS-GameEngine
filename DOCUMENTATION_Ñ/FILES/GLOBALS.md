@@ -1,6 +1,8 @@
 # Documentación de NUTS Game Engine
 
-If you rather reading the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
+
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/GLOBALS.md).
 
 ## Funciones y variables globales
 
@@ -12,8 +14,6 @@ Función diseñada para obtener el frame de una animación XML para el sistema d
 
 Obtiene el número, y añade ceros a la izquierda hasta que su longitud sea igual a la cantidad.
 
-##### Parámetros
-
 ###### num : str
 
 El valor del número en forma de string.
@@ -22,13 +22,11 @@ El valor del número en forma de string.
 
 La cantidad de dígitos que debe tener el resultado.
 
-#### find_xml_element_by_name_atr(xml_root:XmlTree.Element, name:str) -> XmlTree.Element | None
+#### find_xml_elementS_by_name_atr(xml_root:XmlTree.Element, name:str) -> list[XmlTree.Element] | None
 
 Función diseñada para obtener el frame de una animación XML para el sistema de sparrow.
 
-Obtiene el elemento de un archivo XML por su attributo "name".
-
-##### Parámetros
+Obtiene todos los elementos de un archivo XML el attributo proveido "name".
 
 ###### xml_root : XmlTree.Element
 
@@ -36,9 +34,21 @@ El elemento principal del XML, el cual contiene todas las animaciones.
 
 ###### name : str
 
-El nombre del frame de la animación, con los números al final incluidos.
+El nombre del frame de la animación, sin los números, eso es para los frames individuales.
 
 ### Variables
+
+#### version : str
+
+La versión actual de NUTS.
+
+#### view_width : int
+
+El ancho del viewport. No confundir con el ancho de la ventana.
+
+#### view_height : int
+
+El alto del viewport. No confundir con el alto de la ventana.
 
 #### nuts_default_logger : [NutLogger](/DOCUMENTATION_Ñ/FILES/NUTLOGGER.md) = NutLogger("NUTS")
 

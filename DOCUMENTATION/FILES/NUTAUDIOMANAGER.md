@@ -56,7 +56,7 @@ Whether the audio got saved as a sound effect (True) or music (False).
 
 ###### name : str
 
-The name the audio will be saved with. Will have to be used later in order to play the audio.
+The name the audio got saved with.
 
 ###### pause : bool | None = None
 
@@ -74,7 +74,7 @@ Whether the audio got saved as a sound effect (True) or music (False).
 
 ###### name : str
 
-The name the audio will be saved with. Will have to be used later in order to play the audio.
+The name the audio got saved with.
 
 #### updateAllAudios() -> None
 

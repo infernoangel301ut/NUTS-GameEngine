@@ -1,33 +1,35 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutLogger Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTLOGGER.md).
 
-Custom logging system (to use a fancier system than print lol).
+## Clase NutLogger
 
-### init method (log_name : str)
+Systema de logging personalizado (para usar un sistema más elegante que print XD).
 
-###### log_name : str
-
-The name that appears in the logs created by this logger.
-
-### Attributes
+### método init (log_name : str)
 
 ###### log_name : str
 
-The name that appears in the logs created by this logger.
+El nombre que aparece en los logs creados por este logger.
 
-### Methods
+### Atributos
 
-#### log(message : Any, log_type : [NutLogType](/DOCUMENTATION/FILES/NUTLOGTYPE.md) = NutLogType.INFO) -> None
+###### log_name : str
 
-Logs `message` in the console with the `log_type` type. (Fancier printing system lol).
+El nombre que aparece en los logs creados por este logger.
+
+### Métodos
+
+#### log(message : Any, log_type : [NutLogType](/DOCUMENTATION_Ñ/FILES/NUTLOGTYPE.md) = NutLogType.INFO) -> None
+
+Loggea `message` en la consola con el tipo `log_type`. (Sistema de printing más elegante XD).
 
 ###### message : Any
 
-The message to log.
+El mensaje a loggear.
 
-###### log_type : [NutLogType](/DOCUMENTATION/FILES/NUTLOGTYPE.md) = NutLogType.INFO
+###### log_type : [NutLogType](/DOCUMENTATION_Ñ/FILES/NUTLOGTYPE.md) = NutLogType.INFO
 
-The type of the message that will be logged.
+El tipo de mensaje que será loggeado.

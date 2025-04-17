@@ -58,7 +58,7 @@ How much of the way the tween has done (as a percentage).
 
 ###### cur_val : any_numeric_value | None
 
-The current tween value, according to the tween progress.
+The current tween value, according to the tween progress. Is equivalent to `ease(progress)`.
 
 ### Methods
 

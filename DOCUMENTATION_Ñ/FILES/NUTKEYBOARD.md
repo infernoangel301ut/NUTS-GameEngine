@@ -1,47 +1,47 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutKeyboard Class
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTKEYBOARD.md).
 
-Manages inputs from both mouse and keyboard.
+## Clase NutKeyboard
 
-Recommended way to use is by using the NutGame `keyboard` attribute.
+Gestiona los inputs tanto del teclado como del ratón.
 
-### init method ()
+La forma recomendada de utilizarlo es a través del atributo `keyboard` de [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md).
 
-### Attributes
+### Atributos
 
-###### curHeldKeys : list[[NutKey](/DOCUMENTATION/FILES/NUTKEY.md)]
+###### curHeldKeys : list[[NutKey](/DOCUMENTATION_Ñ/FILES/NUTKEY.md)]
 
-Saves all keys that have been pressed but not yet released.
+Almacena todas las teclas que se están manteniendo.
 
-### Methods
+### Métodos
 
-#### getKeyState(key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md)) -> [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
+#### getKeyState(key : [NutKey](/DOCUMENTATION_Ñ/FILES/NUTKEY.md)) -> [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md)
 
-Returns in which state the key is found in.
+Regresa el estado en el que se encuentra la tecla.
 
-###### key : [NutKey](/DOCUMENTATION/FILES/NUTKEY.md)
+###### key : [NutKey](/DOCUMENTATION_Ñ/FILES/NUTKEY.md)
 
-The key to give information on.
+La tecla de la cual dar información.
 
-#### getMouseState(action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md)) -> [NutKeyState](/DOCUMENTATION/FILES/NUTKEYSTATE.md)
+#### getMouseState(action : [NutMouseAction](/DOCUMENTATION_Ñ/FILES/NUTMOUSEACTION.md)) -> [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md)
 
-Returns in which state the mouse button is found in.
+Regresa el estado en el que se encuentra el botón del ratón.
 
-###### action : [NutMouseAction](/DOCUMENTATION/FILES/NUTMOUSEACTION.md)
+###### action : [NutMouseAction](/DOCUMENTATION_Ñ/FILES/NUTMOUSEACTION.md)
 
-The mouse button to give information on.
+El botón del ratón del cual dar información.
 
-#### getMousePosition() -> [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
+#### getMousePosition() -> [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)
 
-Gives the current mouse position.
+Regresa la posición actual del ratón.
 
-#### update(curState : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)) -> None
+#### update(curState : [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)) -> None
 
-Updates all the key related information and runs the input events for the current loaded scene in case there are.
+Actualiza toda la información relacionada a las teclas y ejecuta eventos de los inputs para la escena cargada actualmente y sus subescenas, en caso de haber inputs.
 
-###### curState : [NutScene](/DOCUMENTATION/FILES/NUTSCENE.md)
+###### curState : [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)
 
-The current loaded scene.
+La escena cargada actualmente.

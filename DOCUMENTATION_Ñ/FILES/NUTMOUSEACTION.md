@@ -1,12 +1,14 @@
-# NUTS Game Engine Documentation
+# Documentación de NUTS Game Engine
 
-Si prefieres leer la documentación en español, [haga click aquí](/DOCUMENTATION_Ñ/INDEX.md).
+If you wish to read the documentation in English, [click here](/DOCUMENTATION/INDEX.md).
 
-## NutMouseAction Enum
+Or if you wish to read this specific document in English, [click here](/DOCUMENTATION/FILES/NUTMOUSEACTION.md).
 
-Used to get a mouse button (for input detection).
+## Enumerador NutMouseAction
 
-### Enum Values
+Empleado para obtener el botón de un ratón (para detección de inputs).
+
+### Valores del Enumerador
 
 ###### LEFT = 0
 ###### RIGHT = 1
