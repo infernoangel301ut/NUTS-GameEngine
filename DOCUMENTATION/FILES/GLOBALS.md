@@ -8,20 +8,6 @@ O si deseas leer solo este documento en español, [haz click aquí](/DOCUMENTATI
 
 ### Functions
 
-#### extend_zeros(num:str, amount:int) -> str
-
-Function designed to get the frame of an XML animation for the sparrow system.
-
-Gets the number, and adds zeros to the left until its length is the same as amount.
-
-###### num : str
-
-The number value as a string.
-
-###### amount : int
-
-The amount of digits for the result to be.
-
 #### find_xml_elements_by_name_atr(xml_root:XmlTree.Element, name:str) -> list[XmlTree.Element] | None
 
 Function designed to get the frames of an XML animation for the sparrow system.
