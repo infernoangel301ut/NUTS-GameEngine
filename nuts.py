@@ -13,15 +13,6 @@ is_early_version:bool = True
 view_width = 640
 view_height = 480 # Both of these are by default, but get changed with NutGame
 
-def extend_zeros(num:str, amount:int) -> str:
-    """
-    Function made for XML animation help.
-    
-    Returns `num` extended to have as many 0s in the left in order to have `amount` number of digits.
-    """
-    while len(num) < amount: num = "0" + num
-    return num
-
 def find_xml_elements_by_name_atr(xml_root:XmlTree.Element, name:str) -> list[XmlTree.Element] | None:
     """
     Function made for XML animation help.
@@ -256,7 +247,7 @@ class NutColor:
     @staticmethod
     def convert(x:type[pyray.Color] | list | tuple | int):
         if type(x) == pyray.Color: return NutColor(x.r, x.g, x.b, x.a)
-        elif type(x) == int: return NutColor.fromHex(extend_zeros(hex(x), 6 if len(hex(x)) <= 6 else 8))
+        elif type(x) == int: return NutColor.fromHex(hex(x)[2:].zfill(6 if len(hex(x)) <= 8 else 8))
         else: return NutColor(x[0], x[1], x[2], x[3])
     
     def __str__(self) -> str:
