@@ -10,9 +10,9 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 #### find_xml_elementS_by_name_atr(xml_root:XmlTree.Element, name:str) -> list[XmlTree.Element] | None
 
-Función diseñada para obtener el frame de una animación XML para el sistema de sparrow.
+Función diseñada para obtener el frame de una animación XML para el sistema de Sparrow.
 
-Obtiene todos los elementos de un archivo XML el attributo proveido "name".
+Obtiene todos los elementos de un archivo XML con el atributo proveído `name`.
 
 ###### xml_root : XmlTree.Element
 
@@ -42,4 +42,4 @@ El logger que NUTS usa por predeterminado.
 
 #### any_numeric_value : type = int | float | [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md) | [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md)
 
-Tipo usado para type checking cuando se intenta usar cualquier valor numerico.
+Tipo usado para type-checking cuando se intenta usar cualquier valor numérico.

@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> A pesar de estar traducido, se requiere saber hablar inglés debido a ciertos terminos y por el hecho de que NUTS en sí, a la hora de emplearlo, está en inglés. Tenlo en cuenta.
+> A pesar de estar traducido, se requiere saber hablar inglés debido a ciertos términos y por el hecho de que NUTS en sí, a la hora de emplearlo, está en inglés. Tenlo en cuenta.
 
 # Documentación de NUTS Game Engine
 

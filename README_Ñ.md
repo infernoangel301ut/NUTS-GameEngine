@@ -4,13 +4,15 @@ If you wish to read this document in English, [click here](/README.md).
 
 [DOCUMENTACIÓN](/DOCUMENTATION_Ñ/INDEX.md)
 
+[EJEMPLOS DE CÓDIGO](/EXAMPLES_Ñ.md)
+
 ## ¿Qué es NUTS?
 
 ¡Estos NUTS! ¡Jaja!
 
 ... joder, ese chiste quedaba mejor en inglés. Bueno, volviendo al tema:
 
-NUTS es un motor de videojuegos cuyo único propósito es darle libertad absoluta al desarrollador que este empleándolo:
+NUTS es un motor de videojuegos cuyo único propósito es darle libertad absoluta al desarrollador que esté empleándolo:
 
 Todo es modificable, todo es utilizable, ***todo está permitido***.
 
@@ -49,12 +51,18 @@ Primero, instala los módulos de Python necesarios:
 ```
 pip install setuptools
 pip install raylib
-pip install PyInstaller
 ```
 
 * setuptools: Dependencia de raylib.
 * raylib: El módulo con el que trabaja NUTS.
-* PyInstaller: Usado para exportar ([tutorial](https://imgur.com/FK8gPlc.png)).
+
+Adicionalmente, puedes instalar PyInstaller para exportar tu proyecto actual.
+
+No voy a hacer un tutorial en el tema (aún, ya que creo que es importante).
+
+```
+pip install PyInstaller
+```
 
 La manera recomendada de hacerlo es descargando el archivo nuts.py de la sección de "Releases" de Github, desde la versión que quieras instalar.
 
@@ -72,7 +80,7 @@ from nuts import *
 
 ## ¿Cómo se usa NUTS?
 
-Bueno, no lo voy a explicar a detalle, ya que para ello deberías comprobar los tutoriales, pero explicaré algunas cosas simples:
+Bueno, no lo voy a explicar a detalle, ya que para ello deberías comprobar los ejemplos de código, pero explicaré algunas cosas simples:
 
 Primero crea una carpeta para tu proyecto, y después añade el archivo nuts.py que *probablemente* has instalado.
 
@@ -100,12 +108,11 @@ Cabe añadir que también puedes crear una carpeta para meter todos los archivos
 
 ## ¿Cómo cojones se te ha ocurrido crear NUTS?
 
-Bueno, en resumidas cuentas, se me ocurrió trabajar en NUTS debido a un proyecto para el instituto en el que tenemos que trabajar por todo el curso (me has oido bien, "tenemos", no "teniamos").
+Bueno, en resumidas cuentas, se me ocurrió trabajar en NUTS debido a un proyecto para el instituto en el que tuvimos que trabajar por todo el curso.
 
-Inicialmente tuve unas cuantas ideas, pero decidi hacer un motor de juego, principalmente por que:
+Inicialmente, tuve unas cuantas ideas, pero decidí hacer un motor de juegos.
 
-1. No es realmente un juego, así que en principio cuenta XD.
-2. Ya todos hemos visto como se hace un juego, ¿pero y los motores que usan? Casi nunca recibimos una explicación sobre como funciona.
+Principalmente porque no es realmente un juego, así que en principio cuenta XD.
 
 Durante el desarrollo, me estaba gustando bastante como estaba quedando, así que decidi que lo hiba a publicar de manera que cualquier persona pudiese usarlo, además de hacerle más actualizaciones.
 

@@ -28,7 +28,7 @@ Si el valor es None, su valor será asignado a NutVector2(0, 0).
 
 El ajuste del tamaño al ser mostrado en pantalla.
 
-Si el valor es None, su valor será asignado a el atributo img_size.
+Si el valor es None, su valor será asignado a el atributo `img_size`.
 
 ###### flipX : bool = False
 

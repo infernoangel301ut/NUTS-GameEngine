@@ -48,7 +48,7 @@ El valor alfa (transparencia) para este color. [0, 255]
 
 #### toRaylibColor() -> pyray.Color
 
-Regresa la version de raylib de este color.
+Regresa la versión de raylib de este color.
 
 #### [estático] fromFloatRGB(r : float, g : float, b : float, a : float = 1) -> NutColor
 
@@ -74,7 +74,7 @@ El valor alfa (transparencia) para este color. [0, 1]
 
 Te permite obtener el valor NutColor usando un código hexadecimal.
 
-(El string debe tenere una longitud de 6 o 8 carácteres. En caso de haber 8 carácteres, los últimos 2 serán considerados como el valor alfa.)
+(El string debe tener una longitud de 6 u 8 caracteres. En caso de haber 8 caracteres, los últimos 2 serán considerados como el valor alfa.)
 
 (Ejemplos:
 

@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutAudioManager
 
-Gestiona y ejecuta cosas relacionadas a los audios.
+Gestiona y ejecuta cosas relacionadas con los audios.
 
 La forma recomendada de utilizarlo es a través del atributo `audioManager` de [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md).
 
@@ -80,10 +80,10 @@ El nombre con el que se guardó el audio.
 
 Actualiza toda la información de los audios.
 
-Se ejecuta automaticamente por [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md), así que no hay necesidad de ejecutarlo tu mismo/a.
+Se ejecuta automáticamente por [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md), así que no hay necesidad de ejecutarlo tú mismo/a.
 
 #### unloadAllCurrentAudios() -> None
 
 Elimina todos los audios actualmente guardados.
 
-Se ejecuta automaticamente por [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md), pero puedes ejectuarlo si es necesario.
+Se ejecuta automáticamente por [NutGame](/DOCUMENTATION_Ñ/FILES/NUTGAME.md), pero puedes ejecutarlo si es necesario.

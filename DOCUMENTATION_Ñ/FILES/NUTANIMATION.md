@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutAnimation
 
-Una animación para objetos animados, contiene toda la información necessaria para una única animación.
+Una animación para objetos animados, contiene toda la información necesaria para una única animación.
 
 ### Atributos
 
@@ -20,7 +20,7 @@ Si la animación se reproducirá al revés o no.
 
 ###### fps : int
 
-La velocidad a la que se reproducira la animación.
+La velocidad a la que se reproducirá la animación.
 
 ###### looped : bool
 

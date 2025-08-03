@@ -6,9 +6,9 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutCamera
 
-[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de él no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de él no se mostrarán por simplicidad]
 
-Una camara que contiene otros objetos, tiene más libertad de movimiento.
+Una cámara que contiene otros objetos, tiene más libertad de movimiento.
 
 ### método init ()
 
@@ -16,12 +16,12 @@ Una camara que contiene otros objetos, tiene más libertad de movimiento.
 
 ###### angle : float
 
-La rotación de la vista de la camara.
+La rotación de la vista de la cámara.
 
 ###### zoom : float
 
-El zoom de la camara, el valor predeterminado es 1.
+El zoom de la cámara, el valor predeterminado es 1.
 
 ###### raylib_camera : pyray.Camera2D
 
-La versión de raylib de la camara, usado para renderizar.
+La versión de raylib de la cámara, usado para renderizar.

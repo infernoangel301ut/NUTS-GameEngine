@@ -8,7 +8,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 La clase que controla las animaciones para un sprite.
 
-### metodo init (img_size : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md))
+### método init (img_size : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md))
 
 ###### img_size : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)
 
@@ -34,7 +34,7 @@ El sistema de animación siendo usado al momento.
 
 ###### cur_frame : int
 
-El frame siendo mostrado en la animación actual. Versión sin decimales de cur_frame_dec.
+El frame siendo mostrado en la animación actual. Versión sin decimales de `cur_frame_dec`.
 
 ###### cur_frame_dec : float
 
@@ -42,7 +42,7 @@ La verdadera versión de cur_frame, con los decimales.
 
 ###### spritesheet_size : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md) | None
 
-El tamaño de cada frame, usado para el sistema de animación de spritesheet.
+El tamaño de cada frame, usado para el sistema de animación de Spritesheet.
 
 ###### img_size : [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)
 
@@ -50,9 +50,9 @@ El tamaño de la imagen original para el sprite.
 
 ###### anim_playing : bool
 
-Si la animación se esta reproduciendo al momento o no.
+Si la animación se está reproduciendo al momento o no.
 
-### Metodos
+### Métodos
 
 #### setupSpritesheetAnimation(frame_width : int, frame_height : int) -> None
 
@@ -68,7 +68,7 @@ El alto de todos los frames.
 
 #### setupSparrowAnimation(xml_file_dir : str) -> None
 
-Prepara el sistema de animación de sparrow.
+Prepara el sistema de animación de Sparrow.
 
 ###### xml_file_dir : str
 
@@ -76,7 +76,7 @@ La carpeta del archivo XML.
 
 #### makeSpritesheetAnimation(name : str, anim : list[int], reversed : bool = False, looped : bool = False, fps : int = 60) -> None
 
-Crea una nueva animación para el sistema de spritesheet.
+Crea una nueva animación para el sistema de Spritesheet.
 
 ###### name : str
 
@@ -100,7 +100,7 @@ La velocidad de la animación.
 
 #### makeSparrowAnimation(name : str, anim_name : str, reversed : bool = False, looped : bool = False, fps : int = 60) -> None
 
-Crea una nueva animación para el sistema de sparrow.
+Crea una nueva animación para el sistema de Sparrow.
 
 ###### name : str
 
@@ -136,7 +136,7 @@ Pausa o continua una animación.
 
 ###### unpause : bool | None = None
 
-Si la animación deberia ser pausada o continuada.
+Si la animación debería ser pausada o continuada.
 
 Si el valor es None, simplemente se cambiará al contrario.
 

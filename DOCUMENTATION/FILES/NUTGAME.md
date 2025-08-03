@@ -180,6 +180,14 @@ Updates the window position according to the `winPos` attribute.
 
 Updates the window according to the attributes defining it.
 
+#### setFPS(val : int) -> None
+
+Changes the FPS at which the game runs.
+
+###### val : int
+
+The FPS to run the game at.
+
 #### start() -> None
 
 Starts running the game and everything else.

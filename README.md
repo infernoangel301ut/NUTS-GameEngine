@@ -4,6 +4,8 @@ Si deseas leer este documento en español, [haz click aquí](/README_Ñ.md).
 
 [DOCUMENTATION](/DOCUMENTATION/INDEX.md)
 
+[CODE EXAMPLES](/EXAMPLES.md)
+
 ## What is NUTS?
 
 Deez NUTS! HAHA! OK, now for real.
@@ -49,12 +51,18 @@ First, install the required Python modules:
 ```
 pip install setuptools
 pip install raylib
-pip install PyInstaller
 ```
 
 * setuptools: raylib dependency.
 * raylib: The module NUTS works on.
-* PyInstaller: Used to export ([tutorial](https://imgur.com/FK8gPlc.png))
+
+Additionally, you can install PyInstaller in order to export your current project.
+
+I won't be doing a tutorial on it (yet, since I believe this is important).
+
+```
+pip install PyInstaller
+```
 
 The recommended way of installing NUTS is by going into the GitHub releases section and downloading the nuts.py file from the version you want to install.
 
@@ -72,7 +80,7 @@ from nuts import *
 
 ## How do I use NUTS?
 
-Well, I will not be going into detail about it, since you should definetly check out the tutorials for that, but I'll explain some simple stuff:
+Well, I will not be going into detail about it, since you should definetly check out the code examples for that, but I'll explain some simple stuff:
 
 You first wanna create a folder for your whole project, then add the nuts.py file you *probably* installed in.
 
@@ -100,12 +108,11 @@ As an addition, you can also create a separate folder for your game assets to ke
 
 ## How the fuck did you come up with NUTS?
 
-Well, long story short, I came up with NUTS because of a project for school we *have* to work on for the entire grade (you heard me right, "*have*", not "*had*").
+Well, long story short, I came up with NUTS because of a project for school we had to work on for the entire grade.
 
-I initially had a couple ideas, but I decided to stick with a game engine, mainly because:
+I initially had a couple ideas, but I decided to stick with a game engine.
 
-1. It's not really game so it kinda counts lmao.
-2. We all have seen how a game is made, but what about the engines they use? We barely get any explanation on their functionality.
+Mainly because it's not really game so it kinda counts lmao.
 
 Midway through development, I was actually proud of how it was looking so far, so I decided that I would also be publishing it for everyone to use, plus doing more updates to it.
 

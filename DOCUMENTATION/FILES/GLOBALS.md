@@ -48,4 +48,4 @@ The logger that NUTS uses by default.
 
 #### any_numeric_value : type = int | float | [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md) | [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md)
 
-Type used for type checking when trying to use any numeric value.
+Type used for type-checking when trying to use any numeric value.

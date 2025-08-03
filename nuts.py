@@ -977,6 +977,10 @@ class NutGame:
                 self.shouldRestoreAfterFullscreen = False
             self.was_fullscreen = self.fullscreen
 
+    def setFPS(self, val:int):
+        self.fps = val
+        pyray.set_target_fps(self.fps)
+
     def start(self) -> None:
         self.updateWindowProperties()
         pyray.init_window(math.floor(self.winWidth), math.floor(self.winHeight), self.title)

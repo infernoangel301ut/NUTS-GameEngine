@@ -2,8 +2,8 @@
 !nuts.py
 !nuts-setup.py
 !nuts-manager.py
+!EXAMPLES/*.py
 /assets
 /__pycache__
 /dist
 *.spec
-/hidelol
