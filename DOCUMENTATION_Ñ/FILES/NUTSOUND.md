@@ -42,7 +42,7 @@ El tono del sonido (el tono original tiene como valor 1).
 
 ###### paused : bool
 
-Si el sonido esta pausado o no.
+Si el sonido está pausado o no.
 
 ###### playing : bool
 

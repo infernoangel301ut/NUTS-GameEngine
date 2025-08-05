@@ -6,9 +6,9 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutRect
 
-[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de él no se mostrarán por simplicidad]
 
-Rectangulo que se muestra en la pantalla.
+Rectángulo que se muestra en la pantalla.
 
 ### método init (position : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), size : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md), color : [NutColor](/DOCUMENTATION/FILES/NUTCOLOR.md))
 

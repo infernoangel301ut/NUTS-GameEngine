@@ -72,14 +72,14 @@ class MainScene(NutScene):
     # key => La tecla que ha sido pulsada.
     # state => El estado en el que la tecla del input fue encontrada.
     def onKeyInput(self, key:NutKey, state:NutKeyState):
-        pass # Ejecuta algo de código aqui XD
+        pass # Ejecuta algo de código aquí XD
 
     # El evento usado para detectar inputs del ratón.
     # action => El botón del ratón que ha sido pulsado.
     # state => El estado en el que el botón del ratón del input fue encontrado.
     # position => La posición del ratón cuando se hizo el input.
     def onMouseInput(self, action:NutMouseAction, state:NutKeyState, position:NutVector2):
-        pass # Ejecuta algo de código aqui XD
+        pass # Ejecuta algo de código aquí XD
 
 game.loadScene(MainScene())
 game.start()
@@ -88,10 +88,10 @@ game.start()
 ## 2B - Detectando inputs (ALTERNATIVA)
 
 ```python
-# Comprueba si una tecla específica (E en este caso) esta en un estado específico (siendo pulsada ahora mismo, en este caso)
+# Comprueba si una tecla específica (E en este caso) está en un estado específico (siendo pulsada ahora mismo, en este caso)
 if game.keyboard.getKeyState(NutKey.E) == NutKeyState.JUST_PRESSED: pass
 
-# Comprueba si un botón del ratón especifico (izquierda en este caso) esta en un estado específico (siendo pulsada ahora mismo, en este caso)
+# Comprueba si un botón del ratón especifico (izquierda en este caso) está en un estado específico (siendo pulsada ahora mismo, en este caso)
 if game.keyboard.getMouseState(NutMouseAction.LEFT) == NutKeyState.JUST_PRESSED: pass
 
 # Printea la posición actual del ratón.
@@ -144,13 +144,13 @@ self.children["objName"].children["subObj"] = NutObject()
 ```python
 # Crea un NutSprite como de normal (donde el directorio de la imagen, añade el sprite de la imagen animada)
 self.children["spr"] = NutSprite("image.png", NutVector2())
-# Prepara el sistema de animación Spritesheet usando el ancho y el alto de cada frame como parametros.
+# Prepara el sistema de animación Spritesheet usando el ancho y el alto de cada frame como parámetros.
 self.children["spr"].animation.setupSpritesheetAnimation(20, 30)
 # Crea todas las animaciones así:
 # - Primer parámetro : Nombre de la animación
 # - Segundo parámetro : Todos los frames en orden (de izquierda a derecha, arriba a abajo).
-# - Tercer parámetro : Si la animación esta en reversa o no.
-# - Cuarto parámetro : Si la animación esta en bucle o no.
+# - Tercer parámetro : Si la animación está en reversa o no.
+# - Cuarto parámetro : Si la animación está en bucle o no.
 # - Quinto parámetro : Los frames por segundo a los que se ejecutará la animación (no es lo mismo que los FPS del juego).
 self.children["spr"].animation.makeSpritesheetAnimation("anim name", [0, 1, 2, 3, 4], False, True, 60)
 # Reproduce la animación usando su nombre.
@@ -171,8 +171,8 @@ self.children["spr"].animation.setupSparrowAnimation("image.xml")
 # Crea todas las animaciones así:
 # - Primer parámetro : Nombre de la animación
 # - Segundo parámetro : El nombre de la animación dentro del archivo XML.
-# - Tercer parámetro : Si la animación esta en reversa o no.
-# - Cuarto parámetro : Si la animación esta en bucle o no.
+# - Tercer parámetro : Si la animación está en reversa o no.
+# - Cuarto parámetro : Si la animación está en bucle o no.
 # - Quinto parámetro : Los frames por segundo a los que se ejecutará la animación (no es lo mismo que los FPS del juego).
 self.children["spr"].animation.makeSparrowAnimation("anim name", "anim", False, True, 60)
 # Reproduce la animación usando su nombre.
@@ -202,7 +202,7 @@ self.children["tmr"].play()
 (¡¡¡REVISA [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) EN LA DOCUMENTACIÓN!!!)
 
 ```python
-# El objeto a transicionar (sino, como vas a transicionar)
+# El objeto a transicionar (si no, como vas a transicionar)
 self.children["rect"] = NutRect(NutVector2(100, 100), NutVector2(100, 100), NutColor(255, 0, 0))
 
 # La transición debe ser un hijo del objeto que quieres transicionar.
@@ -248,7 +248,7 @@ if game.saveFileExists("saves", "main"):
     # Entonces carga todos sus contenidos.
     game.saveFiles["main"].loadFile()
 else:
-    # Sino, crea todas las propiedades de guardado tu mismo..
+    # Si no, crea todas las propiedades de guardado tú mismo/a.
     game.saveFiles["main"].setProperty(
         # Donde "test" es el nombre del valor
         # int es el tipo de valor (también puedes usar otros tipos)

@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutScene
 
-[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de él no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de él no se mostrarán por simplicidad]
 
 Una escena para ser mostrada por el juego, contiene gran parte de las cosas principales para que se ejecute el juego.
 
@@ -24,7 +24,7 @@ Si todos los audios deberían ser eliminados en cambiar a otra escena. (True por
 
 ###### update_paused : bool
 
-Si el evento onUpdated should be ejectuarse o no. (False por predeterminado)
+Si el evento onUpdated debería ejectuarse o no. (False por predeterminado)
 
 ###### drawing_paused : bool
 
@@ -36,13 +36,21 @@ Si los sprites animados en esta escena deberían pausarse o no. (False por prede
 
 Evento que se ejecuta cuando la escena ha sido cargada (y luego ya no XD).
 
-#### onUpdated() -> None
+#### onUpdated(elapsed : float) -> None
 
 Evento que se ejecuta constantemente.
 
-#### onUpdatedPost() -> None
+###### elapsed : float
+
+Tiempo en segundos desde el último frame.
+
+#### onUpdatedPost(elapsed : float) -> None
 
 Evento que se ejecuta después de que todo en la escena se haya actualizado, y por tanto también se ejecuta constantemente.
+
+###### elapsed : float
+
+Tiempo en segundos desde el último frame.
 
 #### OnUnloaded() -> None
 
@@ -66,7 +74,7 @@ Evento que se ejecuta cuando un input se ha hecho por el ratón.
 
 ###### action : [NutMouseAction](/DOCUMENTATION_Ñ/FILES/NUTMOUSEACTION.md)
 
-Que botón del ratón ha sido pulsado.
+Qué botón del ratón ha sido pulsado.
 
 ###### state : [NutKeyState](/DOCUMENTATION_Ñ/FILES/NUTKEYSTATE.md)
 

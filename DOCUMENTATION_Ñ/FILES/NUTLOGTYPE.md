@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Enumerador NutLogType
 
-Utilizado para tipos de loggear.
+Utilizado para tipos de logs.
 
 ### Valores del Enumerador
 

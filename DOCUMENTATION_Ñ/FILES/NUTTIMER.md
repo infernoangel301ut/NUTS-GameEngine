@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutTimer
 
-[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de el no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
 
 Tiempo que sigue hasta que termina. También ejecuta ciertos eventos dependiendo de lo que pase.
 
@@ -48,7 +48,7 @@ Si el temporizador se está reproduciendo o no.
 
 ###### on_timer_completed : (timer : NutTimer) -> None
 
-Función que se ejecuta cuando el temporizador ha terminado todas las repeticiones y por lo tanto, deja de reproducirse.
+Función que se ejecuta cuando el temporizador ha terminado todas las repeticiones y, por lo tanto, deja de reproducirse.
 
 ###### on_loop_completed : (timer : NutTimer) -> None
 
@@ -72,7 +72,7 @@ Detiene el temporizador antes de terminar.
 
 Pausa o continua el temporizador.
 
-Si paused es None, se cambiara el estado de la pausa. Si no, se pausará según el valor.
+Si paused es None, se cambiará el estado de la pausa. Si no, se pausará según el valor.
 
 #### update() -> None
 

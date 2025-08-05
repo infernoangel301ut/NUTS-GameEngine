@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutSubScene
 
-[Esta clase extiende a la clase [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md), aquellos atributos y mètodos obtenidos de él no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md), aquellos atributos y métodos obtenidos de él no se mostrarán por simplicidad]
 
 Una escena dentro de otra escena, aún hace todo lo que una escena normal hace.
 
@@ -16,11 +16,11 @@ Para hacer tu propia subescena, extiende esta clase.
 
 ###### parentScene : [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)
 
-La escena de la que depende esta subescena (en la mayoria de casos, el valor de este parámetro será `self`).
+La escena de la que depende esta subescena (en la mayoría de casos, el valor de este parámetro será `self`).
 
 ###### transparentBG : bool = True
 
-Si automáticamente hacer el fondo de esta subescena transparente o no. Útil si aun quieres ver la escena principal.
+Si automáticamente hacer el fondo de esta subescena transparente o no. Útil si aún quieres ver la escena principal.
 
 ### Atributos
 
@@ -30,7 +30,7 @@ La escena de la que depende esta subescena.
 
 ###### activated : bool
 
-Si esta subescena se esta mostrando o no.
+Si esta subescena se está mostrando o no.
 
 ###### awaitingLoad : bool
 

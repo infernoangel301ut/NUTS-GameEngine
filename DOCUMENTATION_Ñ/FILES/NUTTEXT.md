@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutText
 
-[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y mètodos obtenidos de el no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
 
 El objeto de texto (muestra texto, sorprendente).
 

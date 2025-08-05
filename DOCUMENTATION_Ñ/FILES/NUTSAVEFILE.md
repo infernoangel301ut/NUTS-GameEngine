@@ -44,7 +44,7 @@ La propiedad que almacenar o modificar.
 
 #### parsePropertiesAsStr() -> str | None
 
-Regresa los contenidos del archivo de guardado como un string basandose en las propiedades.
+Regresa los contenidos del archivo de guardado como un string basándose en las propiedades.
 
 #### saveFile() -> None
 

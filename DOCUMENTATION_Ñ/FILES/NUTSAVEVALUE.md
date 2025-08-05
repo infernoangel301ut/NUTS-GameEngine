@@ -8,7 +8,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 Valor diseñado para ser apto para archivos de guardado.
 
-Creado automaticamente por [NutSaveProperty](/DOCUMENTATION_Ñ/FILES/NUTSAVEPROPERTY.md).
+Creado automáticamente por [NutSaveProperty](/DOCUMENTATION_Ñ/FILES/NUTSAVEPROPERTY.md).
 
 ### método init (value : any, value_type : type)
 

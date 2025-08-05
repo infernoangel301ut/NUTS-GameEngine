@@ -40,7 +40,7 @@ Regresa la posición actual del ratón.
 
 #### update(curState : [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)) -> None
 
-Actualiza toda la información relacionada a las teclas y ejecuta eventos de los inputs para la escena cargada actualmente y sus subescenas, en caso de haber inputs.
+Actualiza toda la información relacionada con las teclas y ejecuta eventos de los inputs para la escena cargada actualmente y sus subescenas, en caso de haber inputs.
 
 ###### curState : [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)
 

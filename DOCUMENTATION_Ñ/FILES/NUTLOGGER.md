@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutLogger
 
-Systema de logging personalizado (para usar un sistema más elegante que print XD).
+Sistema de logging personalizado (para usar un sistema más elegante que print XD).
 
 ### método init (log_name : str)
 

@@ -6,15 +6,15 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutTweenEase
 
-Clase que contiene funciones para el movimiento de los tweens. (funciona como un enumerador XD)
+Clase que contiene funciones para el movimiento de las transiciones. (funciona como un enumerador XD)
 
-Para ver todas las funciones graficamente, [haz click aquí](https://www.desmos.com/calculator/p6zalcgjl0).
+Para ver todas las funciones gráficamente, [haz click aquí](https://www.desmos.com/calculator/p6zalcgjl0).
 
 ### Parámetros Recurrentes
 
 ###### x : float
 
-El progreso del tween, un valor entre 0 y 1.
+El progreso de la transición, un valor entre 0 y 1.
 
 ### Métodos
 

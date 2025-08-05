@@ -54,7 +54,7 @@ El título de la ventana del juego.
 
 ###### fps : int
 
-Los fps a los que se ejecutará el juego.
+Los FPS a los que se ejecutará el juego.
 
 ###### curScene : [NutScene](/DOCUMENTATION_Ñ/FILES/NUTSCENE.md)
 
@@ -66,7 +66,7 @@ El gestionador principal de los inputs, comprueba inputs por parte del teclado y
 
 ###### audioManager : [NutAudioManager](/DOCUMENTATION_Ñ/FILES/NUTAUDIOMANAGER.md)
 
-El controlador principal de audios, reproduce y guarda efectos de sonido y música..
+El controlador principal de audios, reproduce y guarda efectos de sonido y música.
 
 ###### saveFiles : dict[str, [NutSaveFile](/DOCUMENTATION_Ñ/FILES/NUTSAVEFILE.md)]
 
@@ -76,23 +76,23 @@ El almacén de archivos de guardado, toda la información de guardado está en e
 
 Comprueba si debería ejecutar el evento onLoaded() de la escena.
 
-Se recomienda que no lo hagas por tí mismo/a.
+Se recomienda que no lo hagas por ti mismo/a.
 
 ###### awaitingAudioClear : bool
 
 Si se espera eliminar todos los audios en el siguiente frame o no.
 
-Se asigna automaticamente al cambiar la escena, y tiene que ver con su atributo clearAudioOnUnload.
+Se asigna automáticamente al cambiar la escena, y tiene que ver con su atributo clearAudioOnUnload.
 
 ###### gameShouldEnd : bool
 
 Si el juego se debería cerrar en el siguiente frame o no.
 
-Alternativamente, puedes ejecutar el método close(), el cual asignará este atributo automaticamente a True.
+Alternativamente, puedes ejecutar el método close(), el cual asignará este atributo automáticamente a True.
 
 ###### viewportCamera : pyray.Camera2D
 
-La camara de raylib que contiene la vista relativa al tamaño de la ventana.
+La cámara de raylib que contiene la vista relativa al tamaño de la ventana.
 
 [¡¡¡EXPLICACIÓN!!! La ventana es lo que estás viendo en el escritorio, mientras que la vista es lo que la ventana en sí contiene. Ambos pueden tener diferentes tamaños.]
 
@@ -162,7 +162,7 @@ La escena que cargar.
 
 #### reloadScene() -> None
 
-Ejecuta el método loadScene usando la escena actual, recargandola.
+Ejecuta el método loadScene usando la escena actual, recargándola.
 
 #### close() -> None
 

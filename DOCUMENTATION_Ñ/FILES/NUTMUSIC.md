@@ -50,11 +50,11 @@ El tono de la música (el tono original tiene como valor 1).
 
 ###### paused : bool
 
-Si la música esta pausada o no.
+Si la música está pausada o no.
 
 ###### playing : bool
 
-Si la música se esta reproduciendo o no.
+Si la música se está reproduciendo o no.
 
 ###### pan : float
 

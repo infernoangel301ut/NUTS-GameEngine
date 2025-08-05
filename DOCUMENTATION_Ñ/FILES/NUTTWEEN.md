@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutTween
 
-[Esta clase extiende a la clase [NutTimer](/DOCUMENTATION_Ñ/FILES/NUTTIMER.md), aquellos atributos y mètodos obtenidos de el no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutTimer](/DOCUMENTATION_Ñ/FILES/NUTTIMER.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
 
 Cambia una propiedad de ___su parent___ (muy importante) de una manera suave.
 
@@ -22,17 +22,17 @@ Solo puedes cambiar ints, floats, [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR
 
 ###### final_Val : any_numeric_value
 
-El valor final para el tween.
+El valor final para la transición.
 
 Solo puedes cambiar ints, floats, [NutVector2](/DOCUMENTATION_Ñ/FILES/NUTVECTOR2.md)s y [NutColor](/DOCUMENTATION_Ñ/FILES/NUTCOLOR.md)s.
 
 ###### time : float
 
-El tiempo que le toma al tween para terminar.
+El tiempo que le toma a la transición para terminar.
 
 ###### ease : (x : float) -> any_numeric_value = [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md).linear
 
-El movimiento que hará el tween. Puedes usar un método de [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) o hacer el tuyo propio (siempre  y cuando f(0) = 0 y f(1) = 1).
+El movimiento que hará la transición. Puedes usar un método de [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) o hacer el tuyo propio (siempre  y cuando f(0) = 0 y f(1) = 1).
 
 ### Atributos
 
@@ -42,34 +42,34 @@ La localización del atributo que quieres cambiar del parent.
 
 ###### initial_val : any_numeric_value | None
 
-El valor inicial del tween.
+El valor inicial de la transición.
 
 ###### final_Val : any_numeric_value
 
-El valor final del tween.
+El valor final de la transición.
 
 ###### ease : (x : float) -> any_numeric_value
 
-El movimiento que hará el tween. Puedes usar un método de [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) o hacer el tuyo propio (siempre  y cuando f(0) = 0 y f(1) = 1).
+El movimiento que hará la transición. Puedes usar un método de [NutTweenEase](/DOCUMENTATION_Ñ/FILES/NUTTWEENEASE.md) o hacer el tuyo propio (siempre  y cuando f(0) = 0 y f(1) = 1).
 
 ###### progress : float
 
-Cuanto progreso ha hecho el tween (en forma de porcentage).
+Cuanto progreso ha hecho la transición (en forma de porcentaje).
 
 ###### cur_val : any_numeric_value | None
 
-El valor actual del tween, según el progreso del tween. Es equivalente a `ease(progress)`.
+El valor actual de la transición, según el progreso de la transición. Es equivalente a `ease(progress)`.
 
 ### Métodos
 
 #### get_attr_val(parent : [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md)) -> any_numeric_value
 
-Regresa el valor del atributo del tween.
+Regresa el valor del atributo de la transición.
 
 ###### parent : [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md)
 
-El parent (es decir, el objeto del tween).
+El parent (es decir, el objeto de la transición).
 
 #### update_progress() -> None
 
-Actualiza el atributo progress.
+Actualiza el atributo `progress`.

@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutSprite
 
-[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de el no se mostrarán por simplicidad]
+[Esta clase extiende a la clase [NutObject](/DOCUMENTATION_Ñ/FILES/NUTOBJECT.md), aquellos atributos y métodos obtenidos de él no se mostrarán por simplicidad]
 
 Un sprite siendo mostrado en pantalla.
 
@@ -24,7 +24,7 @@ La posición del sprite.
 
 El tamaño del sprite.
 
-Si el valor es None, el tamaño se asignara a el tamaño de la imagen.
+Si el valor es None, el tamaño se asignará al tamaño de la imagen.
 
 ### Atributos
 
@@ -58,7 +58,7 @@ Se encarga de las animaciones del sprite, en caso de estar animado.
 
 ###### scale : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 
-El multiplicador de tamaño relativo. El tamaño original es NutVector2(1, 1).
+El multiplicador de tamaño relativo. El tamaño original es `NutVector2(1, 1)`.
 
 ###### flipX : bool
 

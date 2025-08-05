@@ -36,13 +36,21 @@ Whether animated sprites in this scene should be paused or not. (False by defaul
 
 Event that runs once the scene has been loaded (and then not anymore lol).
 
-#### onUpdated() -> None
+#### onUpdated(elapsed : float) -> None
 
 Event that is running constantly.
 
-#### onUpdatedPost() -> None
+###### elapsed : float
+
+Time in seconds since last frame.
+
+#### onUpdatedPost(elapsed : float) -> None
 
 Event that runs after everything on the scene has been updated, and therefore also runs constantly.
+
+###### elapsed : float
+
+Time in seconds since last frame.
 
 #### OnUnloaded() -> None
 

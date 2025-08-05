@@ -30,7 +30,7 @@ La posición del objeto en la ventana.
 
 Renderiza este objeto en la ventana.
 
-(Este método se ejecuta automáticamente por la clase [NutGame](/DOCUMENTATION/FILES/NUTGAME.md), no hay necesidad de ejecutarlo tú mismo).
+(Este método se ejecuta automáticamente por la clase [NutGame](/DOCUMENTATION/FILES/NUTGAME.md), no hay necesidad de ejecutarlo tú mismo.)
 
 ###### globalPos : [NutVector2](/DOCUMENTATION/FILES/NUTVECTOR2.md)
 

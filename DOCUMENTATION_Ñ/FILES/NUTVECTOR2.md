@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Clase NutVector2
 
-Valor numerico que contiene dos números. Usado para valores bidimensionales como posición y tamaño.
+Valor numérico que contiene dos números. Usado para valores bidimensionales como posición y tamaño.
 
 Este objeto permite sumas y restas.
 

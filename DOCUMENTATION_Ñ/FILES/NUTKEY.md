@@ -6,7 +6,7 @@ Or if you wish to read this specific document in English, [click here](/DOCUMENT
 
 ## Enumerador NutKey
 
-Usado para obtener teclas del teclado especificas (para detección de inputs).
+Usado para obtener teclas del teclado específicas (para detección de inputs).
 
 ### Valores del enumerador
 

@@ -72,4 +72,4 @@ The parent (a.k.a. the tweened object).
 
 #### update_progress() -> None
 
-Updates the progress attribute.
+Updates the `progress` attribute.
