@@ -8,7 +8,7 @@ Before public release:
 - Create tutorials, both in English and Spanish. [STATUS: DISCARDED]
 - Create code examples to cover general features (tutorial replacement). [STATUS: DONE, 100%]
 - Correct typos in the Spanish translations (even though Spanish is my native language lol). [STATUS: DONE, 100%]
-- Create a Release on GitHub. [STATUS: NOT DONE, 0%] [INFO: Not doing this yet since I might find some bug while doing the other stuff]
+- Create a Release on GitHub. [STATUS: DONE, 100%] [INFO: NUTS IS FUCKING OUT! LESS GOOOO]
 
 After public release:
 - Readd collision system (it was working extremely bad, and since it was something kinda secondary, I removed it temporarily).
